@@ -1,0 +1,464 @@
+﻿using EasyLOB.AuditTrail;
+using EasyLOB.Data;
+using EasyLOB.Log;
+using EasyLOB.Persistence;
+using EasyLOB.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+
+namespace EasyLOB.Application
+{
+    public abstract class GenericApplication<TEntity> : IGenericApplication<TEntity>
+        where TEntity : class, IZDataBase
+    {
+        #region Properties
+
+        public virtual IQueryable<TEntity> Query
+        {
+            get { return Repository.Query; }
+        }
+
+        public IGenericRepository<TEntity> Repository
+        {
+            get { return UnitOfWork.GetRepository<TEntity>(); }
+        }
+
+        public IUnitOfWork UnitOfWork { get; }
+
+        public IDIManager DIManager { get; }
+
+        public IAuthenticationManager AuthenticationManager
+        {
+            get { return AuthorizationManager.AuthenticationManager; }
+        }
+
+        private IAuthorizationManager _authorizationManager;
+
+        public IAuthorizationManager AuthorizationManager // { get; }
+        {
+            get
+            {
+                if (_authorizationManager == null)
+                {
+                    _authorizationManager = (IAuthorizationManager)DIManager.Resolve<IAuthorizationManager>();
+                }
+
+                return _authorizationManager;
+            }
+        }
+
+        private IAuditTrailManager _auditTrailManager;
+
+        public IAuditTrailManager AuditTrailManager // { get; }
+        {
+            get
+            {
+                if (_auditTrailManager == null)
+                {
+                    _auditTrailManager = (IAuditTrailManager)DIManager.Resolve<IAuditTrailManager>();
+                }
+
+                return _auditTrailManager;
+            }
+        }
+
+        public ILogManager _logManager;
+
+        public ILogManager LogManager // { get; }
+        {
+            get
+            {
+                if (_logManager == null)
+                {
+                    _logManager = (ILogManager)DIManager.Resolve<ILogManager>();
+                }
+
+                return _logManager;
+            }
+        }
+
+        public ZActivityOperations ActivityOperations
+        {
+            get
+            {
+                return AuthorizationManager.GetOperations(SecurityHelper.EntityActivity(UnitOfWork.Domain, Repository.Entity));
+            }
+        }
+
+        #endregion Properties
+
+        #region Methods
+
+        public GenericApplication(IUnitOfWork unitOfWork, IDIManager diManager)
+        {
+            UnitOfWork = unitOfWork;
+            DIManager = diManager;
+        }
+
+        public int Count(Expression<Func<TEntity, bool>> where)
+        {
+            return Repository.Count(where);
+        }
+
+        public int Count(string where, object[] args = null)
+        {
+            return Repository.Count(where, args);
+        }
+
+        public int CountAll()
+        {
+            return Repository.CountAll();
+        }
+
+        public virtual bool Create(ZOperationResult operationResult, TEntity entity, bool isTransaction = true)
+        {
+            bool inTransaction = false;
+
+            try
+            {
+                if (IsCreate(operationResult))
+                {
+                    inTransaction = UnitOfWork.BeginTransaction(operationResult, isTransaction);
+                    if (inTransaction)
+                    {
+                        try
+                        {
+                            if (Repository.Create(operationResult, entity))
+                            {
+                                if (UnitOfWork.Save(operationResult))
+                                {
+                                    if (UnitOfWork.CommitTransaction(operationResult, isTransaction))
+                                    {
+                                        string logOperation = "C";
+                                        AuditTrailManager.AuditTrail(operationResult,
+                                            AuthenticationManager.UserName,
+                                            UnitOfWork.Domain,
+                                            Repository.Entity,
+                                            logOperation,
+                                            null,
+                                            entity);
+                                    }
+                                }
+                            }
+                        }
+                        finally
+                        {
+                            if (!operationResult.Ok)
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+            finally
+            {
+                if (inTransaction && !operationResult.Ok)
+                {
+                    UnitOfWork.RollbackTransaction(operationResult, isTransaction);
+                }
+            }
+
+            return operationResult.Ok;
+        }
+
+        public virtual bool Delete(ZOperationResult operationResult, TEntity entity, bool isTransaction = true)
+        {
+            bool inTransaction = false;
+
+            try
+            {
+                if (IsDelete(operationResult))
+                {
+                    inTransaction = UnitOfWork.BeginTransaction(operationResult, isTransaction);
+                    if (inTransaction)
+                    {
+                        if (Repository.Delete(operationResult, entity))
+                        {
+                            if (UnitOfWork.Save(operationResult))
+                            {
+                                if (UnitOfWork.CommitTransaction(operationResult, isTransaction))
+                                {
+                                    string logOperation = "D";
+                                    AuditTrailManager.AuditTrail(operationResult,
+                                        AuthenticationManager.UserName,
+                                        UnitOfWork.Domain,
+                                        Repository.Entity,
+                                        logOperation,
+                                        entity,
+                                        null);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+            finally
+            {
+                if (inTransaction && !operationResult.Ok)
+                {
+                    UnitOfWork.RollbackTransaction(operationResult, isTransaction);
+                }
+            }
+
+            return operationResult.Ok;
+        }
+        public virtual TEntity Get(ZOperationResult operationResult, Expression<Func<TEntity, bool>> where)
+        {
+            TEntity result = null;
+
+            try
+            {
+                if (IsRead(operationResult) || IsUpdate(operationResult) || IsDelete(operationResult))
+                {
+                    result = Repository.Get(where);
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public virtual TEntity Get(ZOperationResult operationResult, string where, object[] args = null)
+        {
+            TEntity result = null;
+
+            try
+            {
+                if (IsRead(operationResult) || IsUpdate(operationResult) || IsDelete(operationResult))
+                {
+                    result = Repository.Get(where, args);
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public virtual TEntity GetById(ZOperationResult operationResult, object id)
+        {
+            return GetById(operationResult, new object[] { id });
+        }
+
+        public virtual TEntity GetById(ZOperationResult operationResult, object[] ids)
+        {
+            TEntity result = null;
+
+            try
+            {
+                if (IsRead(operationResult) || IsUpdate(operationResult) || IsDelete(operationResult))
+                {
+                    result = Repository.GetById(ids);
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public virtual object[] GetIds(TEntity entity)
+        {
+            return Repository.GetIds(entity);
+        }
+
+        public virtual IEnumerable<TEntity> Select(ZOperationResult operationResult, Expression<Func<TEntity, bool>> where = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntity, object>>> associations = null)
+        {
+            IEnumerable<TEntity> result = new List<TEntity>();
+
+            try
+            {
+                if (IsSearch(operationResult))
+                {
+                    result = Repository.Select(where, orderBy, skip, take, associations);
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public virtual IEnumerable<TEntity> Select(ZOperationResult operationResult, string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            string[] associations = null)
+        {
+            IEnumerable<TEntity> result = new List<TEntity>();
+
+            try
+            {
+                if (IsSearch(operationResult))
+                {
+                    result = Repository.Select(where, args, orderBy, skip, take, associations);
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public IEnumerable<TEntity> SelectAll(ZOperationResult operationResult)
+        {
+            IEnumerable<TEntity> result = new List<TEntity>();
+
+            try
+            {
+                if (IsSearch(operationResult))
+                {
+                    result = Repository.SelectAll();
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+
+            return result;
+        }
+
+        public bool Update(ZOperationResult operationResult, TEntity entity, bool isTransaction = true)
+        {
+            bool inTransaction = false;
+
+            try
+            {
+                if (IsUpdate(operationResult))
+                {
+                    inTransaction = UnitOfWork.BeginTransaction(operationResult, isTransaction);
+                    if (inTransaction)
+                    {
+                        string logOperation = "U";
+                        bool isAuditTrail = AuditTrailManager.IsAuditTrail(UnitOfWork.Domain, Repository.Entity, logOperation);
+                        TEntity entityBefore = null;
+                        if (isAuditTrail)
+                        {
+                            entityBefore = Repository.GetById(entity.GetId());
+                        }
+
+                        if (Repository.Update(operationResult, entity))
+                        {
+                            if (UnitOfWork.Save(operationResult))
+                            {
+                                if (UnitOfWork.CommitTransaction(operationResult, isTransaction))
+                                {
+                                    if (isAuditTrail)
+                                    {
+                                        AuditTrailManager.AuditTrail(operationResult,
+                                            AuthenticationManager.UserName,
+                                            UnitOfWork.Domain,
+                                            Repository.Entity,
+                                            logOperation,
+                                            entityBefore,
+                                            entity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                (operationResult as ZOperationResult).ParseException(exception);
+            }
+            finally
+            {
+                if (inTransaction && !operationResult.Ok)
+                {
+                    UnitOfWork.RollbackTransaction(operationResult, isTransaction);
+                }
+            }
+
+            return operationResult.Ok;
+        }
+
+        #endregion Methods
+
+        #region Methods IDispose
+
+        private bool disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                }
+
+                disposed = true;
+            }
+        }
+
+        #endregion Methods IDispose
+
+        #region Methods ActivityOperations
+
+        protected bool IsSearch(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsSearch(ActivityOperations, operationResult);
+        }
+
+        protected bool IsCreate(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsCreate(ActivityOperations, operationResult);
+        }
+
+        protected bool IsRead(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsRead(ActivityOperations, operationResult);
+        }
+
+        protected bool IsUpdate(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsUpdate(ActivityOperations, operationResult);
+        }
+
+        protected bool IsDelete(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsDelete(ActivityOperations, operationResult);
+        }
+
+        protected bool IsExecute(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsExecute(ActivityOperations, operationResult);
+        }
+
+        #endregion Methods ActivityOperations
+    }
+}
