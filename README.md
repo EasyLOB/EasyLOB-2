@@ -4,4 +4,4 @@ Please, refer to the [Wiki](https://github.com/EasyLOB/EasyLOB/wiki) for full Do
 
 # EasyLOB
 
-![EasyLOB](https://github.com/EasyLOB/EasyLOB/wiki/Media/Solution.EasyLOB.png)
+![EasyLOB](https://github.com/EasyLOB/EasyLOB-2/wiki/Media/Solution.EasyLOB.png)
