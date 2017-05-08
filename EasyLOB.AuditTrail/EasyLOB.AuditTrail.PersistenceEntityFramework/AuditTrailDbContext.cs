@@ -28,7 +28,7 @@ namespace EasyLOB.AuditTrail.Persistence
 
         public AuditTrailDbContext()
             //: base("Name=AuditTrail")
-            : base("Name=" + EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("AuditTrail")) // !?! Multi-Tenant
+            : base("Name=" + EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("AuditTrail"))
         {
             Setup();
         }

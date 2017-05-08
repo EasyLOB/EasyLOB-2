@@ -37,11 +37,11 @@ namespace EasyLOB.AuditTrail.Data
         public AuditTrailLogDTO()
         {
             Id = LibraryDefaults.Default_Int32;
-            LogDomain = LibraryDefaults.Default_String;
-            LogEntity = LibraryDefaults.Default_String;
             LogDate = null;
             LogTime = null;
             LogUserName = null;
+            LogDomain = null;
+            LogEntity = null;
             LogOperation = null;
             LogId = null;
             LogEntityBefore = null;
@@ -51,11 +51,11 @@ namespace EasyLOB.AuditTrail.Data
         
         public AuditTrailLogDTO(
             int id,
-            string logDomain,
-            string logEntity,
             DateTime? logDate = null,
             DateTime? logTime = null,
             string logUserName = null,
+            string logDomain = null,
+            string logEntity = null,
             string logOperation = null,
             string logId = null,
             string logEntityBefore = null,
@@ -89,11 +89,11 @@ namespace EasyLOB.AuditTrail.Data
             return x => new AuditTrailLog
             (
                 x.Id,
-                x.LogDomain,
-                x.LogEntity,
                 x.LogDate,
                 x.LogTime,
                 x.LogUserName,
+                x.LogDomain,
+                x.LogEntity,
                 x.LogOperation,
                 x.LogId,
                 x.LogEntityBefore,
@@ -106,11 +106,11 @@ namespace EasyLOB.AuditTrail.Data
             return x => new AuditTrailLogDTO
             (
                 x.Id,
-                x.LogDomain,
-                x.LogEntity,
                 x.LogDate,
                 x.LogTime,
                 x.LogUserName,
+                x.LogDomain,
+                x.LogEntity,
                 x.LogOperation,
                 x.LogId,
                 x.LogEntityBefore,

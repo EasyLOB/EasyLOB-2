@@ -284,7 +284,8 @@ namespace EasyLOB.Application
                     if (inTransaction)
                     {
                         string logOperation = "U";
-                        bool isAuditTrail = AuditTrailManager.IsAuditTrail(UnitOfWork.Domain, Repository.Entity, logOperation);
+                        string logMode;
+                        bool isAuditTrail = AuditTrailManager.IsAuditTrail(UnitOfWork.Domain, Repository.Entity, logOperation, out logMode);
                         TEntity entityBefore = null;
                         if (isAuditTrail)
                         {

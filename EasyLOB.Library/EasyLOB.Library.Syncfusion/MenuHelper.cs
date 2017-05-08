@@ -32,10 +32,12 @@ namespace EasyLOB.Library.Syncfusion
                 {
                     List<AppMenuJson> menuJson = new List<AppMenuJson>();
                     string tenantName = MultiTenantHelper.Tenant.Name;
-                    // Menu.json
                     // Menu.TenantName.json
                     string filePath = Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
-                        "JSON/Menu" + (String.IsNullOrEmpty(tenantName) ? "" : "." + tenantName) + ".json");
+                        "JSON/Menu" + "." + tenantName + ".json");
+                    // Menu.json | Menu.TenantName.json ???
+                    //string filePath = Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                    //    "JSON/Menu" + (String.IsNullOrEmpty(tenantName) ? "" : "." + tenantName) + ".json");
                     string json = File.ReadAllText(filePath);
                     menuJson = JsonConvert.DeserializeObject<List<AppMenuJson>>(json);
 

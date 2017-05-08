@@ -29,60 +29,74 @@ namespace EasyLOB.AuditTrail
 
         public bool AuditTrail(ZOperationResult operationResult, string logUserName, string logDomain, string logEntity, string logOperation, IZDataBase entityBefore, IZDataBase entityAfter)
         {
-            if (IsAuditTrail(logDomain, logEntity, logOperation))
+            string logMode;
+
+            if (IsAuditTrail(logDomain, logEntity, logOperation, out logMode))
             {
-                JsonSerializerSettings settings = new JsonSerializerSettings
+                // (N) None
+                // (K) Entity Key
+                // (E) Full Entity
+                if (!(String.IsNullOrEmpty(logMode) || logMode == "N"))
                 {
-                    //Formatting = Formatting.Indented
-                    Formatting = Formatting.None,
-                    MaxDepth = 1
-                };
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        //Formatting = Formatting.Indented
+                        Formatting = Formatting.None,
+                        MaxDepth = 1
+                    };
 
-                object[] ids;
-                IZDataProfile dataProfile;
-                if (entityAfter != null)
-                {
-                    ids = entityAfter.GetId();
-                    dataProfile = DataHelper.GetDataProfile(entityAfter.GetType());
-                }
-                else // entityBefore != null
-                {
-                    ids = entityBefore.GetId();
-                    dataProfile = DataHelper.GetDataProfile(entityBefore.GetType());
-                }
-                // {"Id1":1,"Id2":2}
-                string logId = "";
-                int idIndex = 0;
-                foreach (string idProperty in dataProfile.Class.Keys)
-                {
-                    logId += (String.IsNullOrEmpty(logId) ? "" : ",") + "\"" + idProperty + "\":" + JsonConvert.SerializeObject(ids[idIndex++], settings);
-                }
-                logId = "{" + logId + "}";
+                    object[] ids;
+                    IZDataProfile dataProfile;
+                    if (entityAfter != null)
+                    {
+                        ids = entityAfter.GetId();
+                        dataProfile = DataHelper.GetDataProfile(entityAfter.GetType());
+                    }
+                    else // entityBefore != null
+                    {
+                        ids = entityBefore.GetId();
+                        dataProfile = DataHelper.GetDataProfile(entityBefore.GetType());
+                    }
+                    // {"Id1":1,"Id2":2}
+                    string logId = "";
+                    int idIndex = 0;
+                    foreach (string idProperty in dataProfile.Class.Keys)
+                    {
+                        logId += (String.IsNullOrEmpty(logId) ? "" : ",") + "\"" + idProperty + "\":" + JsonConvert.SerializeObject(ids[idIndex++], settings);
+                    }
+                    logId = "{" + logId + "}";
 
-                AuditTrailLog auditTrailLog = new AuditTrailLog();
-                auditTrailLog.LogDate = DateTime.Today;
-                auditTrailLog.LogTime = DateTime.Now;
-                auditTrailLog.LogUserName = logUserName;
-                auditTrailLog.LogDomain = logDomain;
-                auditTrailLog.LogEntity = logEntity;
-                auditTrailLog.LogOperation = logOperation;
-                auditTrailLog.LogId = logId;
-                auditTrailLog.LogEntityBefore = entityBefore == null ? "" : JsonConvert.SerializeObject(entityBefore, settings);
-                auditTrailLog.LogEntityAfter = entityAfter == null ? "" : JsonConvert.SerializeObject(entityAfter, settings);
+                    AuditTrailLog auditTrailLog = new AuditTrailLog();
+                    auditTrailLog.LogDate = DateTime.Today;
+                    auditTrailLog.LogTime = DateTime.Now;
+                    auditTrailLog.LogUserName = logUserName;
+                    auditTrailLog.LogDomain = logDomain;
+                    auditTrailLog.LogEntity = logEntity;
+                    auditTrailLog.LogOperation = logOperation;
+                    // K + E
+                    auditTrailLog.LogId = logId;
+                    // E
+                    if (logMode == "E")
+                    {
+                        auditTrailLog.LogEntityBefore = entityBefore == null ? "" : JsonConvert.SerializeObject(entityBefore, settings);
+                        auditTrailLog.LogEntityAfter = entityAfter == null ? "" : JsonConvert.SerializeObject(entityAfter, settings);
+                    }
 
-                IGenericRepository<AuditTrailLog> repository = UnitOfWork.GetRepository<AuditTrailLog>();
-                if (repository.Create(operationResult, auditTrailLog))
-                {
-                    UnitOfWork.Save(operationResult);
+                    IGenericRepository<AuditTrailLog> repository = UnitOfWork.GetRepository<AuditTrailLog>();
+                    if (repository.Create(operationResult, auditTrailLog))
+                    {
+                        UnitOfWork.Save(operationResult);
+                    }
                 }
             }
 
             return operationResult.Ok;
         }
 
-        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation)
+        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation, out string logMode)
         {
             bool result = false;
+            logMode = "N";
 
             if (AuditTrailHelper.IsAuditTrail)
             {
@@ -92,8 +106,11 @@ namespace EasyLOB.AuditTrail
                     repository.Select(x => x.Domain == logDomain && x.Entity == logEntity && x.LogOperations.Contains(logOperation));
 
                 AuditTrailConfiguration auditTrailConfiguration = enumerable.FirstOrDefault<AuditTrailConfiguration>();
-
-                result = auditTrailConfiguration != null;
+                if (auditTrailConfiguration != null)
+                {
+                    result = true;
+                    logMode = auditTrailConfiguration.LogMode;
+                }
             }
 
             return result;

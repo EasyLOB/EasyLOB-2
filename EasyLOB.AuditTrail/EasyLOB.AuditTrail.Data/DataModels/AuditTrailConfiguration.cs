@@ -14,10 +14,10 @@ namespace EasyLOB.AuditTrail.Data
         public virtual string Domain { get; set; }
         
         public virtual string Entity { get; set; }
-        
-        public virtual string LogOperations { get; set; }
-        
+
         public virtual string LogMode { get; set; }
+
+        public virtual string LogOperations { get; set; }
 
         #endregion Properties
 
@@ -28,8 +28,8 @@ namespace EasyLOB.AuditTrail.Data
             Id = LibraryDefaults.Default_Int32;
             Domain = LibraryDefaults.Default_String;
             Entity = LibraryDefaults.Default_String;
+            LogMode = LibraryDefaults.Default_String;
             LogOperations = null;
-            LogMode = null;
 
             OnConstructor();
         }
@@ -44,16 +44,16 @@ namespace EasyLOB.AuditTrail.Data
             int id,
             string domain,
             string entity,
-            string logOperations = null,
-            string logMode = null
+            string logMode,
+            string logOperations = null
         )
             : this()
         {
             Id = id;
             Domain = domain;
             Entity = entity;
-            LogOperations = logOperations;
             LogMode = logMode;
+            LogOperations = logOperations;
         }
 
         public override object[] GetId()

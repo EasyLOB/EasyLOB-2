@@ -130,13 +130,13 @@
     <value>Error</value>
   </data>
   <data name="RDL_Parameters" xml:space="preserve">
-    <value>Parameters "Report Directory" and "Report Name" are required</value>
+    <value>Parameter "Report Name" is required</value>
   </data>
   <data name="FR_Parameters" xml:space="preserve">
     <value>Parameters "Report Directory" and "Report Name" are required</value>
   </data>
   <data name="RDLC_Parameters" xml:space="preserve">
-    <value>Parameters "Report Directory" and "Report Name" are required</value>
+    <value>Parameter "Report Name" is required</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>

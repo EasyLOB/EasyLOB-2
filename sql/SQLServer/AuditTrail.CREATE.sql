@@ -17,8 +17,8 @@ CREATE TABLE AuditTrailConfiguration
 	Id int IDENTITY(1,1) NOT NULL
 	,Domain varchar(256) NOT NULL
 	,Entity varchar(256) NOT NULL
+	,LogMode varchar(1) NOT NULL -- (N)one | (K)ey | (E)ntity
 	,LogOperations varchar(256)
-	,LogMode varchar(1) -- (N)one | (K)ey | (E)ntity
     ,CONSTRAINT PK_AuditTrailConfiguration PRIMARY KEY (Id)
 )
 ALTER TABLE AuditTrailConfiguration ADD CONSTRAINT UN_AuditTrailConfiguration_01
@@ -32,8 +32,8 @@ CREATE TABLE AuditTrailLog
 	,LogDate datetime
 	,LogTime datetime
 	,LogUserName varchar(256)
-	,LogDomain varchar(256) NOT NULL
-	,LogEntity varchar(256) NOT NULL
+	,LogDomain varchar(256)
+	,LogEntity varchar(256)
 	,LogOperation varchar(1) -- (C)reate | (R)ead | (U)pdate | (D)elete
 	,LogId varchar(4096) -- { JSON } C R U D
 	,LogEntityBefore varchar(4096) -- { JSON } - R U D

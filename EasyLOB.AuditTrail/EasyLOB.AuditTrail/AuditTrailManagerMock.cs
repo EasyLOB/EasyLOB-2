@@ -15,8 +15,10 @@ namespace EasyLOB.AuditTrail
             return true;
         }
 
-        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation)
+        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation, out string logMode)
         {
+            logMode = "N";
+
             return false;
         }
 

@@ -151,7 +151,7 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameters &quot;Report Directory&quot; and &quot;Report Name&quot; are required.
+        ///   Looks up a localized string similar to Parameter &quot;Report Name&quot; is required.
         /// </summary>
         public static string RDL_Parameters {
             get {
@@ -160,7 +160,7 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameters &quot;Report Directory&quot; and &quot;Report Name&quot; are required.
+        ///   Looks up a localized string similar to Parameter &quot;Report Name&quot; is required.
         /// </summary>
         public static string RDLC_Parameters {
             get {

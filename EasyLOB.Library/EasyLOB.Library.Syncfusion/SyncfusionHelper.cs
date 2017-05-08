@@ -61,7 +61,9 @@ namespace EasyLOB.Library.Syncfusion
             try
             {
                 ReportWriter reportWriter = new ReportWriter();
-                reportWriter.ReportPath = "/" + reportDirectory + "/" + reportName;
+                reportWriter.ReportPath = "/" + MultiTenantHelper.Tenant.Name +
+                    (String.IsNullOrEmpty(reportDirectory) ? "" : "/" + reportDirectory) +
+                    "/" + reportName;
                 reportWriter.ReportProcessingMode = ProcessingMode.Remote;
 
                 // Report Credentials
@@ -109,7 +111,6 @@ namespace EasyLOB.Library.Syncfusion
                         writerFormat = WriterFormat.Excel;
                         break;
                 }
-                //exportPath = Path.ChangeExtension(exportPath, fileExtension);
                 exportPath = exportPath.Trim() + fileExtension;
                 FileStream fileStream = new FileStream(exportPath, FileMode.Create);
                 reportWriter.Save(fileStream, writerFormat);
@@ -130,7 +131,10 @@ namespace EasyLOB.Library.Syncfusion
         {
             try
             {
-                string reportPath = Path.Combine(rdlcDirectory, reportDirectory, reportName + ".rdl");
+                string reportPath = Path.Combine(rdlcDirectory,
+                    MultiTenantHelper.Tenant.Name,
+                    reportDirectory,
+                    reportName + ".rdl");
                 ReportWriter reportWriter = new ReportWriter(reportPath);
                 reportWriter.ReportProcessingMode = ProcessingMode.Local;
 
@@ -155,7 +159,7 @@ namespace EasyLOB.Library.Syncfusion
                 foreach (var dataSetName in dataSetNames)
                 {
                     var dataSet = reportDefinition.DataSets.Where(x => x.Name == dataSetName);
-                    var connectionName = MultiTenantHelper.GetConnectionName(dataSet.First().Query.DataSourceName); // !?! Multi-Tenant
+                    var connectionName = MultiTenantHelper.GetConnectionName(dataSet.First().Query.DataSourceName);
                     var sql = dataSet.First().Query.CommandText;
 
                     DbConnection connection = null;
@@ -255,9 +259,7 @@ namespace EasyLOB.Library.Syncfusion
                     //pageSettings.PageHeight = 11.69; // 297mm
                     //reportWriter.PageSettings = pageSettings;
 
-                    //exportPath = Path.ChangeExtension(exportPath, fileExtension);
                     exportPath = exportPath.Trim() + fileExtension;
-                    //reportWriter.Save(exportPath, writerFormat);
                     FileStream fileStream = new FileStream(exportPath, FileMode.Create);
                     reportWriter.Save(fileStream, writerFormat);
                     fileStream.Close();

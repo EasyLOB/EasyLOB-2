@@ -130,13 +130,13 @@
     <value>Erro</value>
   </data>
   <data name="RDL_Parameters" xml:space="preserve">
-    <value>Parâmetros "Diretório do Relatório" e "Nome do Relatório" são obrigatórios</value>
+    <value>Parâmetro "Nome do Relatório" é obrigatório</value>
   </data>
   <data name="FR_Parameters" xml:space="preserve">
     <value>Parâmetros "Diretório do Relatório" e "Nome do Relatório" são obrigatórios</value>
   </data>
   <data name="RDLC_Parameters" xml:space="preserve">
-    <value>Parâmetros "Diretório do Relatório" e "Nome do Relatório" são obrigatórios</value>
+    <value>Parâmetro "Nome do Relatório" é obrigatório</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>

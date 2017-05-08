@@ -31,8 +31,8 @@ namespace EasyLOB.AuditTrail.Data
                         new ZPropertyProfile(false, true , 100, false, false, "col-md-1", "Id"),
                         new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "Domain"),
                         new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "Entity"),
-                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "LogOperations"), // !?!
-                        new ZPropertyProfile(true , true ,  10, true , false, "col-md-1", "LogMode") // !?!
+                        new ZPropertyProfile(true , true , 100, true , false, "col-md-2", "LogMode"), // !?!
+                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "LogOperations") // !?!
                     }
                 };
             }

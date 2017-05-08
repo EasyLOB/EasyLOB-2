@@ -19,7 +19,8 @@ namespace EasyLOB.AuditTrail.Data
         public virtual int Id { get; set; }
         
         [Display(Name = "PropertyDomain", ResourceType = typeof(AuditTrailConfigurationResources))]
-        [Required]
+        [DisplayFormat(ConvertEmptyStringToNull = false)] // !?!
+        //[Required(AllowEmptyStrings = true)] // !?!
         [StringLength(256)]
         public virtual string Domain { get; set; }
         
@@ -27,14 +28,15 @@ namespace EasyLOB.AuditTrail.Data
         [Required]
         [StringLength(256)]
         public virtual string Entity { get; set; }
-        
+
+        [Display(Name = "PropertyLogMode", ResourceType = typeof(AuditTrailConfigurationResources))]
+        [Required]
+        [StringLength(1)]
+        public virtual string LogMode { get; set; }
+
         [Display(Name = "PropertyLogOperations", ResourceType = typeof(AuditTrailConfigurationResources))]
         [StringLength(256)]
         public virtual string LogOperations { get; set; }
-        
-        [Display(Name = "PropertyLogMode", ResourceType = typeof(AuditTrailConfigurationResources))]
-        [StringLength(1)]
-        public virtual string LogMode { get; set; }
 
         #endregion Properties
 
@@ -45,8 +47,8 @@ namespace EasyLOB.AuditTrail.Data
             Id = LibraryDefaults.Default_Int32;
             Domain = LibraryDefaults.Default_String;
             Entity = LibraryDefaults.Default_String;
+            LogMode = "N"; // !?!
             LogOperations = null;
-            LogMode = null;
             LookupText = null;
 
             OnConstructor();
@@ -56,15 +58,15 @@ namespace EasyLOB.AuditTrail.Data
             int id,
             string domain,
             string entity,
-            string logOperations = null,
-            string logMode = null
+            string logMode,
+            string logOperations = null
         )
         {
             Id = id;
             Domain = domain;
             Entity = entity;
-            LogOperations = logOperations;
             LogMode = logMode;
+            LogOperations = logOperations;
             LookupText = null;
         }
 
@@ -89,8 +91,8 @@ namespace EasyLOB.AuditTrail.Data
                 x.Id,
                 x.Domain,
                 x.Entity,
-                x.LogOperations,
-                x.LogMode
+                x.LogMode,
+                x.LogOperations
             );
         }
 
@@ -101,8 +103,8 @@ namespace EasyLOB.AuditTrail.Data
                 x.Id,
                 x.Domain,
                 x.Entity,
-                x.LogOperations,
-                x.LogMode
+                x.LogMode,
+                x.LogOperations
             );
         }
 

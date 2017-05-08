@@ -9,7 +9,7 @@ namespace EasyLOB.AuditTrail
 
         bool AuditTrail(ZOperationResult operationResult, string logUserName, string logDomain, string logEntity, string logOperation, IZDataBase entityBefore, IZDataBase entityAfter);
 
-        bool IsAuditTrail(string logDomain, string logEntity, string logOperation);
+        bool IsAuditTrail(string logDomain, string logEntity, string logOperation, out string logMode);
 
         #endregion Methods
     }
