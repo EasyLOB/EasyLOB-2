@@ -1,5 +1,3 @@
-USE EasyLOBIdentity
-GO
 
 /*
 DELETE FROM AspNetUserRoles

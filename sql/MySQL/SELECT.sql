@@ -1,5 +1,3 @@
-USE EasyLOBIdentity;
-
 SELECT
     AspNetUsers.UserName,
     AspNetUsers.Email,
