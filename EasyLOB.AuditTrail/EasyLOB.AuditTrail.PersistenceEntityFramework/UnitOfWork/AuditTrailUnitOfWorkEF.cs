@@ -10,7 +10,8 @@ namespace EasyLOB.AuditTrail.Persistence
         public AuditTrailUnitOfWorkEF(IAuthenticationManager authenticationManager)
             : base(new AuditTrailDbContext(), authenticationManager)
         {
-            //Domain = "AuditTrail"; // ???
+            Domain = ""; // ???
+            //Domain = "AuditTrail";
 
             //AuditTrailDbContext context = (AuditTrailDbContext)base.context;
         }

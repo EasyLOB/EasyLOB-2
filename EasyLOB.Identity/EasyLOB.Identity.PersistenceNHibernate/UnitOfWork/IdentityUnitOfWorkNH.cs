@@ -11,7 +11,8 @@ namespace EasyLOB.Identity.Persistence
         public IdentityUnitOfWorkNH(IAuthenticationManager authenticationManager)
             : base(IdentityFactory.Session, authenticationManager)
         {
-            //Domain = "Identity"; // ???
+            Domain = ""; // ???
+            //Domain = "Identity";
 
             //ISession session = base.Session;
 

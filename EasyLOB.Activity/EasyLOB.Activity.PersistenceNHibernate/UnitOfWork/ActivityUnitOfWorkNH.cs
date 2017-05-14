@@ -10,7 +10,8 @@ namespace EasyLOB.Activity.Persistence
         public ActivityUnitOfWorkNH(IAuthenticationManager authenticationManager)
             : base(ActivityFactory.Session, authenticationManager)
         {
-            //Domain = "Activity"; // ???
+            Domain = ""; // ???
+            //Domain = "Activity";
 
             //ISession session = base.Session;
         }
