@@ -38,37 +38,58 @@ namespace EasyLOB.Log
 
         public void Trace(string message, params object[] args)
         {
-            NLogLogger.Trace(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Trace(message, args);
+            }
         }
 
         public void Debug(string message, params object[] args)
         {
-            NLogLogger.Debug(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Debug(message, args);
+            }
         }
 
         public void Info(string message, params object[] args)
         {
-            NLogLogger.Info(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Info(message, args);
+            }
         }
 
         public void Warning(string message, params object[] args)
         {
-            NLogLogger.Warn(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Warn(message, args);
+            }
         }
 
         public void Error(string message, params object[] args)
         {
-            NLogLogger.Error(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Error(message, args);
+            }
         }
 
         public void Fatal(string message, params object[] args)
         {
-            NLogLogger.Fatal(message, args);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Fatal(message, args);
+            }
         }
 
         public void LogException(Exception exception)
         {
-            NLogLogger.Error(exception.ExceptionMessage);
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Error(exception.ExceptionMessage);
+            }
         }
 
         public void LogOperationResult(ZOperationResult operationResult)
