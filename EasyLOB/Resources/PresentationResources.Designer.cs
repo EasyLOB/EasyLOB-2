@@ -644,5 +644,14 @@ namespace EasyLOB.Resources {
                 return ResourceManager.GetString("Upload", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload pdf|doc|docx|txt|xls|xlsx jpg|png mp3 avi|mov|mp4|mpeg|wmv.
+        /// </summary>
+        public static string Upload123 {
+            get {
+                return ResourceManager.GetString("Upload123", resourceCulture);
+            }
+        }
     }
 }
