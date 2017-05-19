@@ -29,8 +29,8 @@ namespace EasyLOB.AuditTrail.Data
                         //                   Grd    Grd    Grd  Edt    Edt    Edt
                         //                   Vis    Src    Wdt  Vis    RO     CSS         Name
                         new ZPropertyProfile(false, true , 100, false, false, "col-md-1", "Id"),
-                        new ZPropertyProfile(true , false, 100, true , false, "col-md-3", "LogDate"), // !?!
-                        new ZPropertyProfile(true , false, 100, true , false, "col-md-3", "LogTime"), // !?!
+                        new ZPropertyProfile(true , false, 100, true , false, "col-md-2", "LogDate"), // !?!
+                        new ZPropertyProfile(true , false, 100, true , false, "col-md-2", "LogTime"), // !?!
                         new ZPropertyProfile(true , true , 100, true , false, "col-md-4", "LogUserName"), // !?!
                         new ZPropertyProfile(true , true , 100, true , false, "col-md-4", "LogDomain"), // !?!
                         new ZPropertyProfile(true , true , 100, true , false, "col-md-4", "LogEntity"), // !?!
