@@ -4,6 +4,9 @@
 
 DELETE FROM AuditTrailConfiguration
 DELETE FROM AuditTrailLog
+
+DBCC CHECKIDENT ('AuditTrailConfiguration', RESEED, 1)
+DBCC CHECKIDENT ('AuditTrailLog', RESEED, 1)
 */
 
 /*

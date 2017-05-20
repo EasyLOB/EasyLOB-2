@@ -68,8 +68,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ActivityRoleResources.pt-BR.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ActivityRoleViewModel.cs" />
-    <Compile Include="ViewModels\ActivityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library\EasyLOB.Library.csproj">
