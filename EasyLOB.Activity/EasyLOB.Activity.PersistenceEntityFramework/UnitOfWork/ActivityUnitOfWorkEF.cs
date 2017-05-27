@@ -11,8 +11,7 @@ namespace EasyLOB.Activity.Persistence
         public ActivityUnitOfWorkEF(IAuthenticationManager authenticationManager)
             : base(new ActivityDbContext(), authenticationManager)
         {
-            Domain = ""; // ???
-            //Domain = "Activity";
+            //Domain = "Activity"; // ???
 
             //ActivityDbContext context = (ActivityDbContext)base.context;
         }

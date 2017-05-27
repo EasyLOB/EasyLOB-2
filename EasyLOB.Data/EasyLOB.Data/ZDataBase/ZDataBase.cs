@@ -1,14 +1,12 @@
 ﻿using EasyLOB.Library;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyLOB.Data
 {
-    public abstract class ZDataBase : IZDataBase, INotifyPropertyChanged, IValidatableObject
+    public abstract class ZDataBase : IZDataBase, INotifyPropertyChanged
     {
         #region Properties
 
@@ -53,11 +51,6 @@ namespace EasyLOB.Data
         public virtual void SetId(object[] ids)
         {
             throw new NotImplementedException();
-        }
-
-        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return new List<ValidationResult>();
         }
 
         #endregion Methods

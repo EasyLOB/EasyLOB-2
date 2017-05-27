@@ -11,8 +11,7 @@ namespace EasyLOB.Identity.Persistence
         public IdentityUnitOfWorkEF(IAuthenticationManager authenticationManager)
             : base(new IdentityDbContext(), authenticationManager)
         {
-            Domain = ""; // ???
-            //Domain = "Identity";
+            //Domain = "Identity"; // ???
 
             //IdentityDbContext context = (IdentityDbContext)base.context;
 

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace EasyLOB.Data
 {
-    public abstract class ZDTOBase<TEntityDTO, TEntity> : IZDTOBase<TEntityDTO, TEntity>, IValidatableObject, IZValidatableObject
+    public abstract class ZDTOBase<TEntityDTO, TEntity> : IZDTOBase<TEntityDTO, TEntity>
         where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
         where TEntity : class, IZDataBase
     {
@@ -34,16 +32,6 @@ namespace EasyLOB.Data
         public virtual IZDataBase ToData()
         {
             throw new NotImplementedException();
-        }
-
-        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return new List<ValidationResult>();
-        }
-
-        public virtual bool Validate(ZOperationResult operationResult)
-        {
-            return true;
         }
 
         #endregion Methods

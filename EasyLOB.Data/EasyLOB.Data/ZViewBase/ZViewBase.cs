@@ -56,16 +56,20 @@ namespace EasyLOB.Data
             throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        #endregion Methods
+
+        #region Methods Validate
+
+        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext) // IValidatableObject
         {
             return new List<ValidationResult>();
         }
 
-        public virtual bool Validate(ZOperationResult operationResult)
+        public virtual bool Validate(ZOperationResult operationResult) // IZValidatableObject
         {
             return true;
         }      
 
-        #endregion Methods
+        #endregion Methods Validate
     }
 }
