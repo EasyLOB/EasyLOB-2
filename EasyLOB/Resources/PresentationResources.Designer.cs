@@ -295,6 +295,24 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lock.
+        /// </summary>
+        public static string Lock {
+            get {
+                return ResourceManager.GetString("Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
@@ -628,6 +646,15 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unlock.
+        /// </summary>
+        public static string Unlock {
+            get {
+                return ResourceManager.GetString("Unlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string Update {
@@ -651,6 +678,15 @@ namespace EasyLOB.Resources {
         public static string Upload123 {
             get {
                 return ResourceManager.GetString("Upload123", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

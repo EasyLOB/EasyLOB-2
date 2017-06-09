@@ -41,8 +41,8 @@ namespace EasyLOB.Identity.Data
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-1", "PhoneNumber"), // !?!
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-2", "PhoneNumberConfirmed"), // !?!
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-2", "TwoFactorEnabled"), // !?!
-                        new ZPropertyProfile(false, false, 200, false, false, "col-md-2", "LockoutEndDateUtc"), // !?!
-                        new ZPropertyProfile(false, false, 100, false, false, "col-md-2", "LockoutEnabled"), // !?!
+                        new ZPropertyProfile(true , false, 200, true , false, "col-md-2", "LockoutEndDateUtc"), // !?!
+                        new ZPropertyProfile(true , false, 100, true , false, "col-md-2", "LockoutEnabled"), // !?!
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-1", "AccessFailedCount"), // !?!
                         new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "UserName") // !?!
                     }

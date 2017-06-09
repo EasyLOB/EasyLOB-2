@@ -315,4 +315,16 @@
   <data name="Upload123" xml:space="preserve">
     <value>Upload pdf|doc|docx|txt|xls|xlsx jpg|png mp3 avi|mov|mp4|mpeg|wmv</value>
   </data>
+  <data name="Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="Unlock" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

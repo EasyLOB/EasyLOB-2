@@ -115,7 +115,7 @@ namespace EasyLOB.Identity.Data.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lockout Enabled.
+        ///   Looks up a localized string similar to Is Locked ?.
         /// </summary>
         public static string PropertyLockoutEnabled {
             get {
@@ -124,7 +124,7 @@ namespace EasyLOB.Identity.Data.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lockout End Date Utc.
+        ///   Looks up a localized string similar to Lock End Date.
         /// </summary>
         public static string PropertyLockoutEndDateUtc {
             get {
@@ -178,7 +178,7 @@ namespace EasyLOB.Identity.Data.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Name.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string PropertyUserName {
             get {

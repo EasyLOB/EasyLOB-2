@@ -148,15 +148,15 @@
     <value>Two Factor Enabled</value>
   </data>
   <data name="PropertyLockoutEndDateUtc" xml:space="preserve">
-    <value>Lockout End Date Utc</value>
+    <value>Lock End Date</value>
   </data>
   <data name="PropertyLockoutEnabled" xml:space="preserve">
-    <value>Lockout Enabled</value>
+    <value>Is Locked ?</value>
   </data>
   <data name="PropertyAccessFailedCount" xml:space="preserve">
     <value>Access Failed Count</value>
   </data>
   <data name="PropertyUserName" xml:space="preserve">
-    <value>User Name</value>
+    <value>Login</value>
   </data>
 </root>

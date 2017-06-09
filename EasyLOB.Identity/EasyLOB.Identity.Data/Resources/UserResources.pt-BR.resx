@@ -130,33 +130,33 @@
     <value>e-mail</value>
   </data>
   <data name="PropertyEmailConfirmed" xml:space="preserve">
-    <value>Email Confirmed</value>
+    <value>Email Confirmado</value>
   </data>
   <data name="PropertyPasswordHash" xml:space="preserve">
-    <value>Password</value>
+    <value>Senha</value>
   </data>
   <data name="PropertySecurityStamp" xml:space="preserve">
-    <value>Security Stamp</value>
+    <value>Selo de Segurança</value>
   </data>
   <data name="PropertyPhoneNumber" xml:space="preserve">
-    <value>Phone Number</value>
+    <value>Telefone</value>
   </data>
   <data name="PropertyPhoneNumberConfirmed" xml:space="preserve">
-    <value>Phone Number Confirmed</value>
+    <value>Telefone Confirmado</value>
   </data>
   <data name="PropertyTwoFactorEnabled" xml:space="preserve">
-    <value>Two Factor Enabled</value>
+    <value>Two Factor Habilitado</value>
   </data>
   <data name="PropertyLockoutEndDateUtc" xml:space="preserve">
-    <value>Lockout End Date Utc</value>
+    <value>Data Final Bloqueio</value>
   </data>
   <data name="PropertyLockoutEnabled" xml:space="preserve">
-    <value>Lockout Enabled</value>
+    <value>Bloqueado ?</value>
   </data>
   <data name="PropertyAccessFailedCount" xml:space="preserve">
-    <value>Access Failed Count</value>
+    <value>Contagem Falhas Acesso</value>
   </data>
   <data name="PropertyUserName" xml:space="preserve">
-    <value>Nome</value>
+    <value>Login</value>
   </data>
 </root>

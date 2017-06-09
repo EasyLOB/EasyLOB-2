@@ -18,7 +18,26 @@ namespace EasyLOB.Identity.Persistence
         {
             try
             {
-                ApplicationUser user = new ApplicationUser { UserName = entity.UserName, Email = entity.Email, EmailConfirmed = true };
+                if (!entity.LockoutEnabled)
+                {
+                    entity.LockoutEndDateUtc = null;
+                }
+                else
+                {
+                    if (entity.LockoutEndDateUtc == null)
+                    {
+                        entity.LockoutEndDateUtc = DateTime.Now.AddYears(1);
+                    }
+                }
+
+                ApplicationUser user = new ApplicationUser
+                {
+                    UserName = entity.UserName,
+                    Email = entity.Email,
+                    EmailConfirmed = true,
+                    LockoutEnabled = entity.LockoutEnabled,
+                    LockoutEndDateUtc = entity.LockoutEndDateUtc
+                };
                 IdentityResult identityResult = IdentityHelperEF.UserManager.Create(user, entity.PasswordHash);
                 if (!identityResult.Succeeded)
                 {
@@ -64,31 +83,47 @@ namespace EasyLOB.Identity.Persistence
         {
             try
             {
-                ApplicationUser user = IdentityHelperEF.UserManager.FindById(entity.Id);
-
-                user.Email = entity.Email;
-                IdentityResult validEmail = new IdentityResult();
-                //validEmail = await IdentityHelperEF.UserManager.UserValidator.ValidateAsync(user);
-                if (!validEmail.Succeeded)
+                if (!entity.LockoutEnabled)
                 {
-                    (operationResult as ZOperationResult).ParseIdentityResult(validEmail);
+                    entity.LockoutEndDateUtc = null;
+                }
+                else
+                {
+                    if (entity.LockoutEndDateUtc == null)
+                    {
+                        entity.LockoutEndDateUtc = DateTime.Now.AddYears(1);
+                    }
                 }
 
-                IdentityResult validPassword = new IdentityResult();
+                ApplicationUser user = IdentityHelperEF.UserManager.FindById(entity.Id);
+                user.LockoutEnabled = entity.LockoutEnabled;
+                user.LockoutEndDateUtc = entity.LockoutEndDateUtc;
+
+                user.Email = entity.Email;
+                //IdentityResult validEmail = new IdentityResult();
+                //validEmail = await IdentityHelperEF.UserManager.UserValidator.ValidateAsync(user);
+                //if (!validEmail.Succeeded)
+                //{
+                //    (operationResult as ZOperationResult).ParseIdentityResult(validEmail);
+                //}
+
+                /*
+                //IdentityResult validPassword = new IdentityResult();
                 if (!String.IsNullOrEmpty(entity.PasswordHash))
                 {
                     //validPassword = await IdentityHelperEF.UserManager.PasswordValidator.ValidateAsync(entity.PasswordHash);
-                    if (validPassword.Succeeded)
+                    //if (validPassword.Succeeded)
                     {
                         user.PasswordHash = IdentityHelperEF.UserManager.PasswordHasher.HashPassword(entity.PasswordHash);
                     }
-                    else
-                    {
-                        (operationResult as ZOperationResult).ParseIdentityResult(validPassword);
-                    }
+                    //else
+                    //{
+                    //    (operationResult as ZOperationResult).ParseIdentityResult(validPassword);
+                    //}
                 }
+                 */
 
-                if (validEmail.Succeeded && validPassword.Succeeded)
+                //if (validEmail.Succeeded && validPassword.Succeeded)
                 {
                     IdentityResult identityResult = IdentityHelperEF.UserManager.Update(user);
                     if (!identityResult.Succeeded)
