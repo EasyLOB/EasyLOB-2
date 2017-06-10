@@ -2103,7 +2103,8 @@ namespace EasyLOB.Library
                             {
                                 if (property.PropertyType == typeof(String))
                                 {
-                                    string value = (property.GetValue(from, null) as string).Trim();
+                                    string value = (String)property.GetValue(from, null);
+                                    value = value == null ? value : value.Trim();
                                     property.SetValue(to, value, null);
                                 }
                                 else
