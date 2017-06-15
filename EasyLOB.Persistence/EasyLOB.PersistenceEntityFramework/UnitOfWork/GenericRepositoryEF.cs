@@ -219,16 +219,18 @@ namespace EasyLOB.Persistence
         {
             Filter(where);
 
-            return Query.Where(where).FirstOrDefault();
-            //return Select(where, null, null, 1).FirstOrDefault(); // Delete()
+            return Select(where, null, null, 1).FirstOrDefault();
+
+            //return Query.Where(where).FirstOrDefault();
         }
 
         public virtual TEntity Get(string where, object[] args = null)
         {
             Filter(ref where, ref args);
 
-            return Query.Where(where).FirstOrDefault(); 
-            //return Select(where, args, null, null, 1).FirstOrDefault(); // Delete()
+            return Select(where, args, null, null, 1).FirstOrDefault();
+
+            //return Query.Where(where).FirstOrDefault(); 
         }
 
         public virtual TEntity GetById(object id)
