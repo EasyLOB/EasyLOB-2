@@ -40,8 +40,8 @@ namespace EasyLOB.Persistence
         {
             get
             {
-                IQueryable<TEntity> query = Set;
-                //IQueryable<TEntity> query = Context.Set<TEntity>();
+                IQueryable<TEntity> query = Set.AsQueryable<TEntity>();
+                //IQueryable<TEntity> query = Set;
                 query = Join(query);
 
                 return query;
@@ -220,16 +220,16 @@ namespace EasyLOB.Persistence
         {
             Filter(where);
 
-            //return Query.Where(where).FirstOrDefault();
-            return Select(where, null, null, 1).FirstOrDefault();
+            return Query.Where(where).FirstOrDefault();
+            //return Select(where, null, null, 1).FirstOrDefault();
         }
 
         public virtual TEntity Get(string where, object[] args = null)
         {
             Filter(ref where, ref args);
 
-            //return Query.Where(where).FirstOrDefault();
-            return Select(where, args, null, null, 1).FirstOrDefault();
+            return Query.Where(where).FirstOrDefault();
+            //return Select(where, args, null, null, 1).FirstOrDefault();
         }
 
         public virtual TEntity GetById(object id)
@@ -349,8 +349,8 @@ namespace EasyLOB.Persistence
             int? take = null,
             List<Expression<Func<TEntity, object>>> associations = null)
         {
-            IQueryable<TEntity> query = Query;
-            //IQueryable<TEntity> query = Set;
+            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
+            //IQueryable<TEntity> query = Set; // Query() without Join()
 
             Filter(where);
 
@@ -393,8 +393,8 @@ namespace EasyLOB.Persistence
             int? take = null,
             string[] associations = null)
         {
-            IQueryable<TEntity> query = Query;
-            //IQueryable<TEntity> query = Set;
+            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
+            //IQueryable<TEntity> query = Set; // Query() without Join()
 
             Filter(ref where, ref args);
 
@@ -465,7 +465,6 @@ namespace EasyLOB.Persistence
                             //Context.Entry(entity).State = EntityState.Modified;
 
                             Set.AddOrUpdate(entity); // System.Data.Entity.Migrations
-                            //Context.Set<TEntity>().AddOrUpdate(entity); // System.Data.Entity.Migrations
 
                             if (entity.AfterUpdate(operationResult))
                             {
@@ -554,16 +553,15 @@ namespace EasyLOB.Persistence
             // https://blog.oneunicorn.com/2012/05/03/the-key-to-addorupdate    
 
             var tracked = Set.Find(entity.GetId());
-            //var tracked = Context.Set<TEntity>().Find(entity.GetId());
             if (tracked != null)
             {
                 Context.Entry(tracked).CurrentValues.SetValues(entity);
+
                 return tracked;
             }
             else
             {
                 Set.Add(entity);
-                //Context.Set<TEntity>().Add(entity);
 
                 return entity;
             }
