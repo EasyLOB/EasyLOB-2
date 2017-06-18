@@ -1,5 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
 using EasyLOB.Activity.Data;
+using System.Data.Entity.ModelConfiguration;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyLOB.Activity.Persistence
 {
@@ -22,6 +23,7 @@ namespace EasyLOB.Activity.Persistence
                 .HasColumnOrder(1)
                 .HasColumnType("varchar")
                 .HasMaxLength(128)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
                 .IsRequired();
 
             this.Property(x => x.RoleName)
@@ -29,6 +31,7 @@ namespace EasyLOB.Activity.Persistence
                 .HasColumnOrder(2)
                 .HasColumnType("varchar")
                 .HasMaxLength(256)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
                 .IsRequired();
 
             this.Property(x => x.Operations)

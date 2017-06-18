@@ -1,5 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
 using EasyLOB.Identity.Data;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 
 namespace EasyLOB.Identity.Persistence
 {
@@ -21,6 +22,7 @@ namespace EasyLOB.Identity.Persistence
                 .HasColumnName("Id")
                 .HasColumnType("varchar")
                 .HasMaxLength(128)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
                 .IsRequired();
 
             this.Property(x => x.Name)

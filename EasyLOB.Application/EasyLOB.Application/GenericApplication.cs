@@ -123,30 +123,21 @@ namespace EasyLOB.Application
                     inTransaction = UnitOfWork.BeginTransaction(operationResult, isTransaction);
                     if (inTransaction)
                     {
-                        try
+                        if (Repository.Create(operationResult, entity))
                         {
-                            if (Repository.Create(operationResult, entity))
+                            if (UnitOfWork.Save(operationResult))
                             {
-                                if (UnitOfWork.Save(operationResult))
+                                if (UnitOfWork.CommitTransaction(operationResult, isTransaction))
                                 {
-                                    if (UnitOfWork.CommitTransaction(operationResult, isTransaction))
-                                    {
-                                        string logOperation = "C";
-                                        AuditTrailManager.AuditTrail(operationResult,
-                                            AuthenticationManager.UserName,
-                                            UnitOfWork.Domain,
-                                            Repository.Entity,
-                                            logOperation,
-                                            null,
-                                            entity);
-                                    }
+                                    string logOperation = "C";
+                                    AuditTrailManager.AuditTrail(operationResult,
+                                        AuthenticationManager.UserName,
+                                        UnitOfWork.Domain,
+                                        Repository.Entity,
+                                        logOperation,
+                                        null,
+                                        entity);
                                 }
-                            }
-                        }
-                        finally
-                        {
-                            if (!operationResult.Ok)
-                            {
                             }
                         }
                     }

@@ -1,6 +1,6 @@
+using EasyLOB.Identity.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using EasyLOB.Identity.Data;
 
 namespace EasyLOB.Identity.Persistence
 {

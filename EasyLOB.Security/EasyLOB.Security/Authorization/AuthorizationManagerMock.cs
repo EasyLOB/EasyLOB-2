@@ -4,7 +4,10 @@
     {
         #region Properties
 
-        public IAuthenticationManager AuthenticationManager { get; }
+        public IAuthenticationManager AuthenticationManager
+        {
+            get { return new AuthenticationManagerMock(); }
+        }
 
         #endregion Properties
 
