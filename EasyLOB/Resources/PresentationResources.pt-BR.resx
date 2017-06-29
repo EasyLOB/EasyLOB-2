@@ -336,4 +336,19 @@
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>
   </data>
+  <data name="Directory" xml:space="preserve">
+    <value>Diretório</value>
+  </data>
+  <data name="DirectoryDoesNotExist" xml:space="preserve">
+    <value>Diretório {0} inexistente</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>Arquivo {0} inexistente</value>
+  </data>
+  <data name="Directories" xml:space="preserve">
+    <value>Diretório(s)</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Arquivo(s)</value>
+  </data>
 </root>

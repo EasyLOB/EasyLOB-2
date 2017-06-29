@@ -46,6 +46,7 @@ namespace EasyLOB
             {
                 string result = "";
                 string br = "";
+                int button = 1;
 
                 string labelStatus = "<label class=\"label label-success\">{0}</label>";
 
@@ -55,8 +56,21 @@ namespace EasyLOB
                 {
                     string text =
                         (!String.IsNullOrEmpty(StatusCode) ? "[ " + StatusCode + " ] " : "") +
-                        StatusMessage;
+                        StatusMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
                     result += br + String.Format(labelStatus, text.Trim());
+                    br = "<br />";
+                }
+
+                // Status
+
+                foreach (ZOperationStatus operationStatus in OperationStatus)
+                {
+                    string text =
+                        ErrorResources.Status + ": " +
+                        (!String.IsNullOrEmpty(operationStatus.StatusCode) ? "[ " + operationStatus.StatusCode + " ] " : "") +
+                        operationStatus.StatusMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                    string members = operationStatus.StatusMembers.Count == 0 ? "" : " (" + String.Join(",", operationStatus.StatusMembers).Trim() + ")";
+                    result += br + String.Format(labelStatus, text.Trim() + members);
                     br = "<br />";
                 }
 
@@ -69,21 +83,20 @@ namespace EasyLOB
                     string text =
                         ErrorResources.Error + ": " +
                         (!String.IsNullOrEmpty(ErrorCode) ? "[ " + ErrorCode + " ] " : "") +
-                        ErrorMessage;
+                        ErrorMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
                     result += br + String.Format(labelError, text.Trim());
                     br = "<br />";
                 }
 
                 // Errors
 
-                int button = 1;
                 foreach (ZOperationError operationError in OperationErrors)
                 {
 
                     string text =
                         ErrorResources.Error + ": " +
                         (!String.IsNullOrEmpty(operationError.ErrorCode) ? "[ " + operationError.ErrorCode + " ] " : "") +
-                        operationError.ErrorMessage;
+                        operationError.ErrorMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
                     string members = operationError.ErrorMembers.Count == 0 ? "" : " (" + String.Join(",", operationError.ErrorMembers).Trim() + ")";
                     result += br + String.Format(labelError, text.Trim() + members);
                     br = "<br />";
@@ -95,14 +108,15 @@ namespace EasyLOB
                             String.Format("<button data-toggle=\"collapse\" data-target=\"#{0}\">...</button>", buttonId) +
                             String.Format("<div id=\"{0}\" class=\"collapse\">", buttonId);
 
-                        if (operationError.ErrorStackTrace.Contains(" at "))
-                        {
-                            result += operationError.ErrorStackTrace.Replace(" at ", "<br />at ");
-                        }
-                        else
-                        {
-                            result += operationError.ErrorStackTrace.Replace(" na ", "<br />na ");
-                        }
+                        result += operationError.ErrorStackTrace.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                        //if (operationError.ErrorStackTrace.Contains(" at "))
+                        //{
+                        //    result += operationError.ErrorStackTrace.Replace(" at ", "<br />at ");
+                        //}
+                        //else
+                        //{
+                        //    result += operationError.ErrorStackTrace.Replace(" em ", "<br />em ");
+                        //}
 
                         result += "</div>";
 
@@ -150,7 +164,12 @@ namespace EasyLOB
         /// </summary>
         [DataMember]
         public List<ZOperationError> OperationErrors { get; }
-        //public List<IZOperationError> OperationErrors { get; }
+
+        /// <summary>
+        /// Operation Status.
+        /// </summary>
+        [DataMember]
+        public List<ZOperationStatus> OperationStatus { get; }
 
         /// <summary>
         /// Operation Result text with "\n".
@@ -179,6 +198,7 @@ namespace EasyLOB
             StatusCode = "";
             StatusMessage = "";
             OperationErrors = new List<ZOperationError>();
+            OperationStatus = new List<ZOperationStatus>();
         }
 
         [JsonConstructor]
@@ -191,6 +211,7 @@ namespace EasyLOB
             string statusCode,
             string statusMessage,
             List<ZOperationError> operationErrors,
+            List<ZOperationStatus> operationStatus,
             string text)
             : this()
         {
@@ -202,6 +223,7 @@ namespace EasyLOB
             StatusCode = statusCode;
             StatusMessage = statusMessage;
             OperationErrors = operationErrors ?? OperationErrors;
+            OperationStatus = operationStatus ?? OperationStatus;
             // Text
         }
 
@@ -229,6 +251,27 @@ namespace EasyLOB
         }
 
         /// <summary>
+        /// Add Operation Status.
+        /// </summary>
+        /// <param name="statusCode">Status code</param>
+        /// <param name="statusMessage">Status message</param>
+        public void AddOperationStatus(string statusCode, string statusMessage)
+        {
+            OperationStatus.Add(new ZOperationStatus(statusCode, statusMessage));
+        }
+
+        /// <summary>
+        /// Add Operation Status.
+        /// </summary>
+        /// <param name="statusCode">Status code</param>
+        /// <param name="statusMessage">Status message</param>
+        /// <param name="members">Members</param>
+        public void AddOperationStatus(string statusCode, string statusMessage, List<string> members)
+        {
+            OperationStatus.Add(new ZOperationStatus(statusCode, statusMessage, members));
+        }
+
+        /// <summary>
         /// Clear.
         /// </summary>
         public void Clear()
@@ -238,6 +281,7 @@ namespace EasyLOB
             ErrorCode = "";
             ErrorMessage = "";
             OperationErrors.Clear();
+            OperationStatus.Clear();
         }
 
         /// <summary>
@@ -299,6 +343,17 @@ namespace EasyLOB
                 result.Add(text.Trim());
             }
 
+            // Status
+
+            foreach (ZOperationStatus operationStatus in OperationStatus)
+            {
+                string text = ErrorResources.Status + ": " +
+                    (!String.IsNullOrEmpty(operationStatus.StatusCode) ? "[ " + operationStatus.StatusCode + " ] " : "") +
+                    operationStatus.StatusMessage;
+                string members = operationStatus.StatusMembers.Count == 0 ? "" : " (" + String.Join(",", operationStatus.StatusMembers).Trim() + ")";
+                result.Add(text.Trim() + members);
+            }
+
             // Error Message
 
             if (!String.IsNullOrEmpty(ErrorCode) || !String.IsNullOrEmpty(ErrorMessage))
@@ -321,14 +376,15 @@ namespace EasyLOB
 
                 if (!String.IsNullOrEmpty(operationError.ErrorStackTrace))
                 {
-                    if (operationError.ErrorStackTrace.Contains(" at "))
-                    {
-                        result.Add(operationError.ErrorStackTrace.Replace(" at ", "\r\nat "));
-                    }
-                    else
-                    {
-                        result.Add(operationError.ErrorStackTrace.Replace(" na ", "\r\nna "));
-                    }
+                    result.Add(operationError.ErrorStackTrace);
+                    //if (operationError.ErrorStackTrace.Contains(" at "))
+                    //{
+                    //    result.Add(operationError.ErrorStackTrace.Replace(" at ", "\r\nat "));
+                    //}
+                    //else
+                    //{
+                    //    result.Add(operationError.ErrorStackTrace.Replace(" em ", "\r\nem "));
+                    //}
                 }
             }
 
