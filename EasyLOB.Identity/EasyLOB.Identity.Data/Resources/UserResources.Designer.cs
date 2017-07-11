@@ -97,7 +97,7 @@ namespace EasyLOB.Identity.Data.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email Confirmed.
+        ///   Looks up a localized string similar to e-mail Confirmed.
         /// </summary>
         public static string PropertyEmailConfirmed {
             get {

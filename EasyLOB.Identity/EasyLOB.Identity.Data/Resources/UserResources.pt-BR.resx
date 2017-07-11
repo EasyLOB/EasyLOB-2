@@ -130,7 +130,7 @@
     <value>e-mail</value>
   </data>
   <data name="PropertyEmailConfirmed" xml:space="preserve">
-    <value>Email Confirmado</value>
+    <value>e-mail Confirmado</value>
   </data>
   <data name="PropertyPasswordHash" xml:space="preserve">
     <value>Senha</value>
