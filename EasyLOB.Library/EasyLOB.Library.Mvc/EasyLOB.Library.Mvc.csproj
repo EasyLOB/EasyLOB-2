@@ -94,7 +94,7 @@
     <Compile Include="MvcHelper.cs" />
     <Compile Include="ResourcesHelper.cs" />
     <Compile Include="SessionHelper.cs" />
-    <Compile Include="Newtonsoft.JsonResult.cs" />
+    <Compile Include="JsonNETResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

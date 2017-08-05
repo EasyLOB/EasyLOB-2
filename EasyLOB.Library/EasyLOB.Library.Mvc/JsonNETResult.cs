@@ -3,10 +3,11 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 
-// Newtonsoft.JsonResult
+// JsonNETResult
 // https://github.com/kemmis/Newtonsoft.JsonResult
 
 /*
+
 // Circular Reference
 //var result = Json(new { result = data, count = count }, JsonRequestBehavior.AllowGet);
 
@@ -16,6 +17,7 @@ JsonSerializerSettings settings = new JsonSerializerSettings
     Formatting = Formatting.None,
     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 };
+
 //var result = Content(JsonConvert.SerializeObject(new { result = data, count = count }, settings));
 //var result = Json(JsonConvert.SerializeObject(new { result = data, count = count }, settings));
 //var result = NewtonsoftJsonResult(JsonConvert.SerializeObject(new { result = data, count = count }, settings), JsonRequestBehavior.AllowGet);
@@ -25,7 +27,7 @@ var result = Json(JsonConvert.SerializeObject(new { result = data, count = count
 protected override JsonResult Json(object data, string contentType,
     System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
 {
-    return new Newtonsoft.JsonResult.JsonResult
+    return new JsonNETResult
     {
         Data = data,
         ContentType = contentType,
@@ -33,11 +35,12 @@ protected override JsonResult Json(object data, string contentType,
         JsonRequestBehavior = behavior
     };
 }
+
 */
 
-namespace Newtonsoft.JsonResult
+namespace EasyLOB.MVC
 {
-    public class JsonResult : System.Web.Mvc.JsonResult
+    public class JsonNETResult : System.Web.Mvc.JsonResult
     {
         #region Methods
 
