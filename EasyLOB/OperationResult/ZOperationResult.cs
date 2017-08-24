@@ -92,7 +92,6 @@ namespace EasyLOB
 
                 foreach (ZOperationError operationError in OperationErrors)
                 {
-
                     string text =
                         ErrorResources.Error + ": " +
                         (!String.IsNullOrEmpty(operationError.ErrorCode) ? "[ " + operationError.ErrorCode + " ] " : "") +
@@ -215,13 +214,13 @@ namespace EasyLOB
             string text)
             : this()
         {
-            Data = data;
-            ErrorCode = errorCode;
-            ErrorMessage = errorMessage;
+            Data = data ?? "";
+            ErrorCode = errorCode ?? "";
+            ErrorMessage = errorMessage ?? "";
             // Html
             // Ok
-            StatusCode = statusCode;
-            StatusMessage = statusMessage;
+            StatusCode = statusCode ?? "";
+            StatusMessage = statusMessage ?? "";
             OperationErrors = operationErrors ?? OperationErrors;
             OperationStatus = operationStatus ?? OperationStatus;
             // Text

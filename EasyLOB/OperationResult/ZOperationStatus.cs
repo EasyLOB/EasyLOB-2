@@ -39,24 +39,10 @@ namespace EasyLOB
         [JsonConstructor]
         public ZOperationStatus(string statusCode, string statusMessage, List<string> statusMembers = null)
         {
-            StatusCode = statusCode;
-            StatusMessage = statusMessage;
+            StatusCode = statusCode ?? "";
+            StatusMessage = statusMessage ?? "";
             StatusMembers = statusMembers ?? new List<string>();
         }
-
-        //public ZOperationStatus(string statusCode, string statusMessage)
-        //{
-        //    StatusCode = statusCode;
-        //    StatusMessage = statusMessage;
-        //    StatusMembers = new List<string>();
-        //}
-
-        //[JsonConstructor]
-        //public ZOperationStatus(string statusCode, string statusMessage, List<string> statusMembers)
-        //    : this(statusCode, statusMessage)
-        //{
-        //    StatusMembers = statusMembers;
-        //}
 
         #endregion Methods
     }

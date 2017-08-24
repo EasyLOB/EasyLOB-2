@@ -45,26 +45,11 @@ namespace EasyLOB
         [JsonConstructor]
         public ZOperationError(string errorCode, string errorMessage, string errorStackTrace = null, List<string> errorMembers = null)
         {
-            ErrorCode = errorCode;
-            ErrorMessage = errorMessage;
+            ErrorCode = errorCode ?? "";
+            ErrorMessage = errorMessage ?? "";
             ErrorStackTrace = errorStackTrace ?? "";
             ErrorMembers = errorMembers ?? new List<string>();
         }
-
-        //public ZOperationError(string errorCode, string errorMessage, string errorStackTrace = null)
-        //{
-        //    ErrorCode = errorCode;
-        //    ErrorMessage = errorMessage;
-        //    ErrorStackTrace = errorStackTrace ?? "";
-        //    ErrorMembers = new List<string>();
-        //}
-
-        //[JsonConstructor]
-        //public ZOperationError(string errorCode, string errorMessage, string errorStackTrace, List<string> errorMembers)
-        //    : this(errorCode, errorMessage, errorStackTrace)
-        //{
-        //    ErrorMembers = errorMembers;
-        //}
 
         #endregion Methods
     }

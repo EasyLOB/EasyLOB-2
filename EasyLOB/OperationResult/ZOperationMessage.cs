@@ -18,7 +18,7 @@
 
         public ZOperationMessage(string message)
         {
-            Message = message;
+            Message = message ?? "";
         }
 
         #endregion Methods
