@@ -33,8 +33,8 @@ namespace EasyLOB.Identity.Data
                     {
                         //                   Grd    Grd    Grd  Edt    Edt    Edt
                         //                   Vis    Src    Wdt  Vis    RO     CSS         Name
-                        new ZPropertyProfile(false, true , 240, false, false, "col-md-4", "Id"),
-                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "Email"),
+                        new ZPropertyProfile(false, true , 200, false, false, "col-md-4", "Id"),
+                        new ZPropertyProfile(true , true , 200, true , false, "col-md-4", "Email"),
                         new ZPropertyProfile(true , false, 100, false, false, "col-md-2", "EmailConfirmed"), // !?!
                         new ZPropertyProfile(false, false, 100, true , false, "col-md-1", "PasswordHash"), // !?!
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-1", "SecurityStamp"), // !?!
@@ -44,7 +44,7 @@ namespace EasyLOB.Identity.Data
                         new ZPropertyProfile(true , false, 200, true , false, "col-md-2", "LockoutEndDateUtc"), // !?!
                         new ZPropertyProfile(true , false, 100, true , false, "col-md-2", "LockoutEnabled"), // !?!
                         new ZPropertyProfile(false, false, 100, false, false, "col-md-1", "AccessFailedCount"), // !?!
-                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "UserName") // !?!
+                        new ZPropertyProfile(true , true , 200, true , false, "col-md-4", "UserName") // !?!
                     }
                 };
             }

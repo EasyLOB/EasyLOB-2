@@ -32,7 +32,7 @@ namespace EasyLOB.Identity.Data
                         //                   Grd    Grd    Grd  Edt    Edt    Edt
                         //                   Vis    Src    Wdt  Vis    RO     CSS         Name
                         new ZPropertyProfile(false, true , 100, false, false, "col-md-1", "Id"),
-                        new ZPropertyProfile(false, false, 240, true , false, "col-md-4", "UserId"),
+                        new ZPropertyProfile(false, false, 200, true , false, "col-md-4", "UserId"),
                         new ZPropertyProfile(true , true , 100, false, false, "col-md-4", "UserLookupText"),
                         new ZPropertyProfile(true , true , -10, true , false, "col-md-1", "ClaimType"),
                         new ZPropertyProfile(true , true , -10, true , false, "col-md-1", "ClaimValue")

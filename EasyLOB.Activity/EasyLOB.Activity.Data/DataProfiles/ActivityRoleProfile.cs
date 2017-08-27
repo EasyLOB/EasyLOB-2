@@ -31,10 +31,10 @@ namespace EasyLOB.Activity.Data
                     {
                         //                   Grd    Grd    Grd  Edt    Edt    Edt
                         //                   Vis    Src    Wdt  Vis    RO     CSS         Name
-                        new ZPropertyProfile(false, true , 240, true , false, "col-md-4", "ActivityId"), // !?!
+                        new ZPropertyProfile(false, true , 200, true , false, "col-md-4", "ActivityId"), // !?!
                         new ZPropertyProfile(true , true , 100, false, false, "col-md-4", "ActivityLookupText"),
-                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "RoleName"), // !?!
-                        new ZPropertyProfile(true , true , 240, true , false, "col-md-4", "Operations")
+                        new ZPropertyProfile(true , true , 200, true , false, "col-md-4", "RoleName"), // !?!
+                        new ZPropertyProfile(true , true , 200, true , false, "col-md-4", "Operations")
                     }
                 };
             }
