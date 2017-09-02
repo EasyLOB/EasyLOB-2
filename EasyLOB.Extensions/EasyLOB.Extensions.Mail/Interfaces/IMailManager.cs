@@ -7,6 +7,14 @@ namespace EasyLOB.Extensions.Mail
     /// </summary>
     public interface IMailManager : IDisposable
     {
+        #region Properties
+
+        string UserName { get; set; }
+
+        string Password { get; set; }
+
+        #endregion Properties
+
         #region Methods
 
         /// <summary>

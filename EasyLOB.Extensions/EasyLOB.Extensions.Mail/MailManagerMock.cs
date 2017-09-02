@@ -4,6 +4,24 @@ namespace EasyLOB.Extensions.Mail
 {
     public partial class MailManagerMock : IMailManager
     {
+        #region Properties
+
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public MailManagerMock()
+        {
+            UserName = "";
+            Password = "";
+        }
+
+        #endregion Methods
+
         #region Methods Interface
 
         public void Mail(string toAddress,

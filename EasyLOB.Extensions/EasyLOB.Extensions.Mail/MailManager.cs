@@ -31,6 +31,24 @@ namespace EasyLOB.Extensions.Mail
 {
     public partial class MailManager : IMailManager
     {
+        #region Properties
+
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public MailManager()
+        {
+            UserName = "";
+            Password = "";
+        }
+
+        #endregion Methods
+
         #region Methods Interface
 
         public void Mail(string toAddress,
@@ -132,9 +150,17 @@ namespace EasyLOB.Extensions.Mail
                 SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
                 if (smtpSection != null)
                 {
+                    string userName = smtpSection.Network.UserName;
+                    string password = smtpSection.Network.Password;
+                    if (!String.IsNullOrEmpty(UserName))
+                    {
+                        userName = UserName;
+                        password = Password;
+                    }
+
                     SmtpClient smtp = new SmtpClient();
                     smtp.UseDefaultCredentials = smtpSection.Network.DefaultCredentials;
-                    smtp.Credentials = new System.Net.NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+                    smtp.Credentials = new System.Net.NetworkCredential(userName, password);
                     smtp.EnableSsl = smtpSection.Network.EnableSsl;
                     smtp.Host = smtpSection.Network.Host;
                     smtp.Port = smtpSection.Network.Port;
@@ -151,6 +177,12 @@ namespace EasyLOB.Extensions.Mail
             userName = userName ?? "";
             password = password ?? "";
 
+            if (!String.IsNullOrEmpty(UserName))
+            {
+                userName = UserName;
+                password = Password;
+            }
+        
             SmtpClient smtp = new SmtpClient();
             smtp.UseDefaultCredentials = defaultCredentials;
             smtp.Credentials = new System.Net.NetworkCredential(userName, password);
