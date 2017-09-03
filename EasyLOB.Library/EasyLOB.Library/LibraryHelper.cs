@@ -2426,6 +2426,20 @@ namespace EasyLOB.Library
             return field.GetValue(instance);
         }
 
+        /// <summary>
+        /// Get static Field value.
+        /// </summary>
+        /// <param name="type">Type</param>
+        /// <param name="fieldName">Field name</param>
+        /// <returns></returns>
+        public static object GetStaticFieldValue(Type type, string fieldName)
+        {
+            BindingFlags bindingFlags = BindingFlags.GetField | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
+            FieldInfo field = type.GetField(fieldName, bindingFlags);
+
+            return field.GetValue(null); // static => object = null
+        }
+
         // Property
 
         /// <summary>
@@ -2476,7 +2490,7 @@ namespace EasyLOB.Library
         }
 
         /// <summary>
-        /// Get Property value.
+        /// Get static Property value.
         /// </summary>
         /// <param name="type">Type</param>
         /// <param name="propertyName">Property name</param>
