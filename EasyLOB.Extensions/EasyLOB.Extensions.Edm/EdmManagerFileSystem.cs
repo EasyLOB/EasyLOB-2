@@ -1,4 +1,5 @@
 using EasyLOB.Library;
+using EasyLOB.Library.Mvc;
 using System;
 using System.IO;
 
@@ -44,6 +45,11 @@ namespace EasyLOB.Extensions.Edm
         public EdmManagerFileSystem()
         {
             RootDirectory = ConfigurationHelper.AppSettings<string>("EDM.FileSystem.Directory");
+
+            if (!String.IsNullOrEmpty(MultiTenantHelper.Tenant.Name))
+            {
+                RootDirectory = Path.Combine(RootDirectory, MultiTenantHelper.Tenant.Name);
+            }
         }
 
         public EdmManagerFileSystem(string rootDirectory)

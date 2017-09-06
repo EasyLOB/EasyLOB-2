@@ -37,6 +37,7 @@ namespace EasyLOB.Library
         public static List<T> MyToList<T>(this IEnumerable<T> data)
         {
             List<T> result = null;
+
             if (data != null)
             {
                 result = new List<T>();
@@ -45,6 +46,7 @@ namespace EasyLOB.Library
                     result.Add(item);
                 }
             }
+
             return result;
         }
     }

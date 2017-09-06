@@ -220,16 +220,20 @@ namespace EasyLOB.Persistence
         {
             Filter(where);
 
-            return Query.Where(where).FirstOrDefault();
-            //return Select(where, null, null, 1).FirstOrDefault();
+            return Query
+                .Where(where)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public virtual TEntity Get(string where, object[] args = null)
         {
             Filter(ref where, ref args);
 
-            return Query.Where(where).FirstOrDefault();
-            //return Select(where, args, null, null, 1).FirstOrDefault();
+            return Query
+                .Where(where)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public virtual TEntity GetById(object id)
@@ -382,8 +386,9 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            //return query.ToList<TEntity>();
-            return query.AsNoTracking().ToList<TEntity>();
+            return query
+                .AsNoTracking()
+                .ToList<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> Select(string where = null,
@@ -438,13 +443,16 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            //return query.ToList<TEntity>();
-            return query.AsNoTracking().ToList<TEntity>();
+            return query
+                .AsNoTracking()
+                .ToList<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> SelectAll()
         {
-            return Query.ToList<TEntity>();
+            return Query
+                .AsNoTracking()
+                .ToList<TEntity>();
         }
 
         public void SetSequence(int value)

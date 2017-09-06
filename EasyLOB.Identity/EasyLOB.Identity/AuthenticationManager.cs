@@ -61,8 +61,8 @@ namespace EasyLOB.Identity
             {
                 return ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims
                     .Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => c.Value).
-                    ToList();
+                    .Select(c => c.Value)
+                    .ToList();
             }
         }
 

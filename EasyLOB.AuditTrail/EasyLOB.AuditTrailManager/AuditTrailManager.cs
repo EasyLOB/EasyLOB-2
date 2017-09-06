@@ -102,10 +102,8 @@ namespace EasyLOB.AuditTrail
             {
                 IGenericRepository<AuditTrailConfiguration> repository = UnitOfWork.GetRepository<AuditTrailConfiguration>();
 
-                IEnumerable<AuditTrailConfiguration> enumerable =
-                    repository.Select(x => x.Domain == logDomain && x.Entity == logEntity && x.LogOperations.Contains(logOperation));
-
-                AuditTrailConfiguration auditTrailConfiguration = enumerable.FirstOrDefault<AuditTrailConfiguration>();
+                AuditTrailConfiguration auditTrailConfiguration = repository
+                    .Get(x => x.Domain == logDomain && x.Entity == logEntity && x.LogOperations.Contains(logOperation));
                 if (auditTrailConfiguration != null)
                 {
                     result = true;
