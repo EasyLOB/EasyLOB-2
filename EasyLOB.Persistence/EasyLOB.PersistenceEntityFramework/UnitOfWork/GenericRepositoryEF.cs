@@ -41,10 +41,10 @@ namespace EasyLOB.Persistence
             get
             {
                 IQueryable<TEntity> query = Set.AsQueryable<TEntity>();
-                //IQueryable<TEntity> query = Set;
                 query = Join(query);
 
-                return query;
+                return query
+                    .AsNoTracking();
             }
         }
 
@@ -221,8 +221,8 @@ namespace EasyLOB.Persistence
             Filter(where);
 
             return Query
+                //.AsNoTracking()
                 .Where(where)
-                .AsNoTracking()
                 .FirstOrDefault();
         }
 
@@ -231,8 +231,8 @@ namespace EasyLOB.Persistence
             Filter(ref where, ref args);
 
             return Query
+                //.AsNoTracking()
                 .Where(where)
-                .AsNoTracking()
                 .FirstOrDefault();
         }
 
@@ -353,7 +353,9 @@ namespace EasyLOB.Persistence
             int? take = null,
             List<Expression<Func<TEntity, object>>> associations = null)
         {
-            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
+            IQueryable<TEntity> query = Set
+                .AsQueryable<TEntity>()
+                .AsNoTracking(); // Query() without Join()
             //IQueryable<TEntity> query = Set; // Query() without Join()
 
             Filter(where);
@@ -387,7 +389,7 @@ namespace EasyLOB.Persistence
             query = Join(query, associations);
 
             return query
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList<TEntity>();
         }
 
@@ -398,7 +400,9 @@ namespace EasyLOB.Persistence
             int? take = null,
             string[] associations = null)
         {
-            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
+            IQueryable<TEntity> query = Set
+                .AsQueryable<TEntity>()
+                .AsNoTracking(); // Query() without Join()
             //IQueryable<TEntity> query = Set; // Query() without Join()
 
             Filter(ref where, ref args);
@@ -444,14 +448,14 @@ namespace EasyLOB.Persistence
             query = Join(query, associations);
 
             return query
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> SelectAll()
         {
             return Query
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList<TEntity>();
         }
 
