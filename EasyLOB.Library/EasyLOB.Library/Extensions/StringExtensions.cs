@@ -48,7 +48,14 @@ namespace EasyLOB.Library
         /// <returns>String</returns>
         public static string Left(this string s, int length)
         {
-            return s.Substring(0, length);
+            if (s.Length > length)
+            {
+                return s.Substring(0, length);
+            }
+            else
+            {
+                return s;
+            }
         }
 
         /// <summary>
@@ -59,7 +66,14 @@ namespace EasyLOB.Library
         /// <returns>String</returns>
         public static string Right(this string s, int length)
         {
-            return s.Substring(s.Length - length, length);
+            if (s.Length > length)
+            {
+                return s.Substring(s.Length - length, length);
+            }
+            else
+            {
+                return s;
+            }
         }
 
         /// <summary>
