@@ -91,9 +91,11 @@ namespace EasyLOB.Library.Mvc
                 {
                     if (Tenants.Count > 0)
                     {
+                        name = name.ToLower();
                         foreach (AppTenant t in Tenants)
                         {
-                            if (t.Name.Equals(name, System.StringComparison.CurrentCultureIgnoreCase))
+                            if (name.StartsWith(t.Name.ToLower()))
+                            //if (t.Name.Equals(name, System.StringComparison.CurrentCultureIgnoreCase))
                             {
                                 appTenant = t;
                                 break;
