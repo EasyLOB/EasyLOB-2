@@ -5,41 +5,50 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace EasyLOB.Library.Mvc
+namespace EasyLOB.Library.Web
 {
     public class ResourcesManager
     {
-        #region Fields
+        #region Properties
 
-        private IIniManager iniManagerDashboard =
-            new IniManager(Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
-                "INI/DashboardResources.ini"));
+        private IIniManager IniManagerDashboard { get; }
 
-        private IIniManager iniManagerMenu =
-            new IniManager(Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
-                "INI/MenuResources.ini"));
+        private IIniManager IniManagerMenu { get; }
 
-        private IIniManager iniManagerReport =
-            new IniManager(Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
-                "INI/ReportResources.ini"));
+        private IIniManager IniManagerReport { get; }
 
-        #endregion Fields
+        #endregion Properties
 
         #region Methods
 
+        public ResourcesManager()
+        {
+            IniManagerDashboard =
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                    "INI/DashboardResources.ini"));
+
+            IniManagerMenu =
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                    "INI/MenuResources.ini"));
+
+            IniManagerReport =
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                    "INI/ReportResources.ini"));
+        }
+
         public string GetDashboardResource(string resourceKey)
         {
-            return GetINIResource(iniManagerDashboard, resourceKey);
+            return GetINIResource(IniManagerDashboard, resourceKey);
         }
 
         public string GetMenuResource(string resourceKey)
         {
-            return GetINIResource(iniManagerMenu, resourceKey);
+            return GetINIResource(IniManagerMenu, resourceKey);
         }
 
         public string GetReportResource(string resourceKey)
         {
-            return GetINIResource(iniManagerReport, resourceKey);
+            return GetINIResource(IniManagerReport, resourceKey);
         }
 
         private string GetINIResource(IIniManager iniManager, string resourceKey)

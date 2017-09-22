@@ -2,7 +2,6 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-using EasyLOB.Library.Mvc;
 
 namespace EasyLOB.Identity.Persistence
 {
@@ -17,7 +16,7 @@ namespace EasyLOB.Identity.Persistence
         #region Properties
 
         //public static string ConnectionString { get { return "Identity"; } }
-        public static string ConnectionString { get { return EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("Identity"); } } // !?! Multi-Tenant
+        public static string ConnectionString { get { return EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"); } } // !?! Multi-Tenant
 
         private static ISessionFactory _sessionFactory = null;
 

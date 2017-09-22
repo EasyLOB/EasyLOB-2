@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 
-namespace EasyLOB.Library.Mvc
+namespace EasyLOB.Library.Web
 {
     public static class SessionHelper
     {
@@ -20,7 +20,7 @@ namespace EasyLOB.Library.Mvc
 
         public static void Abandon()
         {
-            if (MvcHelper.IsWeb)
+            if (WebHelper.IsWeb)
             {
                 if (Session != null)
                 {
@@ -31,7 +31,7 @@ namespace EasyLOB.Library.Mvc
 
         public static void Clear()
         {
-            if (MvcHelper.IsWeb)
+            if (WebHelper.IsWeb)
             {
                 if (Session != null)
                 {
@@ -46,7 +46,7 @@ namespace EasyLOB.Library.Mvc
 
         public static void Clear(string sessionName)
         {
-            if (MvcHelper.IsWeb)
+            if (WebHelper.IsWeb)
             {
                 if (Session != null)
                 {
@@ -66,7 +66,7 @@ namespace EasyLOB.Library.Mvc
         {
             object result = null;
 
-            if (MvcHelper.IsWeb)
+            if (WebHelper.IsWeb)
             {
                 if (Session != null)
                 {
@@ -86,7 +86,7 @@ namespace EasyLOB.Library.Mvc
 
         public static void Write(string sessionName, object value)
         {
-            if (MvcHelper.IsWeb)
+            if (WebHelper.IsWeb)
             {
                 if (Session != null)
                 {

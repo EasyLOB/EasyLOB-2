@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLOB.Library", "EasyLOB.Library\EasyLOB.Library\EasyLOB.Library.csproj", "{55B7716B-36A3-442D-9E9E-9CAAB7DB592E}"
 EndProject
@@ -112,6 +112,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLOB.Activity.PersistenceLINQ2DB", "EasyLOB.Activity\EasyLOB.Activity.PersistenceLINQ2DB\EasyLOB.Activity.PersistenceLINQ2DB.csproj", "{74D4FBC6-CA3A-499C-BF06-9AADB713467F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLOB", "EasyLOB\EasyLOB.csproj", "{6706907A-8932-46E7-A1C8-7575130FF8F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLOB.Library.Web", "EasyLOB.Library\EasyLOB.Library.Web\EasyLOB.Library.Web.csproj", "{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -287,6 +289,10 @@ Global
 		{6706907A-8932-46E7-A1C8-7575130FF8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6706907A-8932-46E7-A1C8-7575130FF8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6706907A-8932-46E7-A1C8-7575130FF8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -338,5 +344,6 @@ Global
 		{B8A988B8-206E-4EAA-B450-08073E56AE32} = {1123A4B4-334E-462C-B8E3-C0948F673FC1}
 		{CD519BED-67D7-4BE8-A3A5-7DDAD88CEED5} = {2F75A44B-DDBA-4461-A316-3B1FC5261A90}
 		{74D4FBC6-CA3A-499C-BF06-9AADB713467F} = {1123A4B4-334E-462C-B8E3-C0948F673FC1}
+		{1B39AFB2-8FE2-46F6-8544-520CD16C3E0B} = {1EB40F67-2CC2-4B0E-B601-76D76B9ABA12}
 	EndGlobalSection
 EndGlobal

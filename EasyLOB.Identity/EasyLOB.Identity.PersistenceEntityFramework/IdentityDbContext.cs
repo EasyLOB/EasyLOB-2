@@ -34,7 +34,7 @@ namespace EasyLOB.Identity.Persistence
 
         public IdentityDbContext()
             //: base("Name=Identity")
-            : base("Name=" + EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("Identity"))
+            : base("Name=" + EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"))
         {
             Setup();
         }

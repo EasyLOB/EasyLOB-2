@@ -38,7 +38,7 @@ protected override JsonResult Json(object data, string contentType,
 
 */
 
-namespace EasyLOB.MVC
+namespace EasyLOB.Library.Mvc
 {
     public class JsonNETResult : System.Web.Mvc.JsonResult
     {

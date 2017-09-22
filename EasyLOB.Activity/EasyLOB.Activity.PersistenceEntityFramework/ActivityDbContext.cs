@@ -28,7 +28,7 @@ namespace EasyLOB.Activity.Persistence
 
         public ActivityDbContext()
             //: base("Name=Activity")
-            : base("Name=" + EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("Activity"))
+            : base("Name=" + EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Activity"))
         {
             Setup();
         }

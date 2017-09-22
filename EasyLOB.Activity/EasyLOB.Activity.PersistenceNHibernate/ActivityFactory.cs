@@ -16,7 +16,7 @@ namespace EasyLOB.Activity.Persistence
         #region Properties
 
         //public static string ConnectionString { get { return "Activity"; } }
-        public static string ConnectionString { get { return EasyLOB.Library.Mvc.MultiTenantHelper.GetConnectionName("Activity"); } } // !?! Multi-Tenant
+        public static string ConnectionString { get { return EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Activity"); } } // !?! Multi-Tenant
 
         private static ISessionFactory _sessionFactory = null;
 

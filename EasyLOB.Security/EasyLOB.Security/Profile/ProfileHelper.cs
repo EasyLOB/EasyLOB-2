@@ -1,4 +1,4 @@
-﻿using EasyLOB.Library.Mvc;
+﻿using EasyLOB.Library.Web;
 using System;
 
 namespace EasyLOB.Security

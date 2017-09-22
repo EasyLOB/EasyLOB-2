@@ -2,9 +2,9 @@
 using System.IO;
 using System.Web;
 
-namespace EasyLOB.Library.Mvc
+namespace EasyLOB.Library.Web
 {
-    public static partial class MvcHelper
+    public static partial class WebHelper
     {
         #region Properties
 

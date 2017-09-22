@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace EasyLOB.Library.Mvc
+namespace EasyLOB.Library.Web
 {
     public static class MultiTenantHelper
     {
@@ -26,7 +26,7 @@ namespace EasyLOB.Library.Mvc
 
         public static AppTenant Tenant
         {
-            get { return GetTenant(MvcHelper.WebSubDomain); }
+            get { return GetTenant(WebHelper.WebSubDomain); }
         }
 
         public static List<AppTenant> Tenants
@@ -38,7 +38,7 @@ namespace EasyLOB.Library.Mvc
                 {
                     try
                     {
-                        string filePath = Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                        string filePath = Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                             "JSON/MultiTenant.json");
                         string json = File.ReadAllText(filePath);
                         tenants = JsonConvert.DeserializeObject<List<AppTenant>>(json);
@@ -85,7 +85,7 @@ namespace EasyLOB.Library.Mvc
         {
             AppTenant appTenant = null;
 
-            if (IsMultiTenant && MvcHelper.IsWeb)
+            if (IsMultiTenant && WebHelper.IsWeb)
             {
                 if (IsMultiTenant)
                 {

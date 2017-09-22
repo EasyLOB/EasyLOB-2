@@ -1,4 +1,4 @@
-﻿using EasyLOB.Library.Mvc;
+﻿using EasyLOB.Library.Web;
 using EasyLOB.Persistence;
 using Syncfusion.EJ.ReportWriter;
 using Syncfusion.Reports.EJ; // DataSourceCredentials

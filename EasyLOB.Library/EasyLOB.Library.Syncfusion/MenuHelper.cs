@@ -1,4 +1,4 @@
-﻿using EasyLOB.Library.Mvc;
+﻿using EasyLOB.Library.Web;
 using EasyLOB.Security;
 using Newtonsoft.Json;
 using System;
@@ -33,7 +33,7 @@ namespace EasyLOB.Library.Syncfusion
                     List<AppMenuJson> menuJson = new List<AppMenuJson>();
                     string tenantName = MultiTenantHelper.Tenant.Name;
                     // Menu.TenantName.json
-                    string filePath = Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                    string filePath = Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                         "JSON/Menu" + "." + tenantName + ".json");
                     // Menu.json | Menu.TenantName.json ???
                     //string filePath = Path.Combine(MvcHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
@@ -144,7 +144,7 @@ namespace EasyLOB.Library.Syncfusion
             Id = id;
             Text = text;
             ParentId = parentId;
-            Url = (String.IsNullOrEmpty(url) ? "" : MvcHelper.WebPath + "/" + url).Replace("//", "/"); // Url.Content()
+            Url = (String.IsNullOrEmpty(url) ? "" : WebHelper.WebPath + "/" + url).Replace("//", "/"); // Url.Content()
         }
 
         #endregion Methods
