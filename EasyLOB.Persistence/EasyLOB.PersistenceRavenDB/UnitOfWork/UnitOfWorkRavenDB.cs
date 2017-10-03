@@ -98,7 +98,7 @@ namespace EasyLOB.Persistence
 
         public virtual int ExecuteSQL(string sql)
         {
-            return 0;
+            throw new NotSupportedException();
         }
 
         public IZDataProfile GetDataProfile<TEntity>()
