@@ -88,6 +88,15 @@ namespace EasyLOB.Identity.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation authorized only for the users with role &quot;{0}&quot;.
+        /// </summary>
+        public static string OperationAuthorizedRole {
+            get {
+                return ResourceManager.GetString("OperationAuthorizedRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string Role {

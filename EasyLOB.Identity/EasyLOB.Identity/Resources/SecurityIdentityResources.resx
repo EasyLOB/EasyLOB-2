@@ -126,6 +126,9 @@
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
+  <data name="OperationAuthorizedRole" xml:space="preserve">
+    <value>Operation authorized only for the users with role "{0}"</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
