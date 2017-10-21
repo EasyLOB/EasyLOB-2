@@ -58,11 +58,18 @@ namespace EasyLOB.Persistence
         bool CommitTransaction(ZOperationResult operationResult, bool isTransaction = true);
 
         /// <summary>
-        /// Execute SQL.
+        /// Execute SQL Command.
         /// </summary>
         /// <param name="sql">SQL</param>
         /// <returns>Scalar</returns>
-        int ExecuteSQL(string sql);
+        int SQLCommand(string sql);
+
+        /// <summary>
+        /// Execute SQL Query.
+        /// </summary>
+        /// <param name="sql">SQL</param>
+        /// <returns>List[T]></returns>
+        List<T> SQLQuery<T>(string sql);
 
         /// <summary>
         /// Get Data Profile.

@@ -95,9 +95,14 @@ namespace EasyLOB.Persistence
             return operationResult.Ok;
         }
 
-        public virtual int ExecuteSQL(string sql)
+        public virtual int SQLCommand(string sql)
         {
             return Session.CreateQuery(sql).ExecuteUpdate();
+        }
+
+        public virtual List<T> SQLQuery<T>(string sql)
+        {
+            return (List<T>)Session.CreateSQLQuery(sql).List<T>();
         }
 
         public IZDataProfile GetDataProfile<TEntity>()

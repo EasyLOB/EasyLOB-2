@@ -96,7 +96,12 @@ namespace EasyLOB.Persistence
             return operationResult.Ok;
         }
 
-        public virtual int ExecuteSQL(string sql)
+        public virtual int SQLCommand(string sql)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual List<T> SQLQuery<T>(string sql)
         {
             throw new NotSupportedException();
         }

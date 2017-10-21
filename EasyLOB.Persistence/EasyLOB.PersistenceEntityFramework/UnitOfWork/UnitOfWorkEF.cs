@@ -111,9 +111,14 @@ namespace EasyLOB.Persistence
             return operationResult.Ok;
         }
 
-        public virtual int ExecuteSQL(string sql)
+        public virtual int SQLCommand(string sql)
         {
             return Context.Database.ExecuteSqlCommand(sql);
+        }
+
+        public virtual List<T> SQLQuery<T>(string sql)
+        {
+            return Context.Database.SqlQuery<T>(sql).ToList();
         }
 
         public IZDataProfile GetDataProfile<TEntity>()
