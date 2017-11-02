@@ -1,15 +1,38 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace EasyLOB.Data
 {
-    public interface IZDataProfile
+    public interface IZProfile
     {
         #region Properties
 
-        IZClassProfile Class { get; set; }
+        string Name { get; }
 
-        List<IZPropertyProfile> Properties { get; set; }
+        bool IsIdentity { get; }
+
+        string[] Keys { get; }
+
+        string Lookup { get; }
+
+        string LINQOrderBy { get; }
+
+        string LINQWhere { get; }
+
+        //bool IsLog { get; }
+
+        //bool IsSearch { get; }
+
+        //int RecordsByLookup { get; }
+
+        //int RecordsByPage { get; }
+
+        //int RecordsBySearch { get; }
+
+        string[] Associations { get; }
+
+        Dictionary<string, bool> Collections { get; }
+
+        List<IZProfileProperty> Properties { get; set; }
 
         #endregion Properties
 
@@ -35,7 +58,7 @@ namespace EasyLOB.Data
 
         #region Methods Helper Edit
 
-        string EditWidthCSSFor(string propertyName);
+        string EditCSSFor(string propertyName);
 
         bool IsCollectionVisibleFor(string collectionName);
 
@@ -50,3 +73,4 @@ namespace EasyLOB.Data
         #endregion Methods Helper Grid
     }
 }
+ 

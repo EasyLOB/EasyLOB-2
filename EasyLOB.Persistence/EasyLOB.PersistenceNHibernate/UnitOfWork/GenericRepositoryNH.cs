@@ -16,13 +16,13 @@ namespace EasyLOB.Persistence
     {
         #region Properties
 
-        public virtual IZDataProfile DataProfile
+        public virtual IZProfile Profile
         {
             get
             {
                 Type type = this.GetRepositoryType<TEntity>();
 
-                return DataHelper.GetDataProfile(type);
+                return DataHelper.GetProfile(type);
             }
         }
 
@@ -225,7 +225,7 @@ namespace EasyLOB.Persistence
             //    throw new NotImplementedException("NHibernate GetById(objects[] ids)");
             //}
 
-            string predicate = DataProfile.Class.LINQWhere;
+            string predicate = Profile.LINQWhere;
             Expression<Func<TEntity, bool>> where =
                 System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, ids);
 
@@ -236,7 +236,7 @@ namespace EasyLOB.Persistence
         {
             List<object> ids = new List<object>();
 
-            foreach (string key in DataProfile.Class.Keys)
+            foreach (string key in Profile.Keys)
             {
                 ids.Add(LibraryHelper.GetPropertyValue(entity, key));
             }
@@ -248,7 +248,7 @@ namespace EasyLOB.Persistence
         {
             object id = null;
 
-            if (DataProfile.Class.IsIdentity && !PersistenceHelper.GeneratesIdentity(UnitOfWork.DBMS))
+            if (Profile.IsIdentity && !PersistenceHelper.GeneratesIdentity(UnitOfWork.DBMS))
             {
                 string sql = AdoNetHelper.GetSequenceSql(UnitOfWork.DBMS, this.GetType().Name);
                 id = Session.CreateSQLQuery(sql).UniqueResult<object>();
@@ -285,13 +285,13 @@ namespace EasyLOB.Persistence
 
         public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query)
         {
-            return Join(query, DataProfile.Class.Associations);
+            return Join(query, Profile.Associations);
         }
 
         public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<Expression<Func<TEntity, object>>> associations)
         {
             associations = associations != null && associations.Count() > 0 ?
-                associations : LambdaHelper<TEntity>.ToFuncProperty(DataProfile.Class.Associations);
+                associations : LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations);
 
             if (query != null && associations != null)
             {
@@ -309,13 +309,13 @@ namespace EasyLOB.Persistence
         public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, string[] associations)
         {
             associations = associations != null && associations.Count() > 0 ?
-                associations : DataProfile.Class.Associations;
+                associations : Profile.Associations;
 
             if (query != null && associations != null)
             {
                 List<Expression<Func<TEntity, object>>> associationsExpression = associations != null && associations.Count() > 0 ?
                         LambdaHelper<TEntity>.ToFuncProperty(associations) :
-                        LambdaHelper<TEntity>.ToFuncProperty(DataProfile.Class.Associations);
+                        LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations);
                 query = Join(query, associationsExpression);
             }
 
@@ -339,7 +339,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && orderBy == null)
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (orderBy != null)
             {
@@ -393,7 +393,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && String.IsNullOrEmpty(orderBy))
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (!String.IsNullOrEmpty(orderBy))
             {

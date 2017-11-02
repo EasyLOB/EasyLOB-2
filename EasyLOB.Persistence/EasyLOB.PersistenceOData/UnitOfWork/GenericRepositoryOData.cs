@@ -16,13 +16,13 @@ namespace EasyLOB.Persistence
     {
         #region Properties
 
-        public virtual IZDataProfile DataProfile
+        public virtual IZProfile Profile
         {
             get
             {
                 Type type = this.GetRepositoryType<TEntityDTO, TEntity>();
 
-                return DataHelper.GetDataProfile(type);
+                return DataHelper.GetProfile(type);
             }
         }
 
@@ -221,7 +221,7 @@ namespace EasyLOB.Persistence
 
         public virtual TEntityDTO GetById(object[] ids)
         {
-            string predicate = DataProfile.Class.LINQWhere;
+            string predicate = Profile.LINQWhere;
             Expression<Func<TEntityDTO, bool>> where =
                 System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntityDTO, bool>(predicate, ids);
 
@@ -232,7 +232,7 @@ namespace EasyLOB.Persistence
         {
             List<object> ids = new List<object>();
 
-            foreach (string key in DataProfile.Class.Keys)
+            foreach (string key in Profile.Keys)
             {
                 ids.Add(LibraryHelper.GetPropertyValue(entityDTO, key));
             }
@@ -298,7 +298,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && orderBy == null)
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (orderBy != null)
             {
@@ -352,7 +352,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && String.IsNullOrEmpty(orderBy))
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (!String.IsNullOrEmpty(orderBy))
             {

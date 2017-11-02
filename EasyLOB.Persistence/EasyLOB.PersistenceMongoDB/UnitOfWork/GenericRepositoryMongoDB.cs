@@ -18,13 +18,13 @@ namespace EasyLOB.Persistence
     {
         #region Properties
 
-        public virtual IZDataProfile DataProfile
+        public virtual IZProfile Profile
         {
             get
             {
                 Type type = this.GetRepositoryType<TEntity>();
 
-                return DataHelper.GetDataProfile(type);
+                return DataHelper.GetProfile(type);
             }
         }
 
@@ -166,7 +166,7 @@ namespace EasyLOB.Persistence
                     {
                         //if (UnitOfWork.BeforeDelete(operationResult, entity))
                         {
-                            string predicate = DataProfile.Class.LINQWhere;
+                            string predicate = Profile.LINQWhere;
                             object[] ids = entity.GetId();
                             Expression<Func<TEntity, bool>> filter = System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, ids);
 
@@ -248,7 +248,7 @@ namespace EasyLOB.Persistence
 
         public virtual TEntity GetById(object[] ids)
         {
-            string predicate = DataProfile.Class.LINQWhere;
+            string predicate = Profile.LINQWhere;
             Expression<Func<TEntity, bool>> where =
                 System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, ids);
 
@@ -259,7 +259,7 @@ namespace EasyLOB.Persistence
         {
             List<object> ids = new List<object>();
 
-            foreach (string key in DataProfile.Class.Keys)
+            foreach (string key in Profile.Keys)
             {
                 ids.Add(LibraryHelper.GetPropertyValue(entity, key));
             }
@@ -271,7 +271,7 @@ namespace EasyLOB.Persistence
         {
             object id = null;
 
-            if (DataProfile.Class.IsIdentity)
+            if (Profile.IsIdentity)
             {
                 string name = typeof(TEntity).Name;
 
@@ -351,7 +351,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && orderBy == null)
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (orderBy != null)
             {
@@ -408,7 +408,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && String.IsNullOrEmpty(orderBy))
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (!String.IsNullOrEmpty(orderBy))
             {
@@ -445,7 +445,7 @@ namespace EasyLOB.Persistence
 
         public void SetSequence(int value)
         {
-            if (DataProfile.Class.IsIdentity)
+            if (Profile.IsIdentity)
             {
                 string name = typeof(TEntity).Name;
 
@@ -474,7 +474,7 @@ namespace EasyLOB.Persistence
                     {
                         //if (UnitOfWork.BeforeUpdate(operationResult, entity))
                         {
-                            string predicate = DataProfile.Class.LINQWhere;
+                            string predicate = Profile.LINQWhere;
                             object[] ids = entity.GetId();
                             Expression<Func<TEntity, bool>> filter = System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, ids);
 

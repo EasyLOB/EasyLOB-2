@@ -1,6 +1,6 @@
 ﻿namespace EasyLOB.Data
 {
-    public interface IZPropertyProfile
+    public interface IZProfileProperty
     {
         #region Properties
 
@@ -16,7 +16,7 @@
 
         bool IsEditReadOnly { get; }
 
-        string EditWidthCSS { get; }
+        string EditCSS { get; }
 
         #endregion Properties
     }

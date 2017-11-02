@@ -1,26 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace EasyLOB.Data
 {
-    //[DataContract]
-    //[Serializable]
-    //public class ZPropertyProfileCollection : KeyedCollection<string, IZPropertyProfile>
-    //{
-    //    #region Methods
-
-    //    protected override string GetKeyForItem(IZPropertyProfile item)
-    //    {
-    //        return item.Name;
-    //    }
-
-    //    #endregion Methods
-    //}
-
     [DataContract]
     [Serializable]
-    public class ZPropertyProfile : IZPropertyProfile
+    public class ZProfileProperty : IZProfileProperty
     {
         #region Properties
 
@@ -43,14 +28,14 @@ namespace EasyLOB.Data
         public bool IsEditReadOnly { get; }
 
         [DataMember]
-        public string EditWidthCSS { get; }
+        public string EditCSS { get; }
 
         #endregion Properties
 
         #region Methods
 
-        public ZPropertyProfile(bool IsGridVisible, bool IsGridSearch, int GridWidth,
-            bool IsEditVisible, bool IsEditReadOnly, string EditWidthCSS,
+        public ZProfileProperty(bool IsGridVisible, bool IsGridSearch, int GridWidth,
+            bool IsEditVisible, bool IsEditReadOnly, string EditCSS,
             string Name)
         {
             this.IsGridVisible = IsGridVisible;
@@ -59,7 +44,7 @@ namespace EasyLOB.Data
 
             this.IsEditVisible = IsEditVisible;
             this.IsEditReadOnly = IsEditReadOnly;
-            this.EditWidthCSS = EditWidthCSS;
+            this.EditCSS = EditCSS;
 
             this.Name = Name;
         }

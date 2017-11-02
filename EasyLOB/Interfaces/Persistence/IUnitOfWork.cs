@@ -72,11 +72,11 @@ namespace EasyLOB.Persistence
         List<T> SQLQuery<T>(string sql);
 
         /// <summary>
-        /// Get Data Profile.
+        /// Get Profile.
         /// </summary>
         /// <typeparam name="TEntity">Entity</typeparam>
-        /// <returns>Data Profile</returns>
-        IZDataProfile GetDataProfile<TEntity>()
+        /// <returns>Profile</returns>
+        IZProfile GetProfile<TEntity>()
             where TEntity : class, IZDataBase;
 
         /// <summary>

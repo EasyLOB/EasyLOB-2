@@ -9,9 +9,9 @@ namespace EasyLOB.Data
     {
         #region Methods
 
-        public static IZDataProfile GetDataProfile(Type type)
+        public static IZProfile GetProfile(Type type)
         {
-            return (IZDataProfile)LibraryHelper.GetStaticPropertyValue(type, "DataProfile");
+            return (IZProfile)LibraryHelper.GetStaticPropertyValue(type, "Profile");
         }
 
         public static bool TryValidate(object @object, ICollection<ValidationResult> results)

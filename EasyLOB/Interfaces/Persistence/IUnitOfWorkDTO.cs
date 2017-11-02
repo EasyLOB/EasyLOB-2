@@ -72,12 +72,12 @@ namespace EasyLOB.Persistence
         List<T> SQLQuery<T>(string sql);
 
         /// <summary>
-        /// Get Data Profile.
+        /// Get Profile.
         /// </summary>
         /// <typeparam name="TEntityDTO">DTO</typeparam>
         /// <typeparam name="TEntity">Entity</typeparam>
         /// <returns>Data Profile</returns>
-        IZDataProfile GetDataProfile<TEntityDTO, TEntity>()
+        IZProfile GetProfile<TEntityDTO, TEntity>()
             where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
             where TEntity : class, IZDataBase;
 

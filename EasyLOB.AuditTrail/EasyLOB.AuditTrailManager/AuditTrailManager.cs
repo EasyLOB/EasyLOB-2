@@ -46,21 +46,21 @@ namespace EasyLOB.AuditTrail
                     };
 
                     object[] ids;
-                    IZDataProfile dataProfile;
+                    IZProfile profile;
                     if (entityAfter != null)
                     {
                         ids = entityAfter.GetId();
-                        dataProfile = DataHelper.GetDataProfile(entityAfter.GetType());
+                        profile = DataHelper.GetProfile(entityAfter.GetType());
                     }
                     else // entityBefore != null
                     {
                         ids = entityBefore.GetId();
-                        dataProfile = DataHelper.GetDataProfile(entityBefore.GetType());
+                        profile = DataHelper.GetProfile(entityBefore.GetType());
                     }
                     // {"Id1":1,"Id2":2}
                     string logId = "";
                     int idIndex = 0;
-                    foreach (string idProperty in dataProfile.Class.Keys)
+                    foreach (string idProperty in profile.Keys)
                     {
                         logId += (String.IsNullOrEmpty(logId) ? "" : ",") + "\"" + idProperty + "\":" + JsonConvert.SerializeObject(ids[idIndex++], settings);
                     }

@@ -46,11 +46,11 @@
     <Compile Include="DataModels\UserClaim.cs" />
     <Compile Include="DataModels\UserLogin.cs" />
     <Compile Include="DataModels\UserRole.cs" />
-    <Compile Include="DataProfiles\RoleProfile.cs" />
-    <Compile Include="DataProfiles\UserClaimProfile.cs" />
-    <Compile Include="DataProfiles\UserLoginProfile.cs" />
-    <Compile Include="DataProfiles\UserProfile.cs" />
-    <Compile Include="DataProfiles\UserRoleProfile.cs" />
+    <Compile Include="Profiles\RoleProfile.cs" />
+    <Compile Include="Profiles\UserClaimProfile.cs" />
+    <Compile Include="Profiles\UserLoginProfile.cs" />
+    <Compile Include="Profiles\UserProfile.cs" />
+    <Compile Include="Profiles\UserRoleProfile.cs" />
     <Compile Include="DTOs\RoleDTO.cs" />
     <Compile Include="DTOs\UserClaimDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />

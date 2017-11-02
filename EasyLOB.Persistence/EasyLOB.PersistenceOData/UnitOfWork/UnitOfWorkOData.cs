@@ -68,11 +68,11 @@ namespace EasyLOB.Persistence
             throw new NotSupportedException();
         }
 
-        public IZDataProfile GetDataProfile<TEntityDTO, TEntity>()
+        public IZProfile GetProfile<TEntityDTO, TEntity>()
             where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
             where TEntity : class, IZDataBase
         {
-            return GetRepository<TEntityDTO, TEntity>().DataProfile;
+            return GetRepository<TEntityDTO, TEntity>().Profile;
         }
 
         public virtual IQueryable<TEntityDTO> GetQuery<TEntityDTO, TEntity>()

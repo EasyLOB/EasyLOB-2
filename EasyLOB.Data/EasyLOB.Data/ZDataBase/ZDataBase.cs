@@ -19,12 +19,12 @@ namespace EasyLOB.Data
                 string result = "";
 
                 Type entityType = this.GetType();
-                IZDataProfile dataProfile = DataHelper.GetDataProfile(entityType);
-                if (!String.IsNullOrEmpty(dataProfile.Class.Lookup))
+                IZProfile profile = DataHelper.GetProfile(entityType);
+                if (!String.IsNullOrEmpty(profile.Lookup))
                 {
                     try
                     {
-                        var value = LibraryHelper.GetPropertyValue(this, dataProfile.Class.Lookup);
+                        var value = LibraryHelper.GetPropertyValue(this, profile.Lookup);
                         result = value == null ? "" : value.ToString();
                     }
                     catch { }

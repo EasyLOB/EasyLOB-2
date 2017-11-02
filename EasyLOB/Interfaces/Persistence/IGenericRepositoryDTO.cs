@@ -12,9 +12,9 @@ namespace EasyLOB.Persistence
         #region Properties
 
         /// <summary>
-        /// Z Data Profile.
+        /// Z Profile.
         /// </summary>
-        IZDataProfile DataProfile { get; }
+        IZProfile Profile { get; }
 
         /// <summary>
         /// Entity.

@@ -39,8 +39,8 @@
   <ItemGroup>
     <Compile Include="DataModels\AuditTrailConfiguration.cs" />
     <Compile Include="DataModels\AuditTrailLog.cs" />
-    <Compile Include="DataProfiles\AuditTrailConfigurationProfile.cs" />
-    <Compile Include="DataProfiles\AuditTrailLogProfile.cs" />
+    <Compile Include="Profiles\AuditTrailConfigurationProfile.cs" />
+    <Compile Include="Profiles\AuditTrailLogProfile.cs" />
     <Compile Include="DTOs\AuditTrailConfigurationDTO.cs" />
     <Compile Include="DTOs\AuditTrailLogDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -407,8 +407,8 @@ namespace EasyLOB.Library.Syncfusion
                     }
                     else
                     {
-                        IZDataProfile dataProfile = DataHelper.GetDataProfile(entityType);
-                        result = entityLINQ + "." + dataProfile.Class.Lookup;
+                        IZProfile profile = DataHelper.GetProfile(entityType);
+                        result = entityLINQ + "." + profile.Lookup;
                     }
                 }
                 else
@@ -432,16 +432,11 @@ namespace EasyLOB.Library.Syncfusion
                 {
                     string entity = field.Replace("LookupText", "");
                     System.Type entityType = LibraryHelper.GetType(DataNamespace + "." + entity);
-                    IZDataProfile dataProfile = DataHelper.GetDataProfile(entityType);
-                    if (dataProfile != null)
+                    IZProfile profile = DataHelper.GetProfile(entityType);
+                    if (profile != null)
                     {
-                        result = entity + "." + dataProfile.Class.LINQOrderBy + " " + direction;
+                        result = entity + "." + profile.LINQOrderBy + " " + direction;
                     }
-                    //ZDataProfile dataProfile = DataHelper.GetDataProfile(entityType);
-                    //if (dataProfile != null)
-                    //{
-                    //    result = entity + "." + dataProfile.Class.LINQOrderBy + " " + direction;
-                    //}
                 }
                 else
                 {

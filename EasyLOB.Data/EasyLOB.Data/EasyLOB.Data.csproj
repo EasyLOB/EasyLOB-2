@@ -45,8 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZProfile\ZDataProfile.cs" />
-    <Compile Include="ZProfile\ZClassProfile.cs" />
+    <Compile Include="ZProfile\ZProfile.cs" />
     <Compile Include="Extensions\DataTableExtensions.cs" />
     <Compile Include="Extensions\DbDataReaderExtensions.cs" />
     <Compile Include="Extensions\DbFactoryExtensions.cs" />
@@ -55,7 +54,7 @@
     <Compile Include="DataHelper.cs" />
     <Compile Include="ZDTOBase\ZDTOBase.cs" />
     <Compile Include="ZDTOBase\ZDTOHelper.cs" />
-    <Compile Include="ZProfile\ZPropertyProfile.cs" />
+    <Compile Include="ZProfile\ZProfileProperty.cs" />
     <Compile Include="ZViewBase\ZViewBase.cs" />
     <Compile Include="ZViewBase\ZViewHelper.cs" />
   </ItemGroup>

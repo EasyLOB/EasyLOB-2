@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Activity\ZActivityOperations.cs" />
     <Compile Include="Interfaces\Application\IDIManager.cs" />
+    <Compile Include="Interfaces\Data\IZProfile.cs" />
     <Compile Include="Interfaces\Data\IZValidatableObject.cs" />
     <Compile Include="Interfaces\Data\IZDataBase.cs" />
     <Compile Include="Interfaces\Data\IZDTOBase.cs" />
@@ -50,9 +51,7 @@
     <Compile Include="Interfaces\Application\IGenericApplication.cs" />
     <Compile Include="Interfaces\Application\IGenericApplicationDTO.cs" />
     <Compile Include="Interfaces\AuditTrail\IAuditTrailManager.cs" />
-    <Compile Include="Interfaces\Data\IZDataProfile.cs" />
-    <Compile Include="Interfaces\Data\IZClassProfile.cs" />
-    <Compile Include="Interfaces\Data\IZPropertyProfile.cs" />
+    <Compile Include="Interfaces\Data\IZProfileProperty.cs" />
     <Compile Include="Interfaces\Log\ILogManager.cs" />
     <Compile Include="Interfaces\Persistence\IGenericRepository.cs" />
     <Compile Include="Interfaces\Persistence\IGenericRepositoryDTO.cs" />

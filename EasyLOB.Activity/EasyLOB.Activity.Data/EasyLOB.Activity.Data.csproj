@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="DataModels\Activity.cs" />
     <Compile Include="DataModels\ActivityRole.cs" />
-    <Compile Include="DataProfiles\ActivityProfile.cs" />
-    <Compile Include="DataProfiles\ActivityRoleProfile.cs" />
+    <Compile Include="Profiles\ActivityProfile.cs" />
+    <Compile Include="Profiles\ActivityRoleProfile.cs" />
     <Compile Include="DTOs\ActivityDTO.cs" />
     <Compile Include="DTOs\ActivityRoleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

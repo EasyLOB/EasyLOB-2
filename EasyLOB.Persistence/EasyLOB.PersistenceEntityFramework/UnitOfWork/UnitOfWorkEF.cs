@@ -121,10 +121,10 @@ namespace EasyLOB.Persistence
             return Context.Database.SqlQuery<T>(sql).ToList();
         }
 
-        public IZDataProfile GetDataProfile<TEntity>()
+        public IZProfile GetProfile<TEntity>()
             where TEntity : class, IZDataBase
         {
-            return GetRepository<TEntity>().DataProfile;
+            return GetRepository<TEntity>().Profile;
         }
 
         public virtual IQueryable<TEntity> GetQuery<TEntity>()

@@ -17,13 +17,13 @@ namespace EasyLOB.Persistence
     {
         #region Properties
 
-        public virtual IZDataProfile DataProfile
+        public virtual IZProfile Profile
         {
             get
             {
                 Type type = this.GetRepositoryType<TEntity>();
 
-                return DataHelper.GetDataProfile(type);
+                return DataHelper.GetProfile(type);
             }
         }
 
@@ -136,7 +136,7 @@ namespace EasyLOB.Persistence
                                 (entity as ZDataBase).SetId(new object[] { id });
                             }
 
-                            if (DataProfile.Class.IsIdentity)
+                            if (Profile.IsIdentity)
                             {
                                 object identity = Connection.InsertWithIdentity<TEntity>(entity);
                                 (entity as ZDataBase).SetId(new object[] { identity });
@@ -243,7 +243,7 @@ namespace EasyLOB.Persistence
 
         public virtual TEntity GetById(object[] ids)
         {
-            string predicate = DataProfile.Class.LINQWhere;
+            string predicate = Profile.LINQWhere;
             Expression<Func<TEntity, bool>> where =
                 System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, ids);
 
@@ -254,7 +254,7 @@ namespace EasyLOB.Persistence
         {
             List<object> ids = new List<object>();
 
-            foreach (string key in DataProfile.Class.Keys)
+            foreach (string key in Profile.Keys)
             {
                 ids.Add(LibraryHelper.GetPropertyValue(entity, key));
             }
@@ -266,7 +266,7 @@ namespace EasyLOB.Persistence
         {
             object id = null;
 
-            if (DataProfile.Class.IsIdentity && !PersistenceHelper.GeneratesIdentity(UnitOfWork.DBMS))
+            if (Profile.IsIdentity && !PersistenceHelper.GeneratesIdentity(UnitOfWork.DBMS))
             {
                 string sql = AdoNetHelper.GetSequenceSql(UnitOfWork.DBMS, this.GetType().Name);
                 Connection.Command.CommandType = CommandType.Text;
@@ -334,7 +334,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && orderBy == null)
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (orderBy != null)
             {
@@ -388,7 +388,7 @@ namespace EasyLOB.Persistence
 
             if (skip != null && String.IsNullOrEmpty(orderBy))
             {
-                query = query.OrderBy(DataProfile.Class.LINQOrderBy);
+                query = query.OrderBy(Profile.LINQOrderBy);
             }
             else if (!String.IsNullOrEmpty(orderBy))
             {
