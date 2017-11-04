@@ -314,7 +314,7 @@ namespace EasyLOB.Persistence
         public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<Expression<Func<TEntity, object>>> associations)
         {
             associations = associations != null && associations.Count() > 0 ?
-                associations : LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations);
+                associations : LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations.ToArray());
 
             if (query != null && associations != null)
             {
@@ -329,14 +329,14 @@ namespace EasyLOB.Persistence
             return query;
         }
 
-        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, string[] associations)
+        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<string> associations)
         {
             associations = associations != null && associations.Count() > 0 ?
                 associations : Profile.Associations;
 
             if (query != null && associations != null)
             {
-                associations.ToList<string>().ForEach(x => { query = query.Include(x); });
+                associations.ForEach(x => { query = query.Include(x); });
 
                 //foreach (string association in associations)
                 //{
@@ -398,7 +398,7 @@ namespace EasyLOB.Persistence
             string orderBy = null,
             int? skip = null,
             int? take = null,
-            string[] associations = null)
+            List<string> associations = null)
         {
             IQueryable<TEntity> query = Set
                 .AsQueryable<TEntity>()

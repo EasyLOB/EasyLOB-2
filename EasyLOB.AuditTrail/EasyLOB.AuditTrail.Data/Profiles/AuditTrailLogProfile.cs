@@ -11,11 +11,11 @@ namespace EasyLOB.AuditTrail.Data
         (
             Name: "AuditTrailLog",
             IsIdentity: true,
-            Keys: new string[] { "Id" },
+            Keys: new List<string> { "Id" },
             Lookup: "LogUserName",
             LINQOrderBy: "LogUserName",
             LINQWhere: "Id == @0",
-            Associations: new string[] { },
+            Associations: new List<string> { },
             Collections: new Dictionary<string, bool> { },
             Properties: new List<IZProfileProperty>
             {

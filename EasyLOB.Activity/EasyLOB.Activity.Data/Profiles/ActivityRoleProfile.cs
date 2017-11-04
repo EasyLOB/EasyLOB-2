@@ -11,11 +11,11 @@ namespace EasyLOB.Activity.Data
         (
             Name: "ActivityRole",
             IsIdentity: false,
-            Keys: new string[] { "ActivityId", "RoleName" },
+            Keys: new List<string> { "ActivityId", "RoleName" },
             Lookup: "Operations",
             LINQOrderBy: "Operations",
             LINQWhere: "ActivityId == @0 && RoleName == @1",
-            Associations: new string[]
+            Associations: new List<string>
             {
                 "Activity"
             },

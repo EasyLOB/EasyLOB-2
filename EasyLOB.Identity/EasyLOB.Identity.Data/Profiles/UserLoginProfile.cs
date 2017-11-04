@@ -11,11 +11,11 @@ namespace EasyLOB.Identity.Data
         (
             Name: "UserLogin",
             IsIdentity: false,
-            Keys: new string[] { "LoginProvider", "ProviderKey", "UserId" },
+            Keys: new List<string> { "LoginProvider", "ProviderKey", "UserId" },
             Lookup: "ProviderKey",
             LINQOrderBy: "ProviderKey",
             LINQWhere: "LoginProvider == @0 && ProviderKey == @1 && UserId == @2",
-            Associations: new string[]
+            Associations: new List<string>
             {
                 "User"
             },

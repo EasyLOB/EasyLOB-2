@@ -17,7 +17,7 @@ namespace EasyLOB.Data
         public bool IsIdentity { get; }
 
         [DataMember]
-        public string[] Keys { get; }
+        public List<string> Keys { get; }
 
         [DataMember]
         public string Lookup { get; }
@@ -44,7 +44,7 @@ namespace EasyLOB.Data
         //public int RecordsBySearch { get; }
 
         [DataMember]
-        public string[] Associations { get; }
+        public List<string> Associations { get; }
 
         [DataMember]
         public Dictionary<string, bool> Collections { get; }
@@ -182,7 +182,7 @@ namespace EasyLOB.Data
         (
             string Name,
             bool IsIdentity,
-            string[] Keys,
+            List<string> Keys,
             string Lookup,
             string LINQOrderBy,
             string LINQWhere,
@@ -191,7 +191,7 @@ namespace EasyLOB.Data
             //int RecordsByLookup = 0,
             //int RecordsByPage = 0,
             //int RecordsBySearch = 0
-            string[] Associations,
+            List<string> Associations,
             Dictionary<string, bool> Collections,
             List<IZProfileProperty> Properties
         )

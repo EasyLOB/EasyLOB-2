@@ -291,7 +291,7 @@ namespace EasyLOB.Persistence
         public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<Expression<Func<TEntity, object>>> associations)
         {
             associations = associations != null && associations.Count() > 0 ?
-                associations : LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations);
+                associations : LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations.ToArray());
 
             if (query != null && associations != null)
             {
@@ -306,7 +306,7 @@ namespace EasyLOB.Persistence
             return query;
         }
 
-        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, string[] associations)
+        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<string> associations)
         {
             associations = associations != null && associations.Count() > 0 ?
                 associations : Profile.Associations;
@@ -314,8 +314,8 @@ namespace EasyLOB.Persistence
             if (query != null && associations != null)
             {
                 List<Expression<Func<TEntity, object>>> associationsExpression = associations != null && associations.Count() > 0 ?
-                        LambdaHelper<TEntity>.ToFuncProperty(associations) :
-                        LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations);
+                        LambdaHelper<TEntity>.ToFuncProperty(associations.ToArray()) :
+                        LambdaHelper<TEntity>.ToFuncProperty(Profile.Associations.ToArray());
                 query = Join(query, associationsExpression);
             }
 
@@ -368,7 +368,7 @@ namespace EasyLOB.Persistence
             string orderBy = null,
             int? skip = null,
             int? take = null,
-            string[] associations = null)
+            List<string> associations = null)
         {
             IQueryable<TEntity> query = Session.Query<TEntity>();
 

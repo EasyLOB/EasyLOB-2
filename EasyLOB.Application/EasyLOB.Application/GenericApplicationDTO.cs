@@ -232,7 +232,7 @@ namespace EasyLOB.Application
             string orderBy = null,
             int? skip = null,
             int? take = null,
-            string[] associations = null)
+            List<string> associations = null)
         {
             IEnumerable<TEntityDTO> result = new List<TEntityDTO>();
 

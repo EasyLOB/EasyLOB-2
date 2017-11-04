@@ -303,7 +303,7 @@ namespace EasyLOB.Persistence
             return Join(query);
         }
 
-        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, string[] associations)
+        public virtual IQueryable<TEntity> Join(IQueryable<TEntity> query, List<string> associations)
         {
             return Join(query);
         }
@@ -312,7 +312,7 @@ namespace EasyLOB.Persistence
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
             int? take = null,
-            //string[] associations = null)
+            //List<string> associations = null)
             List<Expression<Func<TEntity, object>>> associations = null)
         {
             IQueryable<TEntity> query = Query;
@@ -358,7 +358,7 @@ namespace EasyLOB.Persistence
             string orderBy = null,
             int? skip = null,
             int? take = null,
-            string[] associations = null)
+            List<string> associations = null)
         {
             IQueryable<TEntity> query = Query;
 

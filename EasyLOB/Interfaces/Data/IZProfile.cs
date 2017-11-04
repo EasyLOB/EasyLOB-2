@@ -10,7 +10,7 @@ namespace EasyLOB.Data
 
         bool IsIdentity { get; }
 
-        string[] Keys { get; }
+        List<string> Keys { get; }
 
         string Lookup { get; }
 
@@ -28,7 +28,7 @@ namespace EasyLOB.Data
 
         //int RecordsBySearch { get; }
 
-        string[] Associations { get; }
+        List<string> Associations { get; }
 
         Dictionary<string, bool> Collections { get; }
 
