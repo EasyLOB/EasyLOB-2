@@ -34,14 +34,15 @@ namespace EasyLOB.Library.Syncfusion
 
         public static void ExcelAutoAlign(IWorksheet worksheet, int columns, bool data = true)
         {
-            worksheet.AutoAlign(1, columns);
-            if (data)
-            {
-                foreach (IRange range in worksheet.Columns)
-                {
-                    range.ColumnWidth += 2;
-                }
-            }
+            //worksheet.AutoAlign(1, columns);
+
+            //if (data)
+            //{
+            //    for (int column = 0; column < columns; column++)
+            //    {
+            //        worksheet.Columns[column].ColumnWidth += 2;
+            //    }
+            //}
         }
 
         #endregion Methods Excel
