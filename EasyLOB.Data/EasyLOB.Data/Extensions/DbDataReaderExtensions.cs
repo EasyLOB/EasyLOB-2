@@ -401,7 +401,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static byte[] ToBinaryNullable(this DbDataReader reader, string column)
         {
-            return ToBinary(reader, reader.GetOrdinal(column));
+            return ToBinaryNullable(reader, reader.GetOrdinal(column));
         }
 
         // Boolean
@@ -423,9 +423,9 @@ namespace EasyLOB.Data
         /// <param name="reader">DataReader</param>
         /// <param name="column">Column</param>
         /// <returns></returns>
-        public static Boolean? ToBooleanTimeNullable(this DbDataReader reader, string column)
+        public static Boolean? ToBooleanNullable(this DbDataReader reader, string column)
         {
-            return ToBoolean(reader, reader.GetOrdinal(column));
+            return ToBooleanNullable(reader, reader.GetOrdinal(column));
         }
 
         // DateTime
@@ -449,7 +449,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static DateTime? ToDateTimeNullable(this DbDataReader reader, string column)
         {
-            return ToDateTime(reader, reader.GetOrdinal(column));
+            return ToDateTimeNullable(reader, reader.GetOrdinal(column));
         }
 
         // Decimal
@@ -473,7 +473,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static decimal? ToDecimalNullable(this DbDataReader reader, string column)
         {
-            return ToDecimal(reader, reader.GetOrdinal(column));
+            return ToDecimalNullable(reader, reader.GetOrdinal(column));
         }
 
         // Double
@@ -497,7 +497,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static double? ToDoubleNullable(this DbDataReader reader, string column)
         {
-            return ToDouble(reader, reader.GetOrdinal(column));
+            return ToDoubleNullable(reader, reader.GetOrdinal(column));
         }
 
         // Guid
@@ -521,7 +521,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static Guid? ToGuidNullable(this DbDataReader reader, string column)
         {
-            return ToGuid(reader, reader.GetOrdinal(column));
+            return ToGuidNullable(reader, reader.GetOrdinal(column));
         }
 
         // Int16
@@ -545,7 +545,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static short? ToInt16Nullable(this DbDataReader reader, string column)
         {
-            return ToInt16(reader, reader.GetOrdinal(column));
+            return ToInt16Nullable(reader, reader.GetOrdinal(column));
         }
 
         // Int32
@@ -569,7 +569,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static int? ToInt32Nullable(this DbDataReader reader, string column)
         {
-            return ToInt32(reader, reader.GetOrdinal(column));
+            return ToInt32Nullable(reader, reader.GetOrdinal(column));
         }
 
         // Int64
@@ -593,7 +593,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static long? ToInt64Nullable(this DbDataReader reader, string column)
         {
-            return ToInt64(reader, reader.GetOrdinal(column));
+            return ToInt64Nullable(reader, reader.GetOrdinal(column));
         }
 
         // Single
@@ -617,7 +617,7 @@ namespace EasyLOB.Data
         /// <returns></returns>
         public static float? ToSingleNullable(this DbDataReader reader, string column)
         {
-            return ToSingle(reader, reader.GetOrdinal(column));
+            return ToSingleNullable(reader, reader.GetOrdinal(column));
         }
 
         // String
