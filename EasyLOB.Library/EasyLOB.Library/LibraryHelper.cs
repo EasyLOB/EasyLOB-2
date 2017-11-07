@@ -95,7 +95,7 @@ namespace EasyLOB.Library
                     { ZFileTypes.ftXLS, ".xls" },
                     { ZFileTypes.ftXLSX, ".xlsx" },
                     // Image
-                    { ZFileTypes.ftJPG, ".jpg" },
+                    { ZFileTypes.ftJPG, ".jpg" }, // .jpeg GetFileType()
                     { ZFileTypes.ftPNG, ".png" },
                     // Audio
                     { ZFileTypes.ftMP3, ".mp3" },
@@ -1381,6 +1381,9 @@ namespace EasyLOB.Library
         public static ZFileTypes GetFileType(string acronymOrExtension)
         {
             ZFileTypes fileType = ZFileTypes.ftUnknown;
+
+            acronymOrExtension = acronymOrExtension.ToLower();
+            acronymOrExtension = acronymOrExtension.Replace("jpeg", "jpg");
 
             // Acronyms
 
