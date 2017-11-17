@@ -93,12 +93,11 @@ namespace EasyLOB.AuditTrail
             return operationResult.Ok;
         }
 
-        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation, out string logMode) // ??????
+        public bool IsAuditTrail(string logDomain, string logEntity, string logOperation, out string logMode)
         {
             bool result = false;
             logMode = "N";
 
-            /*
             if (AuditTrailHelper.IsAuditTrail)
             {
                 IGenericRepository<AuditTrailConfiguration> repository = UnitOfWork.GetRepository<AuditTrailConfiguration>();
@@ -111,7 +110,6 @@ namespace EasyLOB.AuditTrail
                     logMode = auditTrailConfiguration.LogMode;
                 }
             }
-             */
 
             return result;
         }

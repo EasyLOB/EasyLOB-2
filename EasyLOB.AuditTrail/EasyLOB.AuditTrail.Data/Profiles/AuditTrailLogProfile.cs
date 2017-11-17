@@ -13,7 +13,7 @@ namespace EasyLOB.AuditTrail.Data
             IsIdentity: true,
             Keys: new List<string> { "Id" },
             Lookup: "LogUserName",
-            LINQOrderBy: "LogUserName",
+            LINQOrderBy: "LogTime DESC",
             LINQWhere: "Id == @0",
             Associations: new List<string> { },
             Collections: new Dictionary<string, bool> { },
