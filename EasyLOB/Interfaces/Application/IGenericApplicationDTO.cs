@@ -10,12 +10,6 @@ namespace EasyLOB.Application
         where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
         where TEntity : class, IZDataBase
     {
-        #region Properties
-
-        IQueryable<TEntityDTO> QueryDTO { get; }
-
-        #endregion Properties
-
         #region Methods
 
         bool Create(ZOperationResult operationResult, TEntityDTO entityDTO, bool isTransaction = true);

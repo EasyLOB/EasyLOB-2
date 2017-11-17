@@ -1,8 +1,5 @@
-﻿//using EasyLOB.AuditTrail;
-using EasyLOB.Data;
-//using EasyLOB.Log;
+﻿using EasyLOB.Data;
 using EasyLOB.Persistence;
-//using EasyLOB.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,20 +11,6 @@ namespace EasyLOB.Application
         where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
         where TEntity : class, IZDataBase
     {
-        #region Properties
-
-        public IQueryable<TEntityDTO> QueryDTO
-        {
-            get
-            {
-                TEntityDTO dto = (TEntityDTO)Activator.CreateInstance(typeof(TEntityDTO));
-
-                return Query.Select(dto.GetDTOSelector()).AsQueryable();
-            }
-        }
-
-        #endregion Properties
-
         #region Methods
 
         public GenericApplicationDTO(IUnitOfWork unitOfWork, IDIManager diManager)

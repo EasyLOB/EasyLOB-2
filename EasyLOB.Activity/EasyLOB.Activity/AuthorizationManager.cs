@@ -36,9 +36,9 @@ namespace EasyLOB.Activity
 
             IQueryable<ActivityRole> activityRoles =
                 from
-                    Activity in repositoryActivity.Query
+                    Activity in repositoryActivity.Query()
                 from
-                    ActivityRole in repositoryActivityRole.Query
+                    ActivityRole in repositoryActivityRole.Query()
                 where
                     Activity.Name == activity
                     && ActivityRole.ActivityId == Activity.Id

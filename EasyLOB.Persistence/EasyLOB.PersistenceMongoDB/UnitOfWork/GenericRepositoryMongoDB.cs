@@ -38,17 +38,6 @@ namespace EasyLOB.Persistence
             get { return 10; }
         }
 
-        public virtual IQueryable<TEntity> Query
-        {
-            get
-            {
-                IQueryable<TEntity> query = Collection.AsQueryable<TEntity>();
-                query = Join(query);
-
-                return query;
-            }
-        }
-
         public IUnitOfWork UnitOfWork { get; }
 
         #endregion Properties
@@ -223,7 +212,7 @@ namespace EasyLOB.Persistence
 
             Filter(where);
 
-            entity = Query.Where(where).FirstOrDefault();
+            entity = Query().Where(where).FirstOrDefault();
             Join(entity);
 
             return entity;
@@ -235,7 +224,7 @@ namespace EasyLOB.Persistence
 
             Filter(ref where, ref args);
 
-            entity = Query.Where(where).FirstOrDefault();
+            entity = Query().Where(where).FirstOrDefault();
             Join(entity);
 
             return entity;
@@ -334,7 +323,15 @@ namespace EasyLOB.Persistence
             return Join(query);
         }
 
-        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+        public virtual IQueryable<TEntity> Query()
+        {
+            IQueryable<TEntity> query = Collection.AsQueryable<TEntity>();
+            query = Join(query);
+
+            return query;
+        }
+
+        public virtual IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
             int? take = null,
@@ -372,13 +369,10 @@ namespace EasyLOB.Persistence
 
             //query = Join(query, associations);
 
-            IEnumerable<TEntity> enumerable = query.ToList<TEntity>();
-            Join(enumerable);
-
-            return enumerable;
+            return query;
         }
 
-        public virtual IEnumerable<TEntity> Select(string where = null,
+        public virtual IQueryable<TEntity> Query(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
@@ -429,7 +423,29 @@ namespace EasyLOB.Persistence
 
             //query = Join(query, associations);
 
-            IEnumerable<TEntity> enumerable = query.ToList<TEntity>();
+            return query;
+        }
+
+        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntity, object>>> associations = null)
+        {
+            IEnumerable<TEntity> enumerable = Query(where, orderBy, skip, take, associations).ToList<TEntity>();
+            Join(enumerable);
+
+            return enumerable;
+        }
+
+        public virtual IEnumerable<TEntity> Select(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<string> associations = null)
+        {
+            IEnumerable<TEntity> enumerable = Query(where, args, orderBy, skip, take, associations).ToList<TEntity>();
             Join(enumerable);
 
             return enumerable;
@@ -437,7 +453,7 @@ namespace EasyLOB.Persistence
 
         public virtual IEnumerable<TEntity> SelectAll()
         {
-            IEnumerable<TEntity> enumerable = Query.ToList<TEntity>();
+            IEnumerable<TEntity> enumerable = Query().ToList<TEntity>();
             Join(enumerable);
 
             return enumerable;

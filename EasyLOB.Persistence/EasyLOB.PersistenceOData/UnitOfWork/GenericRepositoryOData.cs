@@ -36,17 +36,6 @@ namespace EasyLOB.Persistence
             get { return 10; }
         }
 
-        public virtual IQueryable<TEntityDTO> Query
-        {
-            get
-            {
-                IQueryable<TEntityDTO> query = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>();
-                query = Join(query);
-
-                return query;
-            }
-        }
-
         public IUnitOfWorkDTO UnitOfWork { get; }
 
         #endregion Properties
@@ -84,7 +73,7 @@ namespace EasyLOB.Persistence
 
             if (where != null)
             {
-                result = Query.Count(where);
+                result = Query().Count(where);
             }
             else
             {
@@ -104,11 +93,11 @@ namespace EasyLOB.Persistence
             {
                 if (args != null)
                 {
-                    result = Query.Where(where, args).Count();
+                    result = Query().Where(where, args).Count();
                 }
                 else
                 {
-                    result = Query.Where(where).Count();
+                    result = Query().Where(where).Count();
                 }
             }
             else
@@ -121,7 +110,7 @@ namespace EasyLOB.Persistence
 
         public virtual int CountAll()
         {
-            return Query.Count();
+            return Query().Count();
         }
 
         public virtual bool Create(ZOperationResult operationResult, TEntityDTO entity)
@@ -204,14 +193,14 @@ namespace EasyLOB.Persistence
         {
             Filter(where);
 
-            return Query.Where(where).FirstOrDefault();
+            return Query().Where(where).FirstOrDefault();
         }
 
         public virtual TEntityDTO Get(string where, object[] args = null)
         {
             Filter(ref where, ref args);
 
-            return Query.Where(where).FirstOrDefault();
+            return Query().Where(where).FirstOrDefault();
         }
 
         public virtual TEntityDTO GetById(object id)
@@ -281,13 +270,21 @@ namespace EasyLOB.Persistence
             return Join(query);
         }
 
-        public virtual IEnumerable<TEntityDTO> Select(Expression<Func<TEntityDTO, bool>> where = null,
+        public virtual IQueryable<TEntityDTO> Query()
+        {
+            IQueryable<TEntityDTO> query = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>();
+            query = Join(query);
+
+            return query;
+        }
+
+        public virtual IQueryable<TEntityDTO> Query(Expression<Func<TEntityDTO, bool>> where = null,
             Func<IQueryable<TEntityDTO>, IOrderedQueryable<TEntityDTO>> orderBy = null,
             int? skip = null,
             int? take = null,
             List<Expression<Func<TEntityDTO, object>>> associations = null)
         {
-            IQueryable<TEntityDTO> query = Query;
+            IQueryable<TEntityDTO> query = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>();
 
             Filter(where);
 
@@ -317,19 +314,19 @@ namespace EasyLOB.Persistence
                 query = query.Take((int)take);
             }
 
-            query = Join(query, associations);
+            //query = Join(query, associations);
 
-            return query.ToList<TEntityDTO>();
+            return query;
         }
 
-        public virtual IEnumerable<TEntityDTO> Select(string where = null,
+        public virtual IQueryable<TEntityDTO> Query(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
             int? take = null,
             string[] associations = null)
         {
-            IQueryable<TEntityDTO> query = Query;
+            IQueryable<TEntityDTO> query = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>();
 
             Filter(ref where, ref args);
 
@@ -371,6 +368,31 @@ namespace EasyLOB.Persistence
                 query = query.Take((int)take);
             }
 
+            //query = Join(query, associations);
+
+            return query;
+        }
+
+        public virtual IEnumerable<TEntityDTO> Select(Expression<Func<TEntityDTO, bool>> where = null,
+            Func<IQueryable<TEntityDTO>, IOrderedQueryable<TEntityDTO>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntityDTO, object>>> associations = null)
+        {
+            IQueryable<TEntityDTO> query = Query(where, orderBy, skip, take, associations);
+            query = Join(query, associations);
+
+            return query.ToList<TEntityDTO>();
+        }
+
+        public virtual IEnumerable<TEntityDTO> Select(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            string[] associations = null)
+        {
+            IQueryable<TEntityDTO> query = Query(where, args, orderBy, skip, take, associations);
             query = Join(query, associations);
 
             return query.ToList<TEntityDTO>();
@@ -378,7 +400,7 @@ namespace EasyLOB.Persistence
 
         public virtual IEnumerable<TEntityDTO> SelectAll()
         {
-            return Query.ToList();
+            return Query().ToList();
         }
 
         public virtual void SetSequence(int value)

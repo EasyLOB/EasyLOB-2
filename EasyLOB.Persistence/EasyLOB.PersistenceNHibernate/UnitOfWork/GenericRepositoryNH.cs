@@ -36,17 +36,6 @@ namespace EasyLOB.Persistence
             get { return 10; }
         }
 
-        public virtual IQueryable<TEntity> Query
-        {
-            get
-            {
-                IQueryable<TEntity> query = Session.Query<TEntity>();
-                query = Join(query);
-
-                return query;
-            }
-        }
-
         public IUnitOfWork UnitOfWork { get; }
 
         #endregion Properties
@@ -322,7 +311,15 @@ namespace EasyLOB.Persistence
             return query;
         }
 
-        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+        public virtual IQueryable<TEntity> Query()
+        {
+            IQueryable<TEntity> query = Session.Query<TEntity>();
+            query = Join(query);
+
+            return query;
+        }
+
+        public virtual IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
             int? take = null,
@@ -360,10 +357,10 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            return query.ToList<TEntity>();
+            return query;
         }
 
-        public virtual IEnumerable<TEntity> Select(string where = null,
+        public virtual IQueryable<TEntity> Query(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
@@ -414,12 +411,31 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            return query.ToList<TEntity>();
+            return query;
+        }
+
+        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntity, object>>> associations = null)
+        {
+            return Query(where, orderBy, skip, take, associations).ToList<TEntity>();
+        }
+
+        public virtual IEnumerable<TEntity> Select(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<string> associations = null)
+        {
+            return Query(where, args, orderBy, skip, take, associations).ToList<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> SelectAll()
         {
-            return Query.ToList<TEntity>();
+            return Query().ToList<TEntity>();
         }
 
         public void SetSequence(int value)

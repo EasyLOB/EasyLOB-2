@@ -27,11 +27,6 @@ namespace EasyLOB.Persistence
         int Joins { get; }
 
         /// <summary>
-        /// IQueryable.
-        /// </summary>
-        IQueryable<TEntityDTO> Query { get; }
-
-        /// <summary>
         /// Unit of Work.
         /// </summary>
         IUnitOfWorkDTO UnitOfWork { get; }
@@ -52,7 +47,7 @@ namespace EasyLOB.Persistence
         /// </summary>
         /// <param name="where">Where Dynamic LINQ expression</param>
         /// <param name="args">Arguments</param>
-        /// <returns>Ok ?</returns>
+        /// <returns>Count</returns>
         int Count(string where, object[] args = null);
 
         /// <summary>
@@ -166,6 +161,44 @@ namespace EasyLOB.Persistence
         /// <param name="associations">Associations</param>
         /// <returns>IQueryable</returns>
         IQueryable<TEntityDTO> Join(IQueryable<TEntityDTO> query, string[] associations = null);
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntityDTO> Query();
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <param name="where">Where LINQ expression</param>
+        /// <param name="orderBy">Order By LINQ expression</param>
+        /// <param name="skip">Records to skip</param>
+        /// <param name="take">Records to take</param>
+        /// <param name="associations">Associations LINQ expression</param>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntityDTO> Query(Expression<Func<TEntityDTO, bool>> where = null,
+            Func<IQueryable<TEntityDTO>, IOrderedQueryable<TEntityDTO>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntityDTO, object>>> associations = null);
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <param name="where">Where Dynamic LINQ expression</param>
+        /// <param name="args">Arguments</param>
+        /// <param name="orderBy">Order By Dynamic LINQ expression</param>
+        /// <param name="skip">Records to skip</param>
+        /// <param name="take">Records to take</param>
+        /// <param name="associations">Associations</param>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntityDTO> Query(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            string[] associations = null);
 
         /// <summary>
         /// Select

@@ -31,11 +31,6 @@ namespace EasyLOB.Persistence
         int Joins { get; }
 
         /// <summary>
-        /// IQueryable.
-        /// </summary>
-        IQueryable<TEntity> Query { get; }
-
-        /// <summary>
         /// Unit of Work.
         /// </summary>
         IUnitOfWork UnitOfWork { get; }
@@ -170,6 +165,45 @@ namespace EasyLOB.Persistence
         /// <param name="associations">Associations</param>
         /// <returns></returns>
         IQueryable<TEntity> Join(IQueryable<TEntity> query, List<string> associations = null);
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Query();
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <param name="where">Where LINQ expression</param>
+        /// <param name="orderBy">Order By LINQ expression</param>
+        /// <param name="skip">Records to skip</param>
+        /// <param name="take">Records to take</param>
+        /// <param name="associations">Associations LINQ expression</param>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            //List<string> associations = null);
+            List<Expression<Func<TEntity, object>>> associations = null);
+
+        /// <summary>
+        /// IQueryable.
+        /// </summary>
+        /// <param name="where">Where Dynamic LINQ expression</param>
+        /// <param name="args">Arguments</param>
+        /// <param name="orderBy">Order By Dynamic LINQ expression</param>
+        /// <param name="skip">Records to skip</param>
+        /// <param name="take">Records to take</param>
+        /// <param name="associations">Associations</param>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Query(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<string> associations = null);
 
         /// <summary>
         /// Select.

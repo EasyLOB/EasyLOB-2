@@ -136,7 +136,7 @@ namespace EasyLOB.Persistence
         public virtual IQueryable<TEntity> GetQuery<TEntity>()
             where TEntity : class, IZDataBase
         {
-            return GetRepository<TEntity>().Query;
+            return GetRepository<TEntity>().Query();
         }
 
         public virtual IGenericRepository<TEntity> GetRepository<TEntity>()

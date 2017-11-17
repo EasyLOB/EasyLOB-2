@@ -15,11 +15,6 @@ namespace EasyLOB.Application
     {
         #region Properties
 
-        public virtual IQueryable<TEntity> Query
-        {
-            get { return Repository.Query; }
-        }
-
         public IGenericRepository<TEntity> Repository
         {
             get { return UnitOfWork.GetRepository<TEntity>(); }

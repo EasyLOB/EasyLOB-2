@@ -15,8 +15,6 @@ namespace EasyLOB.Application
     {
         #region Properties
 
-        IQueryable<TEntity> Query { get; }
-
         IGenericRepository<TEntity> Repository { get; }
 
         IUnitOfWork UnitOfWork { get; }

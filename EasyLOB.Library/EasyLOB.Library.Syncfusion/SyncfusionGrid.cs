@@ -449,4 +449,27 @@ namespace EasyLOB.Library.Syncfusion
 
         #endregion Methods Sycnfusion.Javascript.DataManager - LookupText
     }
+
+    public class SyncfusionDataResult
+    {
+        #region Properties
+
+        public IEnumerable result { get; set; }
+
+        public int count { get; set; }
+
+        public IEnumerable aggregate { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public SyncfusionDataResult()
+        {
+            this.count = 0;
+            this.aggregate = new List<object>();
+        }
+
+        #endregion Methods
+    }
 }

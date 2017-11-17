@@ -36,18 +36,6 @@ namespace EasyLOB.Persistence
             get { return 10; }
         }
 
-        public virtual IQueryable<TEntity> Query
-        {
-            get
-            {
-                IQueryable<TEntity> query = Set.AsQueryable<TEntity>();
-                query = Join(query);
-
-                return query
-                    .AsNoTracking();
-            }
-        }
-
         public IUnitOfWork UnitOfWork { get; }
 
         #endregion Properties
@@ -218,22 +206,12 @@ namespace EasyLOB.Persistence
 
         public virtual TEntity Get(Expression<Func<TEntity, bool>> where)
         {
-            Filter(where);
-
-            return Query
-                //.AsNoTracking()
-                .Where(where)
-                .FirstOrDefault();
+            return Query(where).FirstOrDefault();
         }
 
         public virtual TEntity Get(string where, object[] args = null)
         {
-            Filter(ref where, ref args);
-
-            return Query
-                //.AsNoTracking()
-                .Where(where)
-                .FirstOrDefault();
+            return Query(where, args).FirstOrDefault();
         }
 
         public virtual TEntity GetById(object id)
@@ -347,16 +325,21 @@ namespace EasyLOB.Persistence
             return query;
         }
 
-        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+        public virtual IQueryable<TEntity> Query()
+        {
+            IQueryable<TEntity> query = Set.AsQueryable<TEntity>();
+            query = Join(query);
+
+            return query.AsNoTracking();
+        }
+
+        public virtual IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
             int? take = null,
             List<Expression<Func<TEntity, object>>> associations = null)
         {
-            IQueryable<TEntity> query = Set
-                .AsQueryable<TEntity>()
-                .AsNoTracking(); // Query() without Join()
-            //IQueryable<TEntity> query = Set; // Query() without Join()
+            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
 
             Filter(where);
 
@@ -388,22 +371,17 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            return query
-                //.AsNoTracking()
-                .ToList<TEntity>();
+            return query.AsNoTracking();
         }
 
-        public virtual IEnumerable<TEntity> Select(string where = null,
+        public virtual IQueryable<TEntity> Query(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
             int? take = null,
             List<string> associations = null)
         {
-            IQueryable<TEntity> query = Set
-                .AsQueryable<TEntity>()
-                .AsNoTracking(); // Query() without Join()
-            //IQueryable<TEntity> query = Set; // Query() without Join()
+            IQueryable<TEntity> query = Set.AsQueryable<TEntity>(); // Query() without Join()
 
             Filter(ref where, ref args);
 
@@ -447,16 +425,31 @@ namespace EasyLOB.Persistence
 
             query = Join(query, associations);
 
-            return query
-                //.AsNoTracking()
-                .ToList<TEntity>();
+            return query.AsNoTracking();
+        }
+
+        public virtual IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> where = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<Expression<Func<TEntity, object>>> associations = null)
+        {
+            return Query(where, orderBy, skip, take, associations).ToList<TEntity>();
+        }
+
+        public virtual IEnumerable<TEntity> Select(string where = null,
+            object[] args = null,
+            string orderBy = null,
+            int? skip = null,
+            int? take = null,
+            List<string> associations = null)
+        {
+            return Query(where, args, orderBy, skip, take, associations).ToList<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> SelectAll()
         {
-            return Query
-                //.AsNoTracking()
-                .ToList<TEntity>();
+            return Query().ToList<TEntity>();
         }
 
         public void SetSequence(int value)

@@ -79,7 +79,7 @@ namespace EasyLOB.Persistence
             where TEntityDTO : class, IZDTOBase<TEntityDTO, TEntity>
             where TEntity : class, IZDataBase
         {
-            return GetRepository<TEntityDTO, TEntity>().Query;
+            return GetRepository<TEntityDTO, TEntity>().Query();
         }
 
         public virtual IGenericRepositoryDTO<TEntityDTO, TEntity> GetRepository<TEntityDTO, TEntity>()
