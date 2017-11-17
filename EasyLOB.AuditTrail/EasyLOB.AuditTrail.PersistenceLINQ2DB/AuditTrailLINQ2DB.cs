@@ -9,7 +9,7 @@ namespace EasyLOB.AuditTrail.Persistence
         #region Methods
         public AuditTrailLINQ2DB()
             //: base("AuditTrail")
-            : base(EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("AuditTrail")) // !?! Multi-Tenant
+            : base(EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("AuditTrail")) // !?! Multi-Tenant
         {
             AuditTrailLINQ2DBMap.AuditTrailConfigurationMap(MappingSchema);
             AuditTrailLINQ2DBMap.AuditTrailLogMap(MappingSchema);

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using EasyLOB.Security;
+using System.Collections.Generic;
 
-namespace EasyLOB.Security
+namespace EasyLOB.Library.App
 {
     public class AppProfile
     {
@@ -16,6 +17,12 @@ namespace EasyLOB.Security
 
         #endregion Properties User
 
+        #region Properties Audit Trail
+
+        public List<AppProfileAuditTrail> AuditTrail { get; }
+
+        #endregion Properties Audit Trail
+
         #region Methods
 
         public AppProfile()
@@ -24,6 +31,8 @@ namespace EasyLOB.Security
             IsAuthenticated = false;
             Roles = new List<string>();
             UserName = "";
+
+            AuditTrail = new List<AppProfileAuditTrail>();
         }
 
         public AppProfile(IAuthenticationManager authenticationManager)
@@ -32,8 +41,25 @@ namespace EasyLOB.Security
             IsAuthenticated = authenticationManager.IsAuthenticated;
             Roles = authenticationManager.Roles;
             UserName = authenticationManager.UserName;
+
+            AuditTrail = new List<AppProfileAuditTrail>();
         }
 
         #endregion Methods
+    }
+
+    public class AppProfileAuditTrail
+    {
+        #region Properties
+
+        public string Domain { get; set; }
+
+        public string Entity { get; set; }
+
+        public string LogMode { get; set; }
+
+        public string LogOperations { get; set; }
+
+        #endregion Properties
     }
 }

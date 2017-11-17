@@ -33,7 +33,7 @@ namespace EasyLOB.Identity
                 .Database(MsSqlConfiguration
                     .MsSql2008
                     //.ConnectionString(x => x.FromConnectionStringWithKey("Identity"))
-                    .ConnectionString(x => x.FromConnectionStringWithKey(EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"))) // !?! Multi-Tenant
+                    .ConnectionString(x => x.FromConnectionStringWithKey(EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("Identity"))) // !?! Multi-Tenant
                     .Driver<SqlClientDriverEasyLOB>
                 )
                 .ExposeConfiguration(x =>
@@ -83,7 +83,7 @@ namespace EasyLOB.Identity
                 .Database(MsSqlConfiguration
                     .MsSql2008
                     //.ConnectionString(x => x.FromConnectionStringWithKey("Identity"))
-                    .ConnectionString(x => x.FromConnectionStringWithKey(EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"))) // !?! Multi-Tenant
+                    .ConnectionString(x => x.FromConnectionStringWithKey(EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("Identity"))) // !?! Multi-Tenant
                     .Driver<SqlClientDriverEasyLOB>
                 )
                 .ExposeConfiguration(x =>

@@ -1,20 +1,19 @@
 ﻿using EasyLOB.AuditTrail.Data;
 using EasyLOB.Data;
+using EasyLOB.Library.App;
 using EasyLOB.Persistence;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace EasyLOB.AuditTrail
 {
     public class AuditTrailManager : IAuditTrailManager
     {
-        #region Properties AuditTrailManager
+        #region Properties
 
         public IAuditTrailUnitOfWork UnitOfWork { get; }
 
-        #endregion Properties AuditTrailManager
+        #endregion Properties
 
         #region Methods
 
@@ -100,15 +99,28 @@ namespace EasyLOB.AuditTrail
 
             if (AuditTrailHelper.IsAuditTrail)
             {
-                IGenericRepository<AuditTrailConfiguration> repository = UnitOfWork.GetRepository<AuditTrailConfiguration>();
-
-                AuditTrailConfiguration auditTrailConfiguration = repository
-                    .Get(x => x.Domain == logDomain && x.Entity == logEntity && x.LogOperations.Contains(logOperation));
-                if (auditTrailConfiguration != null)
+                foreach (AppProfileAuditTrail auditTrail in ProfileHelper.Profile.AuditTrail)
                 {
-                    result = true;
-                    logMode = auditTrailConfiguration.LogMode;
+                    if (auditTrail.Domain == logDomain && auditTrail.Entity == logOperation)
+                    {
+                        if (auditTrail.LogOperations.Contains(logOperation))
+                        {
+                            result = true;
+                            logMode = auditTrail.LogMode;
+                        }
+
+                        break;
+                    }
                 }
+
+                //AuditTrailConfiguration auditTrailConfiguration = UnitOfWork
+                //    .GetRepository<AuditTrailConfiguration>()
+                //    .Get(x => x.Domain == logDomain && x.Entity == logEntity && x.LogOperations.Contains(logOperation));
+                //if (auditTrailConfiguration != null)
+                //{
+                //    result = true;
+                //    logMode = auditTrailConfiguration.LogMode;
+                //}
             }
 
             return result;

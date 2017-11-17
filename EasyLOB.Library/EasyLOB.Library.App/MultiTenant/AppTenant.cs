@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EasyLOB.Library.Web
+namespace EasyLOB.Library.App
 {
     public class AppTenant
     {

@@ -7,7 +7,7 @@ namespace EasyLOB.Identity
     {
         public ApplicationDbContext()
             //: base("Identity")
-            : base("Name=" + EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"))
+            : base("Name=" + EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("Identity"))
         {
         }
 
@@ -16,7 +16,7 @@ namespace EasyLOB.Identity
             /*
             // Refer to <configuration><entityframework><contexts> section in Web.config or App.config
             //string providerName = AdoNetHelper.GetProviderName("Identity");
-            string providerName = AdoNetHelper.GetProviderName(EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Identity"));
+            string providerName = AdoNetHelper.GetProviderName(EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("Identity"));
             switch (providerName)
             {
                 case "MySql.Data.MySqlClient":

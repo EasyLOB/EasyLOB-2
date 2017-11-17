@@ -105,6 +105,10 @@
       <Project>{2d9412e9-8719-4bda-9957-f4e9df5deb8f}</Project>
       <Name>EasyLOB.Extensions.Mail</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library.App\EasyLOB.Library.App.csproj">
+      <Project>{c4761cd5-0ae1-41c0-9244-7975440ae9d1}</Project>
+      <Name>EasyLOB.Library.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library.Web\EasyLOB.Library.Web.csproj">
       <Project>{1b39afb2-8fe2-46f6-8544-520cd16c3e0b}</Project>
       <Name>EasyLOB.Library.Web</Name>

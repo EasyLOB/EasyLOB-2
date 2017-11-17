@@ -10,7 +10,7 @@ namespace EasyLOB.Activity.Persistence
     
         public ActivityLINQ2DB()
             //: base("Activity")
-            : base(EasyLOB.Library.Web.MultiTenantHelper.GetConnectionName("Activity")) // !?! Multi-Tenant
+            : base(EasyLOB.Library.App.MultiTenantHelper.GetConnectionName("Activity")) // !?! Multi-Tenant
         {
             ActivityLINQ2DBMap.ActivityMap(MappingSchema);
             ActivityLINQ2DBMap.ActivityRoleMap(MappingSchema);

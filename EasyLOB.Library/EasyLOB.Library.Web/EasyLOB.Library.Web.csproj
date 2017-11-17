@@ -40,8 +40,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MultiTenant\AppTenant.cs" />
-    <Compile Include="MultiTenant\MultiTenantHelper.cs" />
     <Compile Include="ResourcesManager.cs" />
     <Compile Include="SessionHelper.cs" />
     <Compile Include="WebHelper.cs" />
@@ -54,6 +52,14 @@
     <ProjectReference Include="..\..\EasyLOB.Extensions\EasyLOB.Extensions.Ini\EasyLOB.Extensions.Ini.csproj">
       <Project>{7a3b48cd-b1ef-494e-8692-6d8a26997f07}</Project>
       <Name>EasyLOB.Extensions.Ini</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EasyLOB.Security\EasyLOB.Security\EasyLOB.Security.csproj">
+      <Project>{cd519bed-67d7-4be8-a3a5-7ddad88ceed5}</Project>
+      <Name>EasyLOB.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EasyLOB\EasyLOB.csproj">
+      <Project>{6706907a-8932-46e7-a1c8-7575130ff8f7}</Project>
+      <Name>EasyLOB</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyLOB.Library\EasyLOB.Library.csproj">
       <Project>{55b7716b-36a3-442d-9e9e-9caab7db592e}</Project>

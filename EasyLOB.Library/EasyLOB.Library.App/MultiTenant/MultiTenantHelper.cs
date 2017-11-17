@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using EasyLOB.Library.Web;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
-namespace EasyLOB.Library.Web
+namespace EasyLOB.Library.App
 {
     public static class MultiTenantHelper
     {
