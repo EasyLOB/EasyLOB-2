@@ -101,7 +101,7 @@ namespace EasyLOB.AuditTrail
             {
                 foreach (AppProfileAuditTrail auditTrail in ProfileHelper.Profile.AuditTrail)
                 {
-                    if (auditTrail.Domain == logDomain && auditTrail.Entity == logOperation)
+                    if (auditTrail.Domain == logDomain && auditTrail.Entity == logEntity)
                     {
                         if (auditTrail.LogOperations.Contains(logOperation))
                         {

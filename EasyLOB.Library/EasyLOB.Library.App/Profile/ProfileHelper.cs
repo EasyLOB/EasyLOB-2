@@ -55,6 +55,8 @@ namespace EasyLOB.Library.App
                     auditTrail.Entity = auditTrailConfiguration.Entity;
                     auditTrail.LogMode = auditTrailConfiguration.LogMode;
                     auditTrail.LogOperations = auditTrailConfiguration.LogOperations;
+
+                    profile.AuditTrail.Add(auditTrail);
                 }
 
                 SessionHelper.Write(SessionName, profile);
