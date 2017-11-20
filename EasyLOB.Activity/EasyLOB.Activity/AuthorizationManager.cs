@@ -30,18 +30,21 @@ namespace EasyLOB.Activity
 
         protected IQueryable<ActivityRole> GetActivityRoles(string activity)
         {
-            IGenericRepository<ActivityRole> repositoryActivityRole = UnitOfWork.GetRepository<ActivityRole>();
-            IGenericRepository<EasyLOB.Activity.Data.Activity> repositoryActivity = UnitOfWork.GetRepository<EasyLOB.Activity.Data.Activity>();
-            IGenericRepository<UserRole> repositoryUserRole = UnitOfWork.GetRepository<UserRole>();
+            IQueryable<EasyLOB.Activity.Data.Activity> queryActivity = UnitOfWork.GetQuery<EasyLOB.Activity.Data.Activity>();
+            IQueryable<ActivityRole> queryActivityRole = UnitOfWork.GetQuery<ActivityRole>();
 
-            IQueryable<EasyLOB.Activity.Data.Activity> queryActivity = repositoryActivity.Query(); // ???
-            IQueryable<ActivityRole> queryActivityRole = repositoryActivityRole.Query(); // ???
+            //IGenericRepository<ActivityRole> repositoryActivityRole = UnitOfWork.GetRepository<ActivityRole>();
+            //IGenericRepository<EasyLOB.Activity.Data.Activity> repositoryActivity = UnitOfWork.GetRepository<EasyLOB.Activity.Data.Activity>();
 
             IQueryable<ActivityRole> activityRoles =
                 from
                     Activity in queryActivity
+                    //Activity in UnitOfWork.GetQuery<EasyLOB.Activity.Data.Activity>()
+                    //Activity in repositoryActivity.Query()
                 from
                     ActivityRole in queryActivityRole
+                    //ActivityRole in UnitOfWork.GetQuery<EasyLOB.Activity.Data.ActivityRole>()
+                    //ActivityRole in repositoryActivityRole.Query()
                 where
                     Activity.Name == activity
                     && ActivityRole.ActivityId == Activity.Id
