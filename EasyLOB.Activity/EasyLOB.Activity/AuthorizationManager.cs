@@ -34,11 +34,14 @@ namespace EasyLOB.Activity
             IGenericRepository<EasyLOB.Activity.Data.Activity> repositoryActivity = UnitOfWork.GetRepository<EasyLOB.Activity.Data.Activity>();
             IGenericRepository<UserRole> repositoryUserRole = UnitOfWork.GetRepository<UserRole>();
 
+            IQueryable<EasyLOB.Activity.Data.Activity> queryActivity = repositoryActivity.Query(); // ???
+            IQueryable<ActivityRole> queryActivityRole = repositoryActivityRole.Query(); // ???
+
             IQueryable<ActivityRole> activityRoles =
                 from
-                    Activity in repositoryActivity.Query()
+                    Activity in queryActivity
                 from
-                    ActivityRole in repositoryActivityRole.Query()
+                    ActivityRole in queryActivityRole
                 where
                     Activity.Name == activity
                     && ActivityRole.ActivityId == Activity.Id
