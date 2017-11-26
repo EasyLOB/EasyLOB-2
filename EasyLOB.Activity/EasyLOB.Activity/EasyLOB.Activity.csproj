@@ -43,29 +43,19 @@
     <Compile Include="Interfaces\Persistence\IActivityUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AuthorizationManager.cs" />
-    <Compile Include="Resources\SecurityActivityResources.pt-BR.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SecurityActivityResources.pt-BR.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\SecurityActivityResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SecurityActivityResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SecurityActivityResources.pt-BR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecurityActivityResources.pt-BR.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\SecurityActivityResources.pt-BR.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SecurityActivityResources.pt-BR.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\SecurityActivityResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SecurityActivityResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EasyLOB.Data\EasyLOB.Data\EasyLOB.Data.csproj">
@@ -100,6 +90,16 @@
       <Project>{3fd320bd-301c-4702-807a-79bd097fee0f}</Project>
       <Name>EasyLOB.Activity.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SecurityActivityResources.pt-BR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SecurityActivityResources.pt-BR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SecurityActivityResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SecurityActivityResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

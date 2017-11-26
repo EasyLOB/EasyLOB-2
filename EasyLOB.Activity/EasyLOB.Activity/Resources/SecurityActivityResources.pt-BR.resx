@@ -123,10 +123,10 @@
   <data name="Activity" xml:space="preserve">
     <value>Atividade</value>
   </data>
-  <data name="ActvityOperationAuthorized" xml:space="preserve">
+  <data name="ActivityOperationAuthorized" xml:space="preserve">
     <value>Atividade-Operação "{0}-{1}" autorizada para o usuário "{2}"</value>
   </data>
-  <data name="ActvityOperationNotAuthorized" xml:space="preserve">
+  <data name="ActivityOperationNotAuthorized" xml:space="preserve">
     <value>Atividade-Operação "{0}-{1}" não autorizada para o usuário "{2}" </value>
   </data>
   <data name="Operation" xml:space="preserve">
