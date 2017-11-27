@@ -416,6 +416,11 @@ namespace EasyLOB.Application
 
         #region Methods ActivityOperations
 
+        protected bool IsIndex(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsIndex(ActivityOperations, operationResult);
+        }
+
         protected bool IsSearch(ZOperationResult operationResult)
         {
             return AuthorizationManager.IsSearch(ActivityOperations, operationResult);
@@ -439,6 +444,11 @@ namespace EasyLOB.Application
         protected bool IsDelete(ZOperationResult operationResult)
         {
             return AuthorizationManager.IsDelete(ActivityOperations, operationResult);
+        }
+
+        protected bool IsExport(ZOperationResult operationResult)
+        {
+            return AuthorizationManager.IsExport(ActivityOperations, operationResult);
         }
 
         protected bool IsExecute(ZOperationResult operationResult)

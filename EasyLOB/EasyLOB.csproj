@@ -59,7 +59,7 @@
     <Compile Include="Interfaces\Persistence\IUnitOfWorkDTO.cs" />
     <Compile Include="Interfaces\Security\IAuthenticationManager.cs" />
     <Compile Include="Interfaces\Security\IAuthorizationManager.cs" />
-    <Compile Include="OperationResult\OperationResultModel.cs" />
+    <Compile Include="OperationResult\OperationResultViewModel.cs" />
     <Compile Include="OperationResult\ZOperationStatus.cs" />
     <Compile Include="OperationResult\ZOperationError.cs" />
     <Compile Include="OperationResult\ZOperationMessage.cs" />

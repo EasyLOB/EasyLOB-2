@@ -62,13 +62,13 @@ namespace EasyLOB.Activity
 
             if (AuthenticationManager.IsAdministrator)
             {
+                result.IsIndex = true;
                 result.IsSearch = true;
                 result.IsCreate = true;
                 result.IsRead = true;
                 result.IsUpdate = true;
                 result.IsDelete = true;
                 result.IsExport = true;
-                result.IsImport = true;
                 result.IsExecute = true;
 
                 return result;
@@ -76,11 +76,14 @@ namespace EasyLOB.Activity
 
             if (!String.IsNullOrEmpty(activity))
             {
+                string operationIndexAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Index);
                 string operationSearchAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Search);
                 string operationCreateAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Create);
                 string operationReadAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Read);
                 string operationUpdateAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Update);
                 string operationDeleteAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Delete);
+                string operationExportAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Export);
+                string operationExecuteAcronym = SecurityHelper.GetSecurityOperationAcronym(ZOperations.Execute);
 
                 IGenericRepository<ActivityRole> repositoryActivityRole = UnitOfWork.GetRepository<ActivityRole>();
                 IGenericRepository<EasyLOB.Activity.Data.Activity> repositoryActivity = UnitOfWork.GetRepository<EasyLOB.Activity.Data.Activity>();
@@ -91,11 +94,14 @@ namespace EasyLOB.Activity
                 {
                     string operations = activityRole.Operations.ToUpper();
 
+                    result.IsIndex = result.IsIndex || operations.Contains(operationIndexAcronym);
                     result.IsSearch = result.IsSearch || operations.Contains(operationSearchAcronym);
                     result.IsCreate = result.IsCreate || operations.Contains(operationCreateAcronym);
                     result.IsRead = result.IsRead || operations.Contains(operationReadAcronym);
                     result.IsUpdate = result.IsUpdate || operations.Contains(operationUpdateAcronym);
                     result.IsDelete = result.IsDelete || operations.Contains(operationDeleteAcronym);
+                    result.IsExport = result.IsExport || operations.Contains(operationExportAcronym);
+                    result.IsExecute = result.IsExecute || operations.Contains(operationExecuteAcronym);
                 }
             }
 
@@ -177,17 +183,30 @@ namespace EasyLOB.Activity
         {
             bool result = true;
 
-            if (!activityOperations.IsSearch &&
+            if (!activityOperations.IsIndex && 
+                !activityOperations.IsSearch &&
                 !activityOperations.IsCreate &&
                 !activityOperations.IsRead &&
                 !activityOperations.IsUpdate &&
                 !activityOperations.IsDelete &&
                 !activityOperations.IsExport &&
-                !activityOperations.IsImport &&
                 !activityOperations.IsExecute)
             {
                 result = false;
                 (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity));
+            }
+
+            return result;
+        }
+
+        public bool IsIndex(ZActivityOperations activityOperations, ZOperationResult operationResult)
+        {
+            bool result = true;
+
+            if (!activityOperations.IsIndex)
+            {
+                result = false;
+                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Index));
             }
 
             return result;
@@ -266,19 +285,6 @@ namespace EasyLOB.Activity
             {
                 result = false;
                 (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Export));
-            }
-
-            return result;
-        }
-
-        public bool IsImport(ZActivityOperations activityOperations, ZOperationResult operationResult)
-        {
-            bool result = true;
-
-            if (!activityOperations.IsImport)
-            {
-                result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Import));
             }
 
             return result;

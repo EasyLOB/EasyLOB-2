@@ -21,13 +21,13 @@
         {
             ZActivityOperations activityOperations = new ZActivityOperations();
 
+            activityOperations.IsIndex = true;
             activityOperations.IsSearch = true;
             activityOperations.IsCreate = true;
             activityOperations.IsRead = true;
             activityOperations.IsUpdate = true;
             activityOperations.IsDelete = true;
             activityOperations.IsExport = true;
-            activityOperations.IsImport = true;
             activityOperations.IsExecute = true;
 
             return activityOperations;
@@ -48,6 +48,11 @@
         #region Methods IsOperation
 
         public bool IsOperation(ZActivityOperations activityOperations, ZOperationResult operationResult)
+        {
+            return true;
+        }
+
+        public bool IsIndex(ZActivityOperations activityOperations, ZOperationResult operationResult)
         {
             return true;
         }
@@ -78,11 +83,6 @@
         }
 
         public bool IsExport(ZActivityOperations activityOperations, ZOperationResult operationResult)
-        {
-            return true;
-        }
-
-        public bool IsImport(ZActivityOperations activityOperations, ZOperationResult operationResult)
         {
             return true;
         }

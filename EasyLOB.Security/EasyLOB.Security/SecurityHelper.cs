@@ -11,13 +11,13 @@ namespace EasyLOB.Security
             get
             {
                 return new string[] {
+                    "I", // Index
                     "S", // Search
                     "C", // Create
                     "R", // Read
                     "U", // Update
                     "D", // Delete
                     "E", // Export
-                    "I", // Import
                     "X"  // Execute
                 };
             }
@@ -28,13 +28,13 @@ namespace EasyLOB.Security
             get
             {
                 return new string[] {
+                    "Index", // Index
                     "Search", // Search
                     "Create", // Create
                     "Read",   // Read
                     "Update", // Update
                     "Delete", // Delete
                     "Export", // Export
-                    "Import", // Import
                     "Execute" // Execute
                 };
             }
@@ -222,6 +222,10 @@ namespace EasyLOB.Security
 
             switch (operation)
             {
+                case ZOperations.Index:
+                    result = activityOperations.IsIndex;
+                    break;
+
                 case ZOperations.Search:
                     result = activityOperations.IsSearch;
                     break;
@@ -240,6 +244,14 @@ namespace EasyLOB.Security
 
                 case ZOperations.Delete:
                     result = activityOperations.IsDelete;
+                    break;
+
+                case ZOperations.Export:
+                    result = activityOperations.IsExport;
+                    break;
+
+                case ZOperations.Execute:
+                    result = activityOperations.IsExecute;
                     break;
             }
 

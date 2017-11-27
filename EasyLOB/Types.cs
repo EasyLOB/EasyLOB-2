@@ -74,13 +74,13 @@
     /// </summary>
     public enum ZOperations
     {
+        Index,
         Search,
         Create,
         Read,
         Update,
         Delete,
         Export,
-        Import,
         Execute,
         None
     };

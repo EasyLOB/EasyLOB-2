@@ -6,6 +6,8 @@
 
         public string Activity { get; set; }
 
+        public bool IsIndex { get; set; }
+
         public bool IsSearch { get; set; }
 
         public bool IsCreate { get; set; }
@@ -17,8 +19,6 @@
         public bool IsDelete { get; set; }
 
         public bool IsExport { get; set; }
-
-        public bool IsImport { get; set; }
 
         public bool IsExecute { get; set; }
 

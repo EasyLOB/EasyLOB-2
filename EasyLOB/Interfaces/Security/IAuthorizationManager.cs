@@ -24,6 +24,8 @@ namespace EasyLOB.Security
 
         bool IsOperation(ZActivityOperations activityOperations, ZOperationResult operationResult);
 
+        bool IsIndex(ZActivityOperations activityOperations, ZOperationResult operationResult);
+
         bool IsSearch(ZActivityOperations activityOperations, ZOperationResult operationResult);
 
         bool IsCreate(ZActivityOperations activityOperations, ZOperationResult operationResult);
@@ -35,8 +37,6 @@ namespace EasyLOB.Security
         bool IsDelete(ZActivityOperations activityOperations, ZOperationResult operationResult);
 
         bool IsExport(ZActivityOperations activityOperations, ZOperationResult operationResult);
-
-        bool IsImport(ZActivityOperations activityOperations, ZOperationResult operationResult);
 
         bool IsExecute(ZActivityOperations activityOperations, ZOperationResult operationResult);
 

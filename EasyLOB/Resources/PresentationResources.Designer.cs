@@ -304,15 +304,6 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importar.
-        /// </summary>
-        public static string Import {
-            get {
-                return ResourceManager.GetString("Import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Navigate.
         /// </summary>
         public static string Index {
