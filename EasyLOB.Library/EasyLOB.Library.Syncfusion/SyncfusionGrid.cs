@@ -235,7 +235,8 @@ namespace EasyLOB.Library.Syncfusion
                     where = "(" + where + ")";
                 }
             }
-            else if (whereFilter.value != null)
+            else // == null | != null
+            //else if (whereFilter.value != null)
             {
                 where += WhereExpressionToLinq(whereFilter.Operator, whereFilter.Field, whereFilter.value, arguments, ref argument);
             }
@@ -251,65 +252,83 @@ namespace EasyLOB.Library.Syncfusion
             field = LookupTextToWhere(field);
             if (field != "")
             {
-                // ej.FilterOperators
-                switch (whereOperator.ToLower())
+                if (value != null)
                 {
-                    case "contains": // String
-                        arguments.Add(value);
-                        linq = field + ".Contains(@" + argument++.ToString() + ")";
-                        break;
+                    // ej.FilterOperators
+                    switch (whereOperator.ToLower())
+                    {
+                        case "contains": // String
+                            arguments.Add(value);
+                            linq = field + ".Contains(@" + argument++.ToString() + ")";
+                            break;
 
-                    case "endswith": // String
-                        arguments.Add(value);
-                        linq = field + ".EndsWith(@" + argument++.ToString() + ")";
-                        break;
+                        case "endswith": // String
+                            arguments.Add(value);
+                            linq = field + ".EndsWith(@" + argument++.ToString() + ")";
+                            break;
 
-                    case "equal":
-                        arguments.Add(value);
-                        linq = field + " == @" + argument++.ToString();
-                        //linq = field + ".Equals(@" + argument++.ToString() + ")"; // NULLABLES do not support Equals()
-                        break;
+                        case "equal":
+                            arguments.Add(value);
+                            linq = field + " == @" + argument++.ToString();
+                            //linq = field + ".Equals(@" + argument++.ToString() + ")"; // NULLABLES do not support Equals()
+                            break;
 
-                    case "greaterthan":
-                        arguments.Add(value);
-                        linq = field + " > @" + argument++.ToString();
-                        //linq = field + ".CompareTo(@" + argument++.ToString() + ") > 0"; // NULLABLES do not support CompareTo()
-                        break;
+                        case "greaterthan":
+                            arguments.Add(value);
+                            linq = field + " > @" + argument++.ToString();
+                            //linq = field + ".CompareTo(@" + argument++.ToString() + ") > 0"; // NULLABLES do not support CompareTo()
+                            break;
 
-                    case "greaterthanorequal":
-                        arguments.Add(value);
-                        linq = field + " >= @" + argument++.ToString();
-                        //linq = field + ".CompareTo(@" + argument++.ToString() + ") >= 0"; // NULLABLES do not support CompareTo()
-                        break;
+                        case "greaterthanorequal":
+                            arguments.Add(value);
+                            linq = field + " >= @" + argument++.ToString();
+                            //linq = field + ".CompareTo(@" + argument++.ToString() + ") >= 0"; // NULLABLES do not support CompareTo()
+                            break;
 
-                    case "lessthan":
-                        arguments.Add(value);
-                        linq = field + " < @" + argument++.ToString();
-                        //linq = field + ".CompareTo(@" + argument++.ToString() + ") < 0"; // NULLABLES do not support CompareTo()
-                        break;
+                        case "lessthan":
+                            arguments.Add(value);
+                            linq = field + " < @" + argument++.ToString();
+                            //linq = field + ".CompareTo(@" + argument++.ToString() + ") < 0"; // NULLABLES do not support CompareTo()
+                            break;
 
-                    case "lessthanorequal":
-                        arguments.Add(value);
-                        linq = field + " <= @" + argument++.ToString();
-                        //linq = field + ".CompareTo(@" + argument++.ToString() + ") <= 0"; // NULLABLES do not support CompareTo()
-                        break;
+                        case "lessthanorequal":
+                            arguments.Add(value);
+                            linq = field + " <= @" + argument++.ToString();
+                            //linq = field + ".CompareTo(@" + argument++.ToString() + ") <= 0"; // NULLABLES do not support CompareTo()
+                            break;
 
-                    case "notequal":
-                        arguments.Add(value);
-                        linq = field + " != @" + argument++.ToString();
-                        //linq = "!" + field + ".Equals(@" + argument++.ToString() + ")"; // NULLABLES do not support Equals()
-                        break;
+                        case "notequal":
+                            arguments.Add(value);
+                            linq = field + " != @" + argument++.ToString();
+                            //linq = "!" + field + ".Equals(@" + argument++.ToString() + ")"; // NULLABLES do not support Equals()
+                            break;
 
-                    case "startswith": // String
-                        arguments.Add(value);
-                        linq = field + ".StartsWith(@" + argument++.ToString() + ")";
-                        break;
+                        case "startswith": // String
+                            arguments.Add(value);
+                            linq = field + ".StartsWith(@" + argument++.ToString() + ")";
+                            break;
 
-                    default:
-                        arguments.Add(value);
-                        linq = field + " == @" + argument++.ToString();
-                        break;
+                        default:
+                            arguments.Add(value);
+                            linq = field + " == @" + argument++.ToString();
+                            break;
+                    }
                 }
+                else
+                {
+                    // ej.FilterOperators
+                    switch (whereOperator.ToLower())
+                    {
+                        case "equal":
+                            linq = field + " == null";
+                            break;
+
+
+                        case "notequal":
+                            linq = field + " != null";
+                            break;
+                    }
+                }            
             }
 
             return linq;
