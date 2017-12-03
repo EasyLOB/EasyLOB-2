@@ -373,7 +373,7 @@ namespace EasyLOB.Persistence
             return query;
         }
 
-        public virtual IEnumerable<TEntityDTO> Select(Expression<Func<TEntityDTO, bool>> where = null,
+        public virtual IEnumerable<TEntityDTO> Search(Expression<Func<TEntityDTO, bool>> where = null,
             Func<IQueryable<TEntityDTO>, IOrderedQueryable<TEntityDTO>> orderBy = null,
             int? skip = null,
             int? take = null,
@@ -385,7 +385,7 @@ namespace EasyLOB.Persistence
             return query.ToList<TEntityDTO>();
         }
 
-        public virtual IEnumerable<TEntityDTO> Select(string where = null,
+        public virtual IEnumerable<TEntityDTO> Search(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
@@ -398,7 +398,7 @@ namespace EasyLOB.Persistence
             return query.ToList<TEntityDTO>();
         }
 
-        public virtual IEnumerable<TEntityDTO> SelectAll()
+        public virtual IEnumerable<TEntityDTO> SearchAll()
         {
             return Query().ToList();
         }

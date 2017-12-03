@@ -201,7 +201,7 @@ namespace EasyLOB.Persistence
             string[] associations = null);
 
         /// <summary>
-        /// Select
+        /// Search.
         /// </summary>
         /// <param name="where">Where LINQ expression</param>
         /// <param name="orderBy">Order By LINQ expression</param>
@@ -209,14 +209,14 @@ namespace EasyLOB.Persistence
         /// <param name="take">Records to take</param>
         /// <param name="associations">Associations LINQ expression</param>
         /// <returns>IEnumerable</returns>
-        IEnumerable<TEntityDTO> Select(Expression<Func<TEntityDTO, bool>> where = null,
+        IEnumerable<TEntityDTO> Search(Expression<Func<TEntityDTO, bool>> where = null,
             Func<IQueryable<TEntityDTO>, IOrderedQueryable<TEntityDTO>> orderBy = null,
             int? skip = null,
             int? take = null,
             List<Expression<Func<TEntityDTO, object>>> associations = null);
 
         /// <summary>
-        /// Select.
+        /// Search.
         /// </summary>
         /// <param name="where">Where Dynamic LINQ expression</param>
         /// <param name="args">Arguments</param>
@@ -225,7 +225,7 @@ namespace EasyLOB.Persistence
         /// <param name="take">Records to take</param>
         /// <param name="associations">Associations</param>
         /// <returns>IEnumerable</returns>
-        IEnumerable<TEntityDTO> Select(string where = null,
+        IEnumerable<TEntityDTO> Search(string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
@@ -236,7 +236,7 @@ namespace EasyLOB.Persistence
         /// Select ALL.
         /// </summary>
         /// <returns>IEnumerable</returns>
-        IEnumerable<TEntityDTO> SelectAll();
+        IEnumerable<TEntityDTO> SearchAll();
 
         /// <summary>
         /// Set DBMS Sequence.

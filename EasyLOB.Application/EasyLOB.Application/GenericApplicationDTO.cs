@@ -185,7 +185,7 @@ namespace EasyLOB.Application
             return Repository.GetIds(entity);
         }
 
-        public new IEnumerable<TEntityDTO> Select(ZOperationResult operationResult,
+        public new IEnumerable<TEntityDTO> Search(ZOperationResult operationResult,
             Expression<Func<TEntity, bool>> where = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
@@ -198,7 +198,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    return ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.Select(where, orderBy, skip, take, associations));
+                    return ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.Search(where, orderBy, skip, take, associations));
                 }
             }
             catch (Exception exception)
@@ -209,7 +209,7 @@ namespace EasyLOB.Application
             return result;
         }
 
-        public new IEnumerable<TEntityDTO> Select(ZOperationResult operationResult,
+        public new IEnumerable<TEntityDTO> Search(ZOperationResult operationResult,
             string where = null,
             object[] args = null,
             string orderBy = null,
@@ -223,7 +223,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    return ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.Select(where, args, orderBy, skip, take, associations));
+                    return ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.Search(where, args, orderBy, skip, take, associations));
                 }
             }
             catch (Exception exception)
@@ -234,7 +234,7 @@ namespace EasyLOB.Application
             return result;
         }
 
-        public new IEnumerable<TEntityDTO> SelectAll(ZOperationResult operationResult)
+        public new IEnumerable<TEntityDTO> SearchAll(ZOperationResult operationResult)
         {
             IEnumerable<TEntityDTO> result = new List<TEntityDTO>();
 
@@ -242,7 +242,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    result = ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.SelectAll());
+                    result = ZDTOHelper<TEntityDTO, TEntity>.ToDTOList(Repository.SearchAll());
                 }
             }
             catch (Exception exception)

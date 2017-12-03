@@ -265,7 +265,7 @@ namespace EasyLOB.Application
             return Repository.GetIds(entity);
         }
 
-        public virtual IEnumerable<TEntity> Select(ZOperationResult operationResult, Expression<Func<TEntity, bool>> where = null,
+        public virtual IEnumerable<TEntity> Search(ZOperationResult operationResult, Expression<Func<TEntity, bool>> where = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = null,
             int? take = null,
@@ -277,7 +277,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    result = Repository.Select(where, orderBy, skip, take, associations);
+                    result = Repository.Search(where, orderBy, skip, take, associations);
                 }
             }
             catch (Exception exception)
@@ -288,7 +288,7 @@ namespace EasyLOB.Application
             return result;
         }
 
-        public virtual IEnumerable<TEntity> Select(ZOperationResult operationResult, string where = null,
+        public virtual IEnumerable<TEntity> Search(ZOperationResult operationResult, string where = null,
             object[] args = null,
             string orderBy = null,
             int? skip = null,
@@ -301,7 +301,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    result = Repository.Select(where, args, orderBy, skip, take, associations);
+                    result = Repository.Search(where, args, orderBy, skip, take, associations);
                 }
             }
             catch (Exception exception)
@@ -312,7 +312,7 @@ namespace EasyLOB.Application
             return result;
         }
 
-        public IEnumerable<TEntity> SelectAll(ZOperationResult operationResult)
+        public IEnumerable<TEntity> SearchAll(ZOperationResult operationResult)
         {
             IEnumerable<TEntity> result = new List<TEntity>();
 
@@ -320,7 +320,7 @@ namespace EasyLOB.Application
             {
                 if (IsSearch(operationResult))
                 {
-                    result = Repository.SelectAll();
+                    result = Repository.SearchAll();
                 }
             }
             catch (Exception exception)
