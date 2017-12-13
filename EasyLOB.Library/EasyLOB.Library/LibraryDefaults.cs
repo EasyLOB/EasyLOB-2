@@ -17,7 +17,7 @@ namespace EasyLOB.Library
 
         public static char Default_Char { get { return '\0'; } }
 
-        public static DateTime Default_DateTime { get { return new DateTime(1900, 1, 1); } }
+        public static DateTime Default_DateTime { get { return new DateTime(1, 1, 1); } }
 
         public static TimeSpan Default_TimeSpan { get { return new TimeSpan(); } }
 

@@ -22,7 +22,7 @@ namespace EasyLOB.Library.Syncfusion
 
         public static void ExcelClearDateTime(IRange range, DateTime? value)
         {
-            if (value == new DateTime(1900, 1, 1))
+            if (value == new DateTime(1, 1, 1))
             {
                 range.Clear();
             }

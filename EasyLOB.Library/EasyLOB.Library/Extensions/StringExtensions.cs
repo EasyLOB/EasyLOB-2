@@ -150,7 +150,11 @@ namespace EasyLOB.Library
         /// <returns>Boolean value</returns>
         public static bool ToBoolean(this string s)
         {
-            return (s.ToUpper() == Boolean.TrueString.ToUpper() ? true : false);
+            bool x;
+
+            Boolean.TryParse(s.Trim(), out x);
+
+            return x;
         }
 
         /// <summary>
@@ -166,7 +170,16 @@ namespace EasyLOB.Library
             }
             else
             {
-                return (s.ToUpper() == Boolean.TrueString.ToUpper() ? true : false);
+                bool x;
+
+                if (Boolean.TryParse(s, out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -199,9 +212,14 @@ namespace EasyLOB.Library
             {
                 byte x;
 
-                Byte.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Byte.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -214,7 +232,7 @@ namespace EasyLOB.Library
         {
             char x;
 
-            char.TryParse(s.Trim(), out x);
+            Char.TryParse(s.Trim(), out x);
 
             return x;
         }
@@ -234,9 +252,14 @@ namespace EasyLOB.Library
             {
                 char x;
 
-                char.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Char.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -269,9 +292,14 @@ namespace EasyLOB.Library
             {
                 DateTime x;
 
-                DateTime.TryParse(s.Trim(), out x);
-
-                return x;
+                if (DateTime.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -304,9 +332,14 @@ namespace EasyLOB.Library
             {
                 Decimal x;
 
-                Decimal.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Decimal.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -339,9 +372,14 @@ namespace EasyLOB.Library
             {
                 Double x;
 
-                Double.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Double.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -381,7 +419,7 @@ namespace EasyLOB.Library
         {
             short x;
 
-            short.TryParse(s.Trim(), out x);
+            Int16.TryParse(s.Trim(), out x);
 
             return x;
         }
@@ -401,9 +439,14 @@ namespace EasyLOB.Library
             {
                 short x;
 
-                short.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Int16.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -416,7 +459,7 @@ namespace EasyLOB.Library
         {
             int x;
 
-            int.TryParse(s.Trim(), out x);
+            Int32.TryParse(s.Trim(), out x);
 
             return x;
         }
@@ -436,9 +479,14 @@ namespace EasyLOB.Library
             {
                 int x;
 
-                int.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Int32.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -451,7 +499,7 @@ namespace EasyLOB.Library
         {
             long x;
 
-            long.TryParse(s.Trim(), out x);
+            Int64.TryParse(s.Trim(), out x);
 
             return x;
         }
@@ -471,9 +519,14 @@ namespace EasyLOB.Library
             {
                 long x;
 
-                long.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Int64.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -526,9 +579,14 @@ namespace EasyLOB.Library
             {
                 float x;
 
-                float.TryParse(s.Trim(), out x);
-
-                return x;
+                if (Single.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -586,9 +644,14 @@ namespace EasyLOB.Library
             {
                 TimeSpan x;
 
-                TimeSpan.TryParse(s.Trim(), out x);
-
-                return x;
+                if (TimeSpan.TryParse(s.Trim(), out x))
+                {
+                    return x;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
