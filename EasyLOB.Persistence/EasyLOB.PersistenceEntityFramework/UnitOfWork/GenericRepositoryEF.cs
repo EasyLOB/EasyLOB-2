@@ -158,6 +158,9 @@ namespace EasyLOB.Persistence
                             {
                                 Context.Entry(entity).State = EntityState.Deleted;
 
+                                //Set.Attach(entity);
+                                //Set.Remove(entity);
+
                                 if (entity.AfterDelete(operationResult))
                                 {
                                     AfterDelete(operationResult, entity);
@@ -296,11 +299,10 @@ namespace EasyLOB.Persistence
 
             if (query != null && associations != null)
             {
-                //associations.ForEach(x => { query = query.Include(x); });
-
                 foreach (Expression<Func<TEntity, object>> association in associations)
                 {
                     query = query.Include(association);
+                    //query = query.Include(association).AsNoTracking();
                 }
             }
 
@@ -315,11 +317,7 @@ namespace EasyLOB.Persistence
             if (query != null && associations != null)
             {
                 associations.ForEach(x => { query = query.Include(x); });
-
-                //foreach (string association in associations)
-                //{
-                //    query = query.Include(association);
-                //}
+                //associations.ForEach(x => { query = query.Include(x).AsNoTracking(); });
             }
 
             return query;
