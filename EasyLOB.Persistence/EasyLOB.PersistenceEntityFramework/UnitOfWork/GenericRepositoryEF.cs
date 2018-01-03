@@ -147,7 +147,16 @@ namespace EasyLOB.Persistence
         {
             try
             {
-                entity = GetById(GetIds(entity));
+                string predicate = Profile.LINQWhere;
+                Expression<Func<TEntity, bool>> where =
+                    System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(predicate, GetIds(entity));
+                entity = Set.AsQueryable<TEntity>()
+                    .Where(where)
+                    .AsNoTracking()
+                    .FirstOrDefault();
+
+                //entity = GetById(GetIds(entity));
+
                 if (entity != null)
                 {
                     if (entity.BeforeDelete(operationResult))
