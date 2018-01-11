@@ -387,6 +387,7 @@ namespace EasyLOB.Library.Syncfusion
         private string LookupTextToWhere(string field)
         {
             // ClientLookupText -> Client.Name
+            // Cliente_*LookupText -> Client_*.Name
 
             string result = field;
 
@@ -395,7 +396,6 @@ namespace EasyLOB.Library.Syncfusion
                 if (HasServerSideJoins)
                 {
                     // field                    words                       entityLINQ | entity
-                    //
                     // ClientLookupText         Client LookupText           Client | Client
                     // ClientAreaLookupText     Client Area LookupText      ClientArea | ClientArea
                     // Client1LookupText        Client 1 LookupText         Client1 | Client
@@ -403,12 +403,18 @@ namespace EasyLOB.Library.Syncfusion
                     //
 
                     field = field.Replace("LookupText", "");
-
                     string entityLINQ = field;
 
-                    string[] words = CodeSmithHelper.StringSplitPascalCase(field).Split(' ');
+                    int underscore = field.IndexOf("_");
+                    if (underscore >= 0)
+                    {
+                        // Client_* -> Client
+                        field = field.Left(underscore);
+                    }
+
                     string entity1 = field;
                     string entity2 = "";
+                    string[] words = CodeSmithHelper.StringSplitPascalCase(field).Split(' ');
                     for (int i = 0; i < words.Length - 1; i++)
                     {
                         entity2 += words[i];
@@ -441,7 +447,8 @@ namespace EasyLOB.Library.Syncfusion
 
         private string LookupTextToLINQOrderBy(string field, string direction)
         {
-            // AlbumLookupText -> Album.Title
+            // ClientLookupText -> Client.Name
+            // Cliente_*LookupText -> Client_*.Name
 
             string result = field + " " + direction;
 
@@ -449,12 +456,45 @@ namespace EasyLOB.Library.Syncfusion
             {
                 if (HasServerSideJoins)
                 {
-                    string entity = field.Replace("LookupText", "");
-                    System.Type entityType = LibraryHelper.GetType(DataNamespace + "." + entity);
-                    IZProfile profile = DataHelper.GetProfile(entityType);
-                    if (profile != null)
+                    // field                    words                       entityLINQ | entity                    
+                    // ClientLookupText         Client LookupText           Client | Client
+                    // ClientAreaLookupText     Client Area LookupText      ClientArea | ClientArea
+                    // Client1LookupText        Client 1 LookupText         Client1 | Client
+                    // ClientArea1LookupText    Client Area 1 LookupText    ClientArea1 | ClientArea
+                    //
+
+                    field = field.Replace("LookupText", "");
+                    string entityLINQ = field;
+
+                    int underscore = field.IndexOf("_");
+                    if (underscore >= 0)
                     {
-                        result = entity + "." + profile.LINQOrderBy + " " + direction;
+                        // Client_* -> Client
+                        field = field.Left(underscore);
+                    }
+
+                    string entity1 = field;
+                    string entity2 = "";
+                    string[] words = CodeSmithHelper.StringSplitPascalCase(field).Split(' ');
+                    for (int i = 0; i < words.Length - 1; i++)
+                    {
+                        entity2 += words[i];
+                    }
+
+                    System.Type entityType = LibraryHelper.GetType(DataNamespace + "." + entity1);
+                    if (entityType == null)
+                    {
+                        entityType = LibraryHelper.GetType(DataNamespace + "." + entity2);
+                    }
+
+                    if (entityType == null)
+                    {
+                        result = "";
+                    }
+                    else
+                    {
+                        IZProfile profile = DataHelper.GetProfile(entityType);
+                        result = entityLINQ + "." + profile.LINQOrderBy + " " + direction;
                     }
                 }
                 else
