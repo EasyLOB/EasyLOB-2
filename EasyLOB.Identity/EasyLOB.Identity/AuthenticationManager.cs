@@ -30,7 +30,8 @@ namespace EasyLOB.Identity
                     {
                         foreach (string roleName in Roles)
                         {
-                            result = result || "|administrator|administrador|".Contains("|" + roleName.ToLower() + "|");
+                            // Administrators | Administradores
+                            result = result || "|administrators|administradores|".Contains("|" + roleName.ToLower() + "|");
                             if (result)
                             {
                                 break;
