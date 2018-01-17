@@ -19,9 +19,8 @@ namespace EasyLOB.Identity
                 try
                 {
                     bool result = false;
-                    string userName = UserName.ToLower();
 
-                    result = "|administrator|administrador|".Contains("|" + userName + "|");
+                    result = "|administrator|administrador|".Contains("|" + UserName.ToLower() + "|");
 
                     //result = result || IsInRole("administrator") || IsInRole("administrador");
                     // The role names are case sensitive in AuthorizeAttribute and User.IsInRole
