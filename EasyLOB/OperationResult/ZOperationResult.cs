@@ -63,7 +63,7 @@ namespace EasyLOB
 
                 // Status
 
-                foreach (ZOperationStatus operationStatus in OperationStatus)
+                foreach (ZOperationStatus operationStatus in OperationStatuses)
                 {
                     string text =
                         ErrorResources.Status + ": " +
@@ -168,7 +168,7 @@ namespace EasyLOB
         /// Operation Status.
         /// </summary>
         [DataMember]
-        public List<ZOperationStatus> OperationStatus { get; }
+        public List<ZOperationStatus> OperationStatuses { get; }
 
         /// <summary>
         /// Operation Result text with "\n".
@@ -197,7 +197,7 @@ namespace EasyLOB
             StatusCode = "";
             StatusMessage = "";
             OperationErrors = new List<ZOperationError>();
-            OperationStatus = new List<ZOperationStatus>();
+            OperationStatuses = new List<ZOperationStatus>();
         }
 
         [JsonConstructor]
@@ -210,7 +210,7 @@ namespace EasyLOB
             string statusCode,
             string statusMessage,
             List<ZOperationError> operationErrors,
-            List<ZOperationStatus> operationStatus,
+            List<ZOperationStatus> operationStatuses,
             string text)
             : this()
         {
@@ -222,7 +222,7 @@ namespace EasyLOB
             StatusCode = statusCode ?? "";
             StatusMessage = statusMessage ?? "";
             OperationErrors = operationErrors ?? OperationErrors;
-            OperationStatus = operationStatus ?? OperationStatus;
+            OperationStatuses = operationStatuses ?? OperationStatuses;
             // Text
         }
 
@@ -256,7 +256,7 @@ namespace EasyLOB
         /// <param name="statusMessage">Status message</param>
         public void AddOperationStatus(string statusCode, string statusMessage)
         {
-            OperationStatus.Add(new ZOperationStatus(statusCode, statusMessage));
+            OperationStatuses.Add(new ZOperationStatus(statusCode, statusMessage));
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace EasyLOB
         /// <param name="members">Members</param>
         public void AddOperationStatus(string statusCode, string statusMessage, List<string> members)
         {
-            OperationStatus.Add(new ZOperationStatus(statusCode, statusMessage, members));
+            OperationStatuses.Add(new ZOperationStatus(statusCode, statusMessage, members));
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace EasyLOB
             ErrorCode = "";
             ErrorMessage = "";
             OperationErrors.Clear();
-            OperationStatus.Clear();
+            OperationStatuses.Clear();
         }
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace EasyLOB
 
             // Status
 
-            foreach (ZOperationStatus operationStatus in OperationStatus)
+            foreach (ZOperationStatus operationStatus in OperationStatuses)
             {
                 string text = ErrorResources.Status + ": " +
                     (!String.IsNullOrEmpty(operationStatus.StatusCode) ? "[ " + operationStatus.StatusCode + " ] " : "") +
