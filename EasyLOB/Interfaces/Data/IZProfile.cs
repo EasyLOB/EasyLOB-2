@@ -56,6 +56,12 @@ namespace EasyLOB.Data
 
         #endregion Properties Helper Grid
 
+        #region Methods
+
+        IZProfileProperty GetPropertyProfile(string name);
+
+        #endregion Methods
+
         #region Methods Helper Edit
 
         string EditCSSFor(string propertyName);

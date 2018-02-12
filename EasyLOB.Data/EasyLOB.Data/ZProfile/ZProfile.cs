@@ -212,6 +212,19 @@ namespace EasyLOB.Data
             this.Properties = Properties;
         }
 
+        public IZProfileProperty GetPropertyProfile(string name)
+        {
+            IZProfileProperty result = null;
+
+            int index = PropertyNames.IndexOf(name);
+            if (index >= 0)
+            {
+                return Properties[index];
+            }
+
+            return result;
+        }
+
         #endregion Methods
 
         #region Methods Edit
@@ -220,7 +233,7 @@ namespace EasyLOB.Data
         {
             string result = "col-md-1";
 
-            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
+            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.EditCSS;
@@ -253,7 +266,7 @@ namespace EasyLOB.Data
         {
             bool result = false;
 
-            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
+            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.IsGridVisible;
@@ -266,7 +279,7 @@ namespace EasyLOB.Data
         {
             int result = 100;
 
-            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
+            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.GridWidth;
@@ -296,19 +309,6 @@ namespace EasyLOB.Data
 
                 return _propertyNames;
             }
-        }
-
-        private IZProfileProperty GetProfileProperty(string name)
-        {
-            IZProfileProperty result = null;
-
-            int index = PropertyNames.IndexOf(name);
-            if (index >= 0)
-            {
-                return Properties[index];
-            }
-
-            return result;
         }
 
         #endregion Dictionary

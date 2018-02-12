@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EasyLOB.Data
 {
-    public class ZViewBase<TEntityView, TEntityDTO, TEntity> : IZViewBase<TEntityView, TEntityDTO, TEntity>, IValidatableObject, IZValidatableObject
+    public abstract class ZViewBase<TEntityView, TEntityDTO, TEntity> : IZViewBase<TEntityView, TEntityDTO, TEntity>, IValidatableObject, IZValidatableObject
     {
         #region Properties
 
