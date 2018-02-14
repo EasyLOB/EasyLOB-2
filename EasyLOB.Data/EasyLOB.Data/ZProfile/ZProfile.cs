@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace EasyLOB.Data
@@ -11,34 +12,34 @@ namespace EasyLOB.Data
         #region Properties
 
         [DataMember]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [DataMember]
-        public bool IsIdentity { get; }
+        public bool IsIdentity { get; set; }
 
         [DataMember]
-        public List<string> Keys { get; }
+        public List<string> Keys { get; set; }
 
         [DataMember]
-        public string Lookup { get; }
+        public string Lookup { get; set; }
 
         [DataMember]
-        public string LINQOrderBy { get; }
+        public string LINQOrderBy { get; set; }
 
         [DataMember]
-        public string LINQWhere { get; }
+        public string LINQWhere { get; set; }
 
         //[DataMember]
-        //public bool IsLog { get; }
+        //public bool IsLog { get; set; }
 
         //[DataMember]
-        //public bool IsSearch { get; }
+        //public bool IsSearch { get; set; }
 
         //[DataMember]
-        //public int RecordsByLookup { get; }
+        //public int RecordsByLookup { get; set; }
 
         //[DataMember]
-        //public int RecordsByPage { get; }
+        //public int RecordsByPage { get; set; }
 
         //[DataMember]
         //public int RecordsBySearch { get; }
@@ -50,7 +51,7 @@ namespace EasyLOB.Data
         public Dictionary<string, bool> Collections { get; }
 
         [DataMember]
-        public List<IZProfileProperty> Properties { get; set; }
+        public List<IZProfileProperty> Properties { get; }
 
         #endregion Properties
 
@@ -178,6 +179,14 @@ namespace EasyLOB.Data
 
         #region Methods
 
+        public ZProfile()
+        {
+            Keys = new List<string>();
+            Associations = new List<string>();
+            Collections = new Dictionary<string, bool>();
+            Properties = new List<IZProfileProperty>();
+        }
+
         public ZProfile
         (
             string Name,
@@ -212,17 +221,11 @@ namespace EasyLOB.Data
             this.Properties = Properties;
         }
 
-        public IZProfileProperty GetPropertyProfile(string name)
+        public IZProfileProperty GetProfileProperty(string name)
         {
-            IZProfileProperty result = null;
-
-            int index = PropertyNames.IndexOf(name);
-            if (index >= 0)
-            {
-                return Properties[index];
-            }
-
-            return result;
+            return Properties
+                .Where(x => x.Name == name)
+                .FirstOrDefault();
         }
 
         #endregion Methods
@@ -233,7 +236,7 @@ namespace EasyLOB.Data
         {
             string result = "col-md-1";
 
-            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
+            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.EditCSS;
@@ -266,7 +269,7 @@ namespace EasyLOB.Data
         {
             bool result = false;
 
-            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
+            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.IsGridVisible;
@@ -279,7 +282,7 @@ namespace EasyLOB.Data
         {
             int result = 100;
 
-            IZProfileProperty profileProperty = GetPropertyProfile(propertyName);
+            IZProfileProperty profileProperty = GetProfileProperty(propertyName);
             if (profileProperty != null)
             {
                 result = profileProperty.GridWidth;
@@ -289,28 +292,5 @@ namespace EasyLOB.Data
         }
 
         #endregion Methods Grid
-
-        #region Dictionary
-
-        private List<string> _propertyNames;
-
-        private List<string> PropertyNames
-        {
-            get
-            {
-                if (_propertyNames == null)
-                {
-                    _propertyNames = new List<string>();
-                    foreach (ZProfileProperty profileProperty in Properties)
-                    {
-                        _propertyNames.Add(profileProperty.Name);
-                    }
-                }
-
-                return _propertyNames;
-            }
-        }
-
-        #endregion Dictionary
     }
 }

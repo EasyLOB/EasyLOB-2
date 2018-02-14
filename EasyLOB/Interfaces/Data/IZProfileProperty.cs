@@ -4,19 +4,19 @@
     {
         #region Properties
 
-        string Name { get; }
+        string Name { get; set; }
 
-        bool IsGridVisible { get; }
+        bool IsGridVisible { get; set; }
 
-        bool IsGridSearch { get; }
+        bool IsGridSearch { get; set; }
 
-        int GridWidth { get; }
+        int GridWidth { get; set; }
 
-        bool IsEditVisible { get; }
+        bool IsEditVisible { get; set; }
 
-        bool IsEditReadOnly { get; }
+        bool IsEditReadOnly { get; set; }
 
-        string EditCSS { get; }
+        string EditCSS { get; set; }
 
         #endregion Properties
     }

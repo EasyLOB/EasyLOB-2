@@ -6,33 +6,33 @@ namespace EasyLOB.Data
     {
         #region Properties
 
-        string Name { get; }
+        string Name { get; set; }
 
-        bool IsIdentity { get; }
+        bool IsIdentity { get; set; }
 
-        List<string> Keys { get; }
+        List<string> Keys { get; set; }
 
-        string Lookup { get; }
+        string Lookup { get; set; }
 
-        string LINQOrderBy { get; }
+        string LINQOrderBy { get; set; }
 
-        string LINQWhere { get; }
+        string LINQWhere { get; set; }
 
-        //bool IsLog { get; }
+        //bool IsLog { get; set; }
 
-        //bool IsSearch { get; }
+        //bool IsSearch { get; set; }
 
-        //int RecordsByLookup { get; }
+        //int RecordsByLookup { get; set; }
 
-        //int RecordsByPage { get; }
+        //int RecordsByPage { get; set; }
 
-        //int RecordsBySearch { get; }
+        //int RecordsBySearch { get; set; }
 
         List<string> Associations { get; }
 
         Dictionary<string, bool> Collections { get; }
 
-        List<IZProfileProperty> Properties { get; set; }
+        List<IZProfileProperty> Properties { get; }
 
         #endregion Properties
 
@@ -58,7 +58,7 @@ namespace EasyLOB.Data
 
         #region Methods
 
-        IZProfileProperty GetPropertyProfile(string name);
+        IZProfileProperty GetProfileProperty(string name);
 
         #endregion Methods
 
