@@ -56,14 +56,23 @@ namespace EasyLOB.AuditTrail
                         ids = entityBefore.GetId();
                         profile = DataHelper.GetProfile(entityBefore.GetType());
                     }
-                    // {"Id1":1,"Id2":2}
+
+                    // 1|2
                     string logId = "";
                     int idIndex = 0;
                     foreach (string idProperty in profile.Keys)
                     {
-                        logId += (String.IsNullOrEmpty(logId) ? "" : ",") + "\"" + idProperty + "\":" + JsonConvert.SerializeObject(ids[idIndex++], settings);
+                        logId += (String.IsNullOrEmpty(logId) ? "" : "|") + JsonConvert.SerializeObject(ids[idIndex++], settings);
                     }
-                    logId = "{" + logId + "}";
+
+                    // {"Id1":1,"Id2":2}
+                    //string logId = "";
+                    //int idIndex = 0;
+                    //foreach (string idProperty in profile.Keys)
+                    //{
+                    //    logId += (String.IsNullOrEmpty(logId) ? "" : ",") + "\"" + idProperty + "\":" + JsonConvert.SerializeObject(ids[idIndex++], settings);
+                    //}
+                    //logId = "{" + logId + "}";
 
                     AuditTrailLog auditTrailLog = new AuditTrailLog();
                     auditTrailLog.LogDate = DateTime.Today;
@@ -72,7 +81,7 @@ namespace EasyLOB.AuditTrail
                     auditTrailLog.LogDomain = logDomain;
                     auditTrailLog.LogEntity = logEntity;
                     auditTrailLog.LogOperation = logOperation;
-                    // K + E
+                    // K
                     auditTrailLog.LogId = logId;
                     // E
                     if (logMode == "E")
