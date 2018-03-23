@@ -88,19 +88,16 @@ namespace EasyLOB.Library.App
 
             if (IsMultiTenant && WebHelper.IsWeb)
             {
-                if (IsMultiTenant)
+                if (Tenants.Count > 0)
                 {
-                    if (Tenants.Count > 0)
+                    name = name.ToLower();
+                    foreach (AppTenant t in Tenants)
                     {
-                        name = name.ToLower();
-                        foreach (AppTenant t in Tenants)
+                        if (name.StartsWith(t.Name.ToLower()))
+                        //if (t.Name.Equals(name, System.StringComparison.CurrentCultureIgnoreCase))
                         {
-                            if (name.StartsWith(t.Name.ToLower()))
-                            //if (t.Name.Equals(name, System.StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                appTenant = t;
-                                break;
-                            }
+                            appTenant = t;
+                            break;
                         }
                     }
                 }
