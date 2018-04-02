@@ -53,7 +53,7 @@ namespace EasyLOB.Library.Web
                 if (IsWeb)
                 {
                     // http://www.easylob.com/controller/action => http://www.easylob.com/controller/action
-                    return HttpContext.Current.Request.Url.AbsoluteUri.TrimEnd('/');
+                    result = HttpContext.Current.Request.Url.AbsoluteUri.TrimEnd('/');
                 }
 
                 return result;
