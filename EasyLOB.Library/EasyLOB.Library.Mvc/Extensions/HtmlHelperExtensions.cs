@@ -47,7 +47,7 @@ namespace EasyLOB.Library.Mvc
                 imageTitle,
                 onClick);
 
-            return MvcHtmlString.Create(tag);
+            return new MvcHtmlString(tag);
         }
 
         public static MvcHtmlString ZImageInput(this HtmlHelper htmlHelper,
@@ -97,25 +97,25 @@ namespace EasyLOB.Library.Mvc
                 imageClass,
                 imageTitle);
 
-            return MvcHtmlString.Create(tag);
+            return new MvcHtmlString(tag);
         }
 
         public static MvcHtmlString ZNewLine(this HtmlHelper htmlHelper)
         {
-            return MvcHtmlString.Create("<div style=\"clear: both;\" />");
+            return new MvcHtmlString("<div style=\"clear: both;\" />");
         }
 
         public static MvcHtmlString ZOperationResult(this HtmlHelper htmlHelper,
             ZOperationResult operationResult)
         {
-            return MvcHtmlString.Create(operationResult.Html);
+            return new MvcHtmlString(operationResult.Html);
         }
 
         public static MvcHtmlString ZResolveUrl(this HtmlHelper htmlHelper, string url)
         {
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
-            return MvcHtmlString.Create(urlHelper.Content(url));
+            return new MvcHtmlString(urlHelper.Content(url));
         }
     }
 }

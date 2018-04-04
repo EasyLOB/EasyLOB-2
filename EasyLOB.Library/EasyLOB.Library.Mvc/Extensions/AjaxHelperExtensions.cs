@@ -24,7 +24,7 @@ namespace EasyLOB.Library.Mvc
                 imageClass,
                 imageTitle);
 
-            return MvcHtmlString.Create(tag);
+            return new MvcHtmlString(tag);
         }
 
         public static string ImageLink(this AjaxHelper ajaxHelper,
