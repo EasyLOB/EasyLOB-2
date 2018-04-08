@@ -4,7 +4,7 @@
     {
         #region Methods
 
-        object Resolve<Interface>();
+        object Resolve<T>();
 
         #endregion Methods
     }

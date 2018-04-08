@@ -6,7 +6,7 @@ namespace EasyLOB.Application
     {
         #region Properties
 
-        IUnityContainer Container { get; }
+        private IUnityContainer Container { get; }
 
         #endregion
 
@@ -17,9 +17,9 @@ namespace EasyLOB.Application
             Container = container;
         }
 
-        public object Resolve<Interface>()
+        public object Resolve<T>()
         {
-            return Container.Resolve<Interface>();
+            return Container.Resolve<T>();
         }        
 
         #endregion
