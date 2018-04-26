@@ -73,7 +73,7 @@ namespace EasyLOB.Persistence
 
             if (where != null)
             {
-                result = Query().Count(where);
+                result = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>().Count(where);
             }
             else
             {
@@ -93,11 +93,11 @@ namespace EasyLOB.Persistence
             {
                 if (args != null)
                 {
-                    result = Query().Where(where, args).Count();
+                    result = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>().Where(where, args).Count();
                 }
                 else
                 {
-                    result = Query().Where(where).Count();
+                    result = Container.CreateQuery<TEntityDTO>(EntitySetName).AsQueryable<TEntityDTO>().Where(where).Count();
                 }
             }
             else
@@ -110,7 +110,7 @@ namespace EasyLOB.Persistence
 
         public virtual int CountAll()
         {
-            return Query().Count();
+            return DataServiceQuery.Count();
         }
 
         public virtual bool Create(ZOperationResult operationResult, TEntityDTO entity)

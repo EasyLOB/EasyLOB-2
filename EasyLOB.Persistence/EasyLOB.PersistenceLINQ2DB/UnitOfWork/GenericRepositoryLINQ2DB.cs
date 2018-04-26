@@ -308,7 +308,7 @@ namespace EasyLOB.Persistence
 
         public virtual IQueryable<TEntity> Query()
         {
-            IQueryable<TEntity> query = Connection.GetTable<TEntity>().AsQueryable();
+            IQueryable<TEntity> query = Table.AsQueryable();
             query = Join(query);
 
             return query;

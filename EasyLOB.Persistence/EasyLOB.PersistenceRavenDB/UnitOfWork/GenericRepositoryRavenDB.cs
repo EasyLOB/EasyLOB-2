@@ -69,11 +69,11 @@ namespace EasyLOB.Persistence
 
             if (where != null)
             {
-                result = Query().Where(where).Count();
+                result = DocumentSession.Query<TEntity>().Where(where).Count();
             }
             else
             {
-                result = Query().Count();
+                result = DocumentSession.Query<TEntity>().Count();
             }
 
             return result;
@@ -89,11 +89,11 @@ namespace EasyLOB.Persistence
             {
                 if (args != null)
                 {
-                    result = Query().Where(where, args).Count();
+                    result = DocumentSession.Query<TEntity>().Where(where, args).Count();
                 }
                 else
                 {
-                    result = Query().Where(where).Count();
+                    result = DocumentSession.Query<TEntity>().Where(where).Count();
                 }
             }
             else
@@ -106,7 +106,7 @@ namespace EasyLOB.Persistence
 
         public virtual int CountAll()
         {
-            return Query().Count();
+            return DocumentSession.Query<TEntity>().Count();
         }
 
         public virtual bool Create(ZOperationResult operationResult, TEntity entity)

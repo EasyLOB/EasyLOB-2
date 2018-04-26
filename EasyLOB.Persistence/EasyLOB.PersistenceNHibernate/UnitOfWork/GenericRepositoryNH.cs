@@ -55,9 +55,20 @@ namespace EasyLOB.Persistence
 
         public virtual int Count(Expression<Func<TEntity, bool>> where)
         {
+            int result;
+
             Filter(where);
 
-            return Session.Query<TEntity>().Where(where).Count();
+            if (where != null)
+            {
+                result = Session.Query<TEntity>().Where(where).Count();
+            }
+            else
+            {
+                result = Session.Query<TEntity>().Count();
+            }
+
+            return result;
         }
 
         public virtual int Count(string where, object[] args = null)

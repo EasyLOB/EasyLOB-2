@@ -67,7 +67,7 @@ namespace EasyLOB.Persistence
             }
             else
             {
-                result = TypedClient.GetAll().AsQueryable<TEntity>().Count();
+                result = TypedClient.GetAll().Count();
             }
 
             return result;
@@ -92,7 +92,7 @@ namespace EasyLOB.Persistence
             }
             else
             {
-                result = TypedClient.GetAll().AsQueryable<TEntity>().Count();
+                result = TypedClient.GetAll().Count();
             }
 
             return result;

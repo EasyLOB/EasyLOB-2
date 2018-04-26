@@ -98,6 +98,45 @@ namespace EasyLOB.Library.Syncfusion
 
         #endregion Methods Export (static)
 
+        #region Methods Sycnfusion.Javascript.DataManager - Entity
+
+        public void DataManagerEntity(string entity, List<SearchFilter> searchFilters, List<WhereFilter> whereFilters)
+        {
+            foreach (SearchFilter searchFilter in searchFilters)
+            {
+                for (int i = 0; i < searchFilter.Fields.Count; i++)
+                {
+                    if (!searchFilter.Fields[i].Contains("."))
+                    {
+                        searchFilter.Fields[i] = entity + "." + searchFilter.Fields[i];
+                    }
+                }
+            }
+
+            foreach (WhereFilter whereFilter in whereFilters)
+            {
+                DataManagerEntityWhere(entity, whereFilter);
+            }
+        }
+
+        private void DataManagerEntityWhere(string entity, WhereFilter whereFilter)
+        {
+            if (whereFilter.Field != null && !whereFilter.Field.Contains("."))
+            {
+                whereFilter.Field = entity + "." + whereFilter.Field;
+            }
+
+            if (whereFilter.predicates != null)
+            {
+                foreach (WhereFilter wf in whereFilter.predicates)
+                {
+                    DataManagerEntityWhere(entity, wf);
+                }
+            }
+        }
+
+        #endregion Methods Sycnfusion.Javascript.DataManager - Entity
+
         #region Methods Sycnfusion.Javascript.DataManager - Grid
 
         public string ToLinqWhere(List<SearchFilter> searchFilters, List<WhereFilter> whereFilters, ArrayList arguments)
