@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdoNetHelper.cs" />
+    <Compile Include="Extensions\DbDataReaderExtensions.cs" />
+    <Compile Include="Extensions\DbFactoryExtensions.cs" />
     <Compile Include="PersistenceHelper.cs" />
     <Compile Include="Extensions\IGenericRepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

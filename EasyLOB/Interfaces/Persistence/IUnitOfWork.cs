@@ -68,8 +68,8 @@ namespace EasyLOB.Persistence
         /// Execute SQL Query.
         /// </summary>
         /// <param name="sql">SQL</param>
-        /// <returns>List[T]></returns>
-        List<T> SQLQuery<T>(string sql);
+        /// <returns>IEnumerable[T]></returns>
+        IEnumerable<T> SQLQuery<T>(string sql);
 
         /// <summary>
         /// Get Profile.

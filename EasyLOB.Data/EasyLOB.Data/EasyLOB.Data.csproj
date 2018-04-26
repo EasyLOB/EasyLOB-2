@@ -47,8 +47,6 @@
   <ItemGroup>
     <Compile Include="ZProfile\ZProfile.cs" />
     <Compile Include="Extensions\DataTableExtensions.cs" />
-    <Compile Include="Extensions\DbDataReaderExtensions.cs" />
-    <Compile Include="Extensions\DbFactoryExtensions.cs" />
     <Compile Include="ZDataBase\ZDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataHelper.cs" />

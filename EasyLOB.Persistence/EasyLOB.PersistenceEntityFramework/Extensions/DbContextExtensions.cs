@@ -66,7 +66,7 @@ namespace EasyLOB.Persistence
             return dbms;
         }
 
-        public static List<string> GetEntityKeyNames<TEntity>(this DbContext context)
+        public static IEnumerable<string> GetEntityKeyNames<TEntity>(this DbContext context)
         //public static IEnumerable<string> GetEntityKeyNames<TEntity>(this DbContext context)
             where TEntity : class, IZDataBase
         {
@@ -78,7 +78,7 @@ namespace EasyLOB.Persistence
             //return entitySet.ElementType.KeyMembers.Select(x => x.Name);
         }
 
-        public static List<object> GetEntityKeyValues<TEntity>(this DbContext context, TEntity entity)
+        public static IEnumerable<object> GetEntityKeyValues<TEntity>(this DbContext context, TEntity entity)
         //public static IEnumerable<object> GetEntityKeyValues<TEntity>(this DbContext context, TEntity entity)
           where TEntity : class, IZDataBase
         {
@@ -91,33 +91,5 @@ namespace EasyLOB.Persistence
             return properties.Select(x => x.GetValue(entity)).ToList<object>();
             //return properties.Select(x => x.GetValue(entity));
         }
-        /*
-        public static IEnumerable<string> GetId(this DbContext context, Type entityType)
-        {
-            // The key to AddOrUpdate
-            // https://blog.oneunicorn.com/2012/05/03/the-key-to-addorupdate
-
-            Contract.Requires(context != null);
-            Contract.Requires(entityType != null);
-
-            entityType = ObjectContext.GetObjectType(entityType);
-
-            var metadataWorkspace =
-                ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
-            var objectItemCollection =
-                (ObjectItemCollection)metadataWorkspace.GetItemCollection(DataSpace.OSpace);
-
-            var ospaceType = metadataWorkspace
-                .GetItems<EntityType>(DataSpace.OSpace)
-                .SingleOrDefault(t => objectItemCollection.GetClrType(t) == entityType);
-
-            if (ospaceType == null)
-            {
-                throw new ArgumentException(string.Format("The type '{0}' is not mapped as an entity type.", entityType.Name), "entityType");
-            }
-
-            return ospaceType.KeyMembers.Select(k => k.Name);
-        }
-         */
     }
 }
