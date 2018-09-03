@@ -37,7 +37,7 @@ namespace EasyLOB.Application
             {
                 if (_authorizationManager == null)
                 {
-                    _authorizationManager = (IAuthorizationManager)DIManager.Resolve<IAuthorizationManager>();
+                    _authorizationManager = DIManager.GetService<IAuthorizationManager>();
                 }
 
                 return _authorizationManager;
@@ -52,7 +52,7 @@ namespace EasyLOB.Application
             {
                 if (_auditTrailManager == null)
                 {
-                    _auditTrailManager = (IAuditTrailManager)DIManager.Resolve<IAuditTrailManager>();
+                    _auditTrailManager = DIManager.GetService<IAuditTrailManager>();
                 }
 
                 return _auditTrailManager;
@@ -67,7 +67,7 @@ namespace EasyLOB.Application
             {
                 if (_logManager == null)
                 {
-                    _logManager = (ILogManager)DIManager.Resolve<ILogManager>();
+                    _logManager = DIManager.GetService<ILogManager>();
                 }
 
                 return _logManager;

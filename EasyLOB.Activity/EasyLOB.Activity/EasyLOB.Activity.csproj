@@ -55,9 +55,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\EasyLOB.Data\EasyLOB.Data\EasyLOB.Data.csproj">
       <Project>{1f89f104-c08b-4537-a9a8-5c51c53376f0}</Project>
       <Name>EasyLOB.Data</Name>

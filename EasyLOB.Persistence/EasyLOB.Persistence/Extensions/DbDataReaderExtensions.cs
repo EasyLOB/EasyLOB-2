@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 
-namespace EasyLOB.Data
+namespace EasyLOB.Persistence
 {
     /// <summary>
     /// DbDataReader Extensions

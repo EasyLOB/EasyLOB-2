@@ -1,6 +1,6 @@
 ﻿using EasyLOB.AuditTrail;
 using EasyLOB.AuditTrail.Data;
-using EasyLOB.Library.Web;
+using EasyLOB.Library.AspNet;
 using EasyLOB.Security;
 using System;
 using System.Collections.Generic;

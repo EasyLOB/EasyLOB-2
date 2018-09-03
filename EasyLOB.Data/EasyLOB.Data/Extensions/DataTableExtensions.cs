@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
@@ -8,6 +9,33 @@ namespace EasyLOB.Data
 {
     public static class DataTableExtensions
     {
+        /// <summary>
+        /// Convert DataTable to IEnumerable
+        /// </summary>
+        /// <param name="dataTable">DataTable</param>
+        /// <returns>IEnumerable</returns>
+        /// <remarks>
+        /// How can I convert a DataTable into a Dynamic object ?
+        /// https://stackoverflow.com/questions/7794818/how-can-i-convert-a-datatable-into-a-dynamic-object?utm_medium%3Dorganic%26utm_source%3Dgoogle_rich_qa%26utm_campaign%3Dgoogle_rich_qa
+        /// </remarks>
+        public static IEnumerable<dynamic> AsEnumerable(this DataTable dataTable)
+        {
+            var dynamicDataTable = new List<dynamic>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                dynamic dynamicObject = new ExpandoObject();
+                dynamicDataTable.Add(dynamicObject);
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    var dic = (IDictionary<string, object>)dynamicObject;
+                    dic[column.ColumnName] = row[column];
+                }
+            }
+
+            return dynamicDataTable;
+        }
+
         /// <summary>
         /// Convert List to DataTable
         /// </summary>
@@ -80,7 +108,8 @@ namespace EasyLOB.Data
 
             var commonFields = objectFieldNames.Intersect(dataTableFieldNames).ToList();
 
-            foreach (DataRow dataRow in dataTable.AsEnumerable().ToList())
+            //foreach (DataRow dataRow in dataTable.AsEnumerable().ToList())
+            foreach (DataRow dataRow in dataTable.Rows)
             {
                 var t = new T();
 

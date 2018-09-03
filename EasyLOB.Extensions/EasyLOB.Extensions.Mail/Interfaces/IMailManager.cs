@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MimeKit;
+using System;
 
 namespace EasyLOB.Extensions.Mail
 {
@@ -37,14 +38,15 @@ namespace EasyLOB.Extensions.Mail
         /// <param name="body"></param>
         /// <param name="isHtml"></param>
         /// <param name="fileAttachmentPaths"></param>
-        void Mail(string fromName, string toName, string toAddress,
+        void Mail(string fromName,
+            string toName, string toAddress,
             string subject, string body, bool isHtml = false, string[] fileAttachmentPaths = null);
 
         /// <summary>
         /// Mail
         /// </summary>
         /// <param name="message"></param>
-        void Mail(System.Net.Mail.MailMessage message);
+        void Mail(MimeMessage message);
 
         /// <summary>
         /// Mail
@@ -54,10 +56,9 @@ namespace EasyLOB.Extensions.Mail
         /// <param name="port"></param>
         /// <param name="userName"></param>
         /// <param name="password"></param>
-        /// <param name="defaultCredentials"></param>
-        /// <param name="enableSsl"></param>
-        void Mail(System.Net.Mail.MailMessage message,
-            string host, int port, string userName, string password, bool defaultCredentials, bool enableSsl);
+        /// <param name="ssl"></param>
+        void Mail(MimeMessage message,
+            string host, int port, string userName, string password, bool ssl);
 
         #endregion Methods
     }

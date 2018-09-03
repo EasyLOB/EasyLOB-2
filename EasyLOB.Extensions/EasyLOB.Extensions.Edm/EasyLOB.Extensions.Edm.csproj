@@ -34,11 +34,11 @@
     <IntermediateOutputPath>C:\Users\Siegmar\AppData\Local\Temp\vs59E7.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Net.FtpClient, Version=1.0.5824.34026, Culture=neutral, PublicKeyToken=fa4be07daa57c2b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Net.FtpClient.1.0.5824.34026\lib\net40\System.Net.FtpClient.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FluentFTP, Version=19.2.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyLOB-MyLOB-2\packages\FluentFTP.19.2.2\lib\net45\FluentFTP.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EdmManagerFTP.cs" />
@@ -61,10 +61,6 @@
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library.App\EasyLOB.Library.App.csproj">
       <Project>{c4761cd5-0ae1-41c0-9244-7975440ae9d1}</Project>
       <Name>EasyLOB.Library.App</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library.Web\EasyLOB.Library.Web.csproj">
-      <Project>{1b39afb2-8fe2-46f6-8544-520cd16c3e0b}</Project>
-      <Name>EasyLOB.Library.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library\EasyLOB.Library.csproj">
       <Project>{55b7716b-36a3-442d-9e9e-9caab7db592e}</Project>

@@ -1,31 +1,8 @@
-﻿using EasyLOB.Resources;
+﻿using EasyLOB.Library;
+using EasyLOB.Resources;
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
-using System.Configuration;
-using System.Net.Configuration;
-using System.Net.Mail;
-
-/*
-<system.net>
-  <mailSettings>
-    <smtp from="email@gmail.com">
-      <network enableSsl="true" host="smtp.gmail.com" port="587" userName="email@gmail.com" password="password" defaultCredentials="false"/>
-    </smtp>
-  </mailSettings>
-</system.net>
- */
-
-/*
-System.Configuration.Configuration configuration = null;
-if (System.Web.HttpContext.Current != null)
-{
-    configuration = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-}
-else
-{
-    configuration = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-}
-MailSettingsSectionGroup mailSettings = configuration.GetSectionGroup("system.net/mailSettings") as MailSettingsSectionGroup;
- */
 
 namespace EasyLOB.Extensions.Mail
 {
@@ -54,41 +31,12 @@ namespace EasyLOB.Extensions.Mail
         public void Mail(string toAddress,
             string subject, string body, bool isHtml = false)
         {
-            toAddress = toAddress ?? "";
-            subject = subject ?? "";
-            body = body ?? "";
-
-            if (String.IsNullOrEmpty(toAddress))
-            {
-                throw new Exception(String.Format(ErrorResources.EMailInvalidTo, toAddress));
-            }
-
-            SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            if (smtpSection != null)
-            {
-                if (String.IsNullOrEmpty(smtpSection.From))
-                {
-                    throw new Exception(String.Format(ErrorResources.EMailInvalidFrom, smtpSection.From));
-                }
-
-                MailMessage message = new MailMessage();
-
-                message.From = new MailAddress(smtpSection.From);
-                message.SubjectEncoding = System.Text.Encoding.UTF8;
-                foreach (var address in toAddress.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    message.To.Add(new MailAddress(address, ""));
-                }
-                message.Subject = subject;
-                message.Body = body;
-                message.BodyEncoding = System.Text.Encoding.UTF8;
-                message.IsBodyHtml = isHtml;
-
-                Mail(message);
-            }
+            Mail("", "", toAddress,
+                subject, body, isHtml);
         }
 
-        public void Mail(string fromName, string toName, string toAddress,
+        public void Mail(string fromName,
+            string toName, string toAddress,
             string subject, string body, bool isHtml = false, string[] fileAttachmentPaths = null)
         {
             fromName = fromName ?? "";
@@ -102,76 +50,76 @@ namespace EasyLOB.Extensions.Mail
                 throw new Exception(String.Format(ErrorResources.EMailInvalidTo, toAddress));
             }
 
-            SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            if (smtpSection != null)
+            string fromAddress = ConfigurationHelper.AppSettings<string>("Mail.FromAddress");
+            if (String.IsNullOrEmpty(fromAddress))
             {
-                if (String.IsNullOrEmpty(smtpSection.From))
-                {
-                    throw new Exception(String.Format(ErrorResources.EMailInvalidFrom, smtpSection.From));
-                }
-
-                MailMessage message = new MailMessage();
-
-                message.From = new MailAddress(smtpSection.From, fromName);
-                foreach (var address in toAddress.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    message.To.Add(new MailAddress(address, toName));
-                }
-                message.Subject = subject;
-                message.SubjectEncoding = System.Text.Encoding.UTF8;
-                message.Body = body;
-                message.BodyEncoding = System.Text.Encoding.UTF8;
-                message.IsBodyHtml = isHtml;
-
-                if (fileAttachmentPaths != null)
-                {
-                    foreach (string fileAttachmentPath in fileAttachmentPaths)
-                    {
-                        Attachment attach = new Attachment(fileAttachmentPath);
-                        message.Attachments.Add(attach);
-                    }
-                }
-
-                string host = smtpSection.Network.Host;
-                int port = smtpSection.Network.Port;
-                string userName = smtpSection.Network.UserName;
-                string password = smtpSection.Network.Password;
-                bool defaultCredentials = smtpSection.Network.DefaultCredentials;
-                bool enableSsl = smtpSection.Network.EnableSsl;
-
-                Mail(message, host, port, userName, password, defaultCredentials, enableSsl);
+                throw new Exception(String.Format(ErrorResources.EMailInvalidFrom, fromAddress));
             }
+
+            MimeMessage message = new MimeMessage();
+            message.From.Add(new MailboxAddress(fromName, fromAddress));
+            foreach (var address in toAddress.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                message.To.Add(new MailboxAddress(address));
+            }
+            message.Subject = subject;
+
+            //if (isHtml)
+            //{
+            //    message.Body = new TextPart(TextFormat.Html)
+            //    {
+            //        Text = body
+            //    };
+            //}
+            //else
+            //{
+            //    message.Body = new TextPart(TextFormat.Text)
+            //    {
+            //        Text = body
+            //    };
+            //}
+
+            var builder = new BodyBuilder();
+
+            if (isHtml)
+            {
+                builder.HtmlBody = body;
+            }
+            else
+            {
+                builder.TextBody = body;
+            }
+
+            if (fileAttachmentPaths != null)
+            {
+                foreach (string path in fileAttachmentPaths)
+                {
+                    builder.Attachments.Add(path);
+                }
+            }
+
+            message.Body = builder.ToMessageBody();
+
+            Mail(message);
         }
 
-        public void Mail(MailMessage message)
+        public void Mail(MimeMessage message)
         {
             if (message != null)
             {
-                SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-                if (smtpSection != null)
-                {
-                    string userName = smtpSection.Network.UserName;
-                    string password = smtpSection.Network.Password;
-                    if (!String.IsNullOrEmpty(UserName))
-                    {
-                        userName = UserName;
-                        password = Password;
-                    }
+                string host = ConfigurationHelper.AppSettings<string>("Mail.Host");
+                int port = ConfigurationHelper.AppSettings<int>("Mail.Port");
+                string userName = ConfigurationHelper.AppSettings<string>("Mail.UserName");
+                string password = ConfigurationHelper.AppSettings<string>("Mail.Password");
+                bool ssl = ConfigurationHelper.AppSettings<bool>("Mail.SSL");
 
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.UseDefaultCredentials = smtpSection.Network.DefaultCredentials;
-                    smtp.Credentials = new System.Net.NetworkCredential(userName, password);
-                    smtp.EnableSsl = smtpSection.Network.EnableSsl;
-                    smtp.Host = smtpSection.Network.Host;
-                    smtp.Port = smtpSection.Network.Port;
-
-                    smtp.Send(message);
-                }
+                Mail(message,
+                    host, port, userName, password, ssl);
             }
         }
 
-        public void Mail(MailMessage message,
-            string host, int port, string userName, string password, bool defaultCredentials, bool enableSsl)
+        public void Mail(MimeMessage message,
+            string host, int port, string userName, string password, bool ssl)
         {
             host = host ?? "";
             userName = userName ?? "";
@@ -182,15 +130,21 @@ namespace EasyLOB.Extensions.Mail
                 userName = UserName;
                 password = Password;
             }
-        
-            SmtpClient smtp = new SmtpClient();
-            smtp.UseDefaultCredentials = defaultCredentials;
-            smtp.Credentials = new System.Net.NetworkCredential(userName, password);
-            smtp.EnableSsl = enableSsl;
-            smtp.Host = host;
-            smtp.Port = port;
 
+            // GMail
+            // 465 = SSL
+            // 587 = TLS
+            // How do I access GMail using MailKit?
+            // http://www.mimekit.net/docs/html/Frequently-Asked-Questions.htm#GMailAccess
+            // Less Secure Accounts
+            // https://myaccount.google.com/lesssecureapps
+            SmtpClient smtp = new SmtpClient();
+            //smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+            smtp.Connect(host, port, ssl); // SSL
+            //smtp.Connect(host, 587, SecureSocketOptions.StartTls); // TLS
+            smtp.Authenticate(userName, password);
             smtp.Send(message);
+            smtp.Disconnect(true);
         }
 
         #endregion Methods Interface

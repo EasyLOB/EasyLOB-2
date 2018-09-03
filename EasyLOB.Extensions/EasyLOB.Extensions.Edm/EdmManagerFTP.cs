@@ -1,10 +1,10 @@
 using EasyLOB.Library;
+using FluentFTP;
 using System;
 using System.IO;
 using System.Net;
-using System.Net.FtpClient;
 
-// Install-Package System.Net.FtpClient
+// Install-Package FluentFTP
 
 /*
 
@@ -145,7 +145,7 @@ namespace EasyLOB.Extensions.Edm
                 workingDirectory = ftpClient.GetWorkingDirectory();
                 ftpClient.SetWorkingDirectory("/");
 
-                result = ftpClient.FileExists(filePath, FtpListOption.ForceList | FtpListOption.AllFiles);
+                result = ftpClient.FileExists(filePath);
             }
             finally
             {

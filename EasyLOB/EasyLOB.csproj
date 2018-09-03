@@ -32,21 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\EasyLOB-MyLOB-2\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\ZActivityOperations.cs" />
-    <Compile Include="Interfaces\Application\IDIManager.cs" />
+    <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="DI\DIHelper.cs" />
     <Compile Include="Interfaces\Data\IZProfile.cs" />
     <Compile Include="Interfaces\Data\IZValidatableObject.cs" />
     <Compile Include="Interfaces\Data\IZDataBase.cs" />
     <Compile Include="Interfaces\Data\IZDTOBase.cs" />
+    <Compile Include="Interfaces\DI\IDIManager.cs" />
     <Compile Include="Interfaces\Presentation\IZViewBase.cs" />
     <Compile Include="Interfaces\Application\IGenericApplication.cs" />
     <Compile Include="Interfaces\Application\IGenericApplicationDTO.cs" />
@@ -159,6 +161,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
