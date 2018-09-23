@@ -27,6 +27,7 @@ namespace EasyLOB.Activity.Data
                 new ZProfileProperty(false, true , 200, true , false, "col-md-4", "ActivityId"), // !?!
                 new ZProfileProperty(true , true , 100, false, false, "col-md-4", "ActivityLookupText"),
                 new ZProfileProperty(true , true , 200, true , false, "col-md-4", "RoleName"), // !?!
+                new ZProfileProperty(true , true , 100, false, false, "col-md-4", "RoleLookupText"), // !?!
                 new ZProfileProperty(true , true , 200, true , false, "col-md-4", "Operations")
             }
         );

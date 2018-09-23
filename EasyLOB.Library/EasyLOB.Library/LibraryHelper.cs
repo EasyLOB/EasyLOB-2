@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -2175,6 +2176,18 @@ namespace EasyLOB.Library
             MethodInfo method = type.GetMethod(methodName, bindingFlags);
 
             return method.Invoke(instance, args);
+        }
+
+        // Assembly
+
+        /// <summary>
+        /// Get Assembly.
+        /// </summary>
+        /// <param name="name">Assembly name</param>
+        /// <returns>Assembly</returns>
+        public static Assembly GetAssembly(string name)
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == name);
         }
 
         // Type
