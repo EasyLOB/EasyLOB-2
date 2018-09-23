@@ -34,7 +34,7 @@ namespace EasyLOB.Persistence
             }
             else
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
         }
     }

@@ -64,7 +64,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionLINQ2DB(exception);
+                operationResult.ParseExceptionLINQ2DB(exception);
             }
 
             return operationResult.Ok;
@@ -84,7 +84,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionLINQ2DB(exception);
+                operationResult.ParseExceptionLINQ2DB(exception);
             }
 
             return operationResult.Ok;
@@ -140,7 +140,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionLINQ2DB(exception);
+                operationResult.ParseExceptionLINQ2DB(exception);
             }
 
             return operationResult.Ok;

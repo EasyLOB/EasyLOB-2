@@ -7,7 +7,7 @@ namespace EasyLOB.Persistence
     {
         public static void ParseExceptionLINQ2DB(this ZOperationResult operationResult, Exception exception)
         {
-            (operationResult as ZOperationResult).ParseException(exception);
+            operationResult.ParseException(exception);
         }
     }
 }

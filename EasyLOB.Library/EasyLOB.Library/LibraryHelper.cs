@@ -1317,7 +1317,7 @@ namespace EasyLOB.Library
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return operationResult.Ok;

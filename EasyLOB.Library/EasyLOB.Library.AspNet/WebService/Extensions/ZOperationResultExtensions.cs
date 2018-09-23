@@ -13,7 +13,7 @@ namespace EasyLOB.Library.AspNet
             }
             else
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
         }
     }

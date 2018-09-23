@@ -140,7 +140,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
             finally
             {
@@ -186,7 +186,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
             finally
             {
@@ -211,7 +211,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -230,7 +230,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -254,7 +254,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -282,7 +282,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -306,7 +306,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -325,7 +325,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
 
             return result;
@@ -375,7 +375,7 @@ namespace EasyLOB.Application
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseException(exception);
+                operationResult.ParseException(exception);
             }
             finally
             {

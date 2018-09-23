@@ -22,12 +22,12 @@ namespace EasyLOB.Identity.Persistence
                 IdentityResult identityResult = IdentityHelperNH.RoleManager.Create(role);
                 if (!identityResult.Succeeded)
                 {
-                    (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                    operationResult.ParseIdentityResult(identityResult);
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;
@@ -43,13 +43,13 @@ namespace EasyLOB.Identity.Persistence
                     IdentityResult identityResult = IdentityHelperNH.RoleManager.Delete(role);
                     if (!identityResult.Succeeded)
                     {
-                        (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                        operationResult.ParseIdentityResult(identityResult);
                     }
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;
@@ -64,12 +64,12 @@ namespace EasyLOB.Identity.Persistence
                 IdentityResult identityResult = IdentityHelperNH.RoleManager.Update(role);
                 if (!identityResult.Succeeded)
                 {
-                    (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                    operationResult.ParseIdentityResult(identityResult);
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;

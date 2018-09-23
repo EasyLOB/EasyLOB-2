@@ -132,7 +132,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionOData(exception);
+                operationResult.ParseExceptionOData(exception);
             }
 
             return operationResult.Ok;
@@ -157,7 +157,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionOData(exception);
+                operationResult.ParseExceptionOData(exception);
             }
 
             return operationResult.Ok;
@@ -426,7 +426,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionOData(exception);
+                operationResult.ParseExceptionOData(exception);
             }
 
             return operationResult.Ok;

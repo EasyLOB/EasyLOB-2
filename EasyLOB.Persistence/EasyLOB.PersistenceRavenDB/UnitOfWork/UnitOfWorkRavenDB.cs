@@ -145,7 +145,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionRavenDB(exception);
+                operationResult.ParseExceptionRavenDB(exception);
             }
 
             return operationResult.Ok;

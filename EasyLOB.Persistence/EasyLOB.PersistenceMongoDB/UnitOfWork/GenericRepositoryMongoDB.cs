@@ -139,7 +139,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionMongoDB(exception);
+                operationResult.ParseExceptionMongoDB(exception);
             }
 
             return operationResult.Ok;
@@ -174,7 +174,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionMongoDB(exception);
+                operationResult.ParseExceptionMongoDB(exception);
             }
 
             return operationResult.Ok;
@@ -509,7 +509,7 @@ namespace EasyLOB.Persistence
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionMongoDB(exception);
+                operationResult.ParseExceptionMongoDB(exception);
             }
 
             return operationResult.Ok;

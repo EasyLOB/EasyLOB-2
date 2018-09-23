@@ -193,7 +193,7 @@ namespace EasyLOB.Activity
                 !activityOperations.IsExecute)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity));
             }
 
             return result;
@@ -206,7 +206,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsIndex)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Index));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Index));
             }
 
             return result;
@@ -219,7 +219,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsSearch)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Search));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Search));
             }
 
             return result;
@@ -232,7 +232,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsCreate)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Create));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Create));
             }
 
             return result;
@@ -245,7 +245,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsRead)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Read));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Read));
             }
 
             return result;
@@ -258,7 +258,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsUpdate)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Update));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Update));
             }
 
             return result;
@@ -271,7 +271,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsDelete)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Delete));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Delete));
             }
 
             return result;
@@ -284,7 +284,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsExport)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Export));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Export));
             }
 
             return result;
@@ -297,7 +297,7 @@ namespace EasyLOB.Activity
             if (!activityOperations.IsExecute)
             {
                 result = false;
-                (operationResult as ZOperationResult).AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Delete));
+                operationResult.AddOperationError("", MessageNotAuthorized(activityOperations.Activity, ZOperations.Delete));
             }
 
             return result;

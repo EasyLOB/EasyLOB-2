@@ -22,12 +22,12 @@ namespace EasyLOB.Identity.Persistence
                 IdentityResult identityResult = IdentityHelperNH.UserManager.Create(user, entity.PasswordHash);
                 if (!identityResult.Succeeded)
                 {
-                    (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                    operationResult.ParseIdentityResult(identityResult);
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;
@@ -43,13 +43,13 @@ namespace EasyLOB.Identity.Persistence
                     IdentityResult identityResult = IdentityHelperNH.UserManager.Delete(user);
                     if (!identityResult.Succeeded)
                     {
-                        (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                        operationResult.ParseIdentityResult(identityResult);
                     }
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;
@@ -67,7 +67,7 @@ namespace EasyLOB.Identity.Persistence
                 //validEmail = await IdentityHelperNH.UserManager.UserValidator.ValidateAsync(user);
                 if (!validEmail.Succeeded)
                 {
-                    (operationResult as ZOperationResult).ParseIdentityResult(validEmail);
+                    operationResult.ParseIdentityResult(validEmail);
                 }
 
                 IdentityResult validPassword = new IdentityResult();
@@ -80,7 +80,7 @@ namespace EasyLOB.Identity.Persistence
                     }
                     else
                     {
-                        (operationResult as ZOperationResult).ParseIdentityResult(validPassword);
+                        operationResult.ParseIdentityResult(validPassword);
                     }
                 }
 
@@ -89,13 +89,13 @@ namespace EasyLOB.Identity.Persistence
                     IdentityResult identityResult = IdentityHelperNH.UserManager.Update(user);
                     if (!identityResult.Succeeded)
                     {
-                        (operationResult as ZOperationResult).ParseIdentityResult(identityResult);
+                        operationResult.ParseIdentityResult(identityResult);
                     }
                 }
             }
             catch (Exception exception)
             {
-                (operationResult as ZOperationResult).ParseExceptionNHibernate(exception);
+                operationResult.ParseExceptionNHibernate(exception);
             }
 
             return operationResult.Ok;
