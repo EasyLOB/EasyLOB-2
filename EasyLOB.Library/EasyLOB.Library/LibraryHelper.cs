@@ -42,9 +42,9 @@ namespace EasyLOB.Library
             get
             {
                 Dictionary<ZFileTypes, string> result = new Dictionary<ZFileTypes, string>();
-                foreach (KeyValuePair<ZFileTypes, string> pair in FileExtensions)
+                foreach (KeyValuePair<ZFileTypes, string> keyValue in FileExtensions)
                 {
-                    result.Add(pair.Key, pair.Value.Replace(".", "")); // .pdf => pdf
+                    result.Add(keyValue.Key, keyValue.Value.Replace(".", "")); // .pdf => pdf
                 }
                 return result;
             }
@@ -1388,11 +1388,11 @@ namespace EasyLOB.Library
 
             // Acronyms
 
-            foreach (KeyValuePair<ZFileTypes, string> pair in LibraryHelper.FileAcronyms)
+            foreach (KeyValuePair<ZFileTypes, string> keyValue in LibraryHelper.FileAcronyms)
             {
-                if (pair.Value == acronymOrExtension)
+                if (keyValue.Value == acronymOrExtension)
                 {
-                    fileType = pair.Key;
+                    fileType = keyValue.Key;
                     break;
                 }
             }
@@ -1401,11 +1401,11 @@ namespace EasyLOB.Library
 
             if (fileType == (int)ZFileTypes.ftUnknown)
             {
-                foreach (KeyValuePair<ZFileTypes, string> pair in LibraryHelper.FileExtensions)
+                foreach (KeyValuePair<ZFileTypes, string> keyValue in LibraryHelper.FileExtensions)
                 {
-                    if (pair.Value == acronymOrExtension)
+                    if (keyValue.Value == acronymOrExtension)
                     {
-                        fileType = pair.Key;
+                        fileType = keyValue.Key;
                         break;
                     }
                 }

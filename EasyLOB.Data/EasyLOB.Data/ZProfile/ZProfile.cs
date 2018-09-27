@@ -64,11 +64,11 @@ namespace EasyLOB.Data
             {
                 List<string> result = new List<string>();
 
-                foreach(KeyValuePair<string, bool> pair in Collections)
+                foreach(KeyValuePair<string, bool> keyValue in Collections)
                 {
-                    if (pair.Value)
+                    if (keyValue.Value)
                     {
-                        result.Add(pair.Key);
+                        result.Add(keyValue.Key);
                     }
                 }
 
@@ -83,11 +83,11 @@ namespace EasyLOB.Data
             {
                 List<string> result = new List<string>();
 
-                foreach (KeyValuePair<string, bool> pair in Collections)
+                foreach (KeyValuePair<string, bool> keyValue in Collections)
                 {
-                    if (!pair.Value)
+                    if (!keyValue.Value)
                     {
-                        result.Add(pair.Key);
+                        result.Add(keyValue.Key);
                     }
                 }
 
