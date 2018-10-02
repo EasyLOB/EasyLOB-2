@@ -109,6 +109,9 @@
     <None Include="EasyLOB-Configuration\JSON\MyLOBMultiTenant.json" />
     <None Include="EasyLOB-Template\.gitkeep" />
     <None Include="NLog.config" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
