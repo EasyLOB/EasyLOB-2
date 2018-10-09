@@ -10,7 +10,7 @@ namespace EasyLOB.Log
 
         void Debug(string message, params object[] args);
 
-        void Info(string message, params object[] args);
+        void Information(string message, params object[] args);
 
         void Warning(string message, params object[] args);
 
@@ -18,7 +18,7 @@ namespace EasyLOB.Log
 
         void Fatal(string message, params object[] args);
 
-        void Exception(Exception exception, string message);
+        void Fatal(Exception exception, string message);
 
         void LogException(Exception exception);
 

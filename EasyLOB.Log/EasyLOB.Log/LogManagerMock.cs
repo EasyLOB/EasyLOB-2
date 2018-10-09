@@ -18,7 +18,7 @@ namespace EasyLOB.Log
         {
         }
 
-        public void Info(string message, params object[] args)
+        public void Information(string message, params object[] args)
         {
         }
 
@@ -34,7 +34,7 @@ namespace EasyLOB.Log
         {
         }
 
-        public void Exception(Exception exception, string message)
+        public void Fatal(Exception exception, string message)
         {
         }
 

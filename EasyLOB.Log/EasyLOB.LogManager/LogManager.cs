@@ -52,7 +52,7 @@ namespace EasyLOB.Log
             }
         }
 
-        public void Info(string message, params object[] args)
+        public void Information(string message, params object[] args)
         {
             if (LogHelper.IsLog)
             {
@@ -81,6 +81,14 @@ namespace EasyLOB.Log
             if (LogHelper.IsLog)
             {
                 NLogLogger.Fatal(message, args);
+            }
+        }
+
+        public void Fatal(Exception exception, string message)
+        {
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Fatal(exception, message);
             }
         }
 
