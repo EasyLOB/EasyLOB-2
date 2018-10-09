@@ -84,6 +84,14 @@ namespace EasyLOB.Log
             }
         }
 
+        public void Exception(Exception exception, string message)
+        {
+            if (LogHelper.IsLog)
+            {
+                NLogLogger.Fatal(exception, message);
+            }
+        }
+
         public void LogException(Exception exception)
         {
             if (LogHelper.IsLog)

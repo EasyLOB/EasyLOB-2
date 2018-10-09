@@ -18,6 +18,8 @@ namespace EasyLOB.Log
 
         void Fatal(string message, params object[] args);
 
+        void Exception(Exception exception, string message);
+
         void LogException(Exception exception);
 
         void LogOperationResult(ZOperationResult operationResult);

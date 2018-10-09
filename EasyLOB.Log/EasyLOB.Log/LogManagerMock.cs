@@ -34,6 +34,10 @@ namespace EasyLOB.Log
         {
         }
 
+        public void Exception(Exception exception, string message)
+        {
+        }
+
         public void LogException(Exception exception)
         {
         }
