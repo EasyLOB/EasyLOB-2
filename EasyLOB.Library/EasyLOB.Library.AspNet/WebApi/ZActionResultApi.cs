@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace EasyLOB.Library.AspNet
 {
-    public class OperationResultActionResult : IHttpActionResult
+    public class ZActionResultApi : IHttpActionResult
     {
         #region Properties
 
@@ -18,7 +18,7 @@ namespace EasyLOB.Library.AspNet
 
         #region Methods
 
-        public OperationResultActionResult(HttpRequestMessage request, ZOperationResult operationResult)
+        public ZActionResultApi(HttpRequestMessage request, ZOperationResult operationResult)
         {
             _request = request;
             _operationResult = operationResult;

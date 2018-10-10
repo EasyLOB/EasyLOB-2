@@ -3,7 +3,7 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 
-// JsonNETResult
+// ZJsonResultMvc
 // https://github.com/kemmis/Newtonsoft.JsonResult
 
 /*
@@ -27,7 +27,7 @@ var result = Json(JsonConvert.SerializeObject(new { result = data, count = count
 protected override JsonResult Json(object data, string contentType,
     System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
 {
-    return new JsonNETResult
+    return new ZJsonResultMvc
     {
         Data = data,
         ContentType = contentType,
@@ -40,7 +40,7 @@ protected override JsonResult Json(object data, string contentType,
 
 namespace EasyLOB.Library.AspNet
 {
-    public class JsonNETResult : System.Web.Mvc.JsonResult
+    public class ZJsonResultMvc : System.Web.Mvc.JsonResult
     {
         #region Methods
 
