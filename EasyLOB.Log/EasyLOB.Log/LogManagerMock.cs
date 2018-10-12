@@ -34,15 +34,11 @@ namespace EasyLOB.Log
         {
         }
 
-        public void Fatal(Exception exception, string message)
+        public void Exception(Exception exception, string message, params object[] args)
         {
         }
 
-        public void LogException(Exception exception)
-        {
-        }
-
-        public void LogOperationResult(ZOperationResult operationResult)
+        public void OperationResult(ZOperationResultLog operationResultLog)
         {
         }
 

@@ -92,52 +92,53 @@ namespace EasyLOB.Log
             }
         }
 
-        public void Exception(Exception exception, string message)
+        public void Exception(Exception exception, string message, params object[] args)
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Fatal(exception, message);
+                NLogLogger.Fatal(exception, message, args);
             }
         }
 
-        public void LogException(Exception exception)
+        public void OperationResult(ZOperationResultLog operationResultLog)
         {
-            if (LogHelper.IsLog)
-            {
-                NLogLogger.Error(exception.ExceptionMessage);
-            }
+            Fatal("{@OperationResult}", operationResultLog);
         }
-
-        public void LogOperationResult(ZOperationResult operationResult)
+        /*
+        public void OperationResult(ZOperationResultLog operationResultLog)
         {
+
             // Status Message
 
-            if (!String.IsNullOrEmpty(operationResult.StatusCode) || !String.IsNullOrEmpty(operationResult.StatusMessage))
+            if (!String.IsNullOrEmpty(operationResultLog.StatusCode) || !String.IsNullOrEmpty(operationResultLog.StatusMessage))
             {
-                string text = ErrorResources.Status + " " + (!String.IsNullOrEmpty(operationResult.StatusCode) ? "[ " + operationResult.StatusCode + " ] " : "") +
-                    operationResult.StatusMessage;
-                Trace(text);
+                string text = ErrorResources.Status + " " +
+                    (!String.IsNullOrEmpty(operationResultLog.StatusCode) ?
+                        "[ " + operationResultLog.StatusCode + " ] " : "") + operationResultLog.StatusMessage;
+                Information(text);
             }
 
             // Error Message
 
-            if (!String.IsNullOrEmpty(operationResult.ErrorCode) || !String.IsNullOrEmpty(operationResult.ErrorMessage))
+            if (!String.IsNullOrEmpty(operationResultLog.ErrorCode) || !String.IsNullOrEmpty(operationResultLog.ErrorMessage))
             {
-                string text = ErrorResources.Error + " " + (!String.IsNullOrEmpty(operationResult.ErrorCode) ? "[ " + operationResult.ErrorCode + " ] " : "") +
-                    operationResult.ErrorMessage;
+                string text = ErrorResources.Error + " " +
+                    (!String.IsNullOrEmpty(operationResultLog.ErrorCode) ?
+                        "[ " + operationResultLog.ErrorCode + " ] " : "") + operationResultLog.ErrorMessage;
                 Error(text);
             }
 
             // Errors
 
-            foreach (ZOperationError operationError in operationResult.OperationErrors)
+            foreach (ZOperationError operationError in operationResultLog.OperationErrors)
             {
-                string text = ErrorResources.Error + " " + (!String.IsNullOrEmpty(operationError.ErrorCode) ? "[ " + operationError.ErrorCode + " ] " : "") +
-                    operationError.ErrorMessage;
+                string text = ErrorResources.Error + " " +
+                    (!String.IsNullOrEmpty(operationError.ErrorCode) ?
+                        "[ " + operationError.ErrorCode + " ] " : "") + operationError.ErrorMessage;
                 Error(text);
             }
         }
-
+         */
         #endregion Methods
     }
 }

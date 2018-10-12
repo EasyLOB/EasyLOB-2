@@ -18,11 +18,9 @@ namespace EasyLOB.Log
 
         void Fatal(string message, params object[] args);
 
-        void Fatal(Exception exception, string message);
+        void Exception(Exception exception, string message, params object[] args);
 
-        void LogException(Exception exception);
-
-        void LogOperationResult(ZOperationResult operationResult);
+        void OperationResult(ZOperationResultLog operationResultLog);
 
         #endregion Methods
     }
