@@ -37,6 +37,12 @@ namespace EasyLOB
         public string ErrorMessage { get; set; }
 
         /// <summary>
+        /// Exception.
+        /// </summary>
+        //[DataMember]
+        public Exception Exception { get; set; }
+
+        /// <summary>
         /// Operation Result Html.
         /// </summary>
         [DataMember]
@@ -289,6 +295,7 @@ namespace EasyLOB
         /// <param name="exception">Exception</param>
         public void ParseException(Exception exception)
         {
+            Exception = exception;
             AddOperationError("", exception.Message, exception.StackTrace);
             ParseInnerException(exception);
         }

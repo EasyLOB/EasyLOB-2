@@ -15,6 +15,52 @@ namespace EasyLOB
         #region Properties
 
         /// <summary>
+        /// Log.
+        /// </summary>
+        [DataMember]
+        public string Log
+        {
+            get
+            {
+                string log =
+                    (String.IsNullOrEmpty(TenantName) ? "" : TenantName + " - ") +
+                    (String.IsNullOrEmpty(UserName) ? "" : UserName + " - ") +
+                    "";
+
+                if (!Ok)
+                {
+                    if (!String.IsNullOrWhiteSpace(ErrorMessage))
+                    {
+                        log += ErrorMessage;
+                    }
+                    else
+                    {
+                        if (OperationErrors.Count > 0)
+                        {
+                            log += OperationErrors[0].ErrorMessage;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrWhiteSpace(StatusMessage))
+                    {
+                        log += StatusMessage;
+                    }
+                    else
+                    {
+                        if (OperationErrors.Count > 0)
+                        {
+                            log += OperationErrors[0].ErrorMessage;
+                        }
+                    }
+                }
+
+                return log;
+            }
+        }
+
+        /// <summary>
         /// Url.
         /// </summary>
         [DataMember]
@@ -33,6 +79,12 @@ namespace EasyLOB
         public string TenantName { get; set; }
 
         /// <summary>
+        /// Data.
+        /// </summary>
+        [DataMember]
+        public string Data { get; set; }
+
+        /// <summary>
         /// Error Code.
         /// </summary>
         [DataMember]
@@ -43,6 +95,18 @@ namespace EasyLOB
         /// </summary>
         [DataMember]
         public string ErrorMessage { get; set; }
+
+        /// <summary>
+        /// Exception.
+        /// </summary>
+        //[DataMember]
+        public Exception Exception { get; set; }
+
+        /// <summary>
+        /// Successfull ?
+        /// </summary>
+        [DataMember]
+        public bool Ok { get; set; }
 
         /// <summary>
         /// Status Code.
@@ -87,22 +151,28 @@ namespace EasyLOB
 
         [JsonConstructor]
         public ZOperationResultLog(
+            string log,
             string url,
             string userName,
             string tenantName,
+            string data,
             string errorCode,
             string errorMessage,
+            Exception exception,
             string statusCode,
             string statusMessage,
             List<ZOperationError> operationErrors,
             List<ZOperationStatus> operationStatuses)
             : this()
         {
+            // Log
             Url = url ?? "";
             UserName = userName ?? "";
             TenantName = tenantName ?? "";
+            Data = data;
             ErrorCode = errorCode ?? "";
             ErrorMessage = errorMessage ?? "";
+            Exception = exception;
             StatusCode = statusCode ?? "";
             StatusMessage = statusMessage ?? "";
             OperationErrors = operationErrors ?? OperationErrors;
@@ -114,8 +184,10 @@ namespace EasyLOB
             Url = url;
             UserName = userName;
             TenantName = tenantName;
+            Data = operationResult.Data;
             ErrorCode = operationResult.ErrorCode;
             ErrorMessage = operationResult.ErrorMessage;
+            Exception = operationResult.Exception;
             StatusCode = operationResult.StatusCode;
             StatusMessage = operationResult.StatusCode;
             OperationErrors = operationResult.OperationErrors;

@@ -1,5 +1,4 @@
-﻿using EasyLOB.Library;
-using EasyLOB.Resources;
+﻿using Newtonsoft.Json;
 using NLog;
 using System;
 
@@ -21,7 +20,7 @@ namespace EasyLOB.Log
     {
         #region Properties
 
-        public Logger NLogLogger { get; }
+        public Logger Log { get; }
 
         #endregion Properties
 
@@ -29,7 +28,7 @@ namespace EasyLOB.Log
 
         public LogManager()
         {
-            NLogLogger = NLog.LogManager.GetLogger("NLog");
+            Log = NLog.LogManager.GetLogger("NLog");
         }
 
         public virtual void Dispose()
@@ -40,7 +39,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Trace(message, args);
+                Log.Trace(message, args);
             }
         }
 
@@ -48,7 +47,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Debug(message, args);
+                Log.Debug(message, args);
             }
         }
 
@@ -56,7 +55,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Info(message, args);
+                Log.Info(message, args);
             }
         }
 
@@ -64,7 +63,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Warn(message, args);
+                Log.Warn(message, args);
             }
         }
 
@@ -72,7 +71,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Error(message, args);
+                Log.Error(message, args);
             }
         }
 
@@ -80,7 +79,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Fatal(message, args);
+                Log.Fatal(message, args);
             }
         }
 
@@ -88,7 +87,7 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Fatal(exception, message);
+                Log.Fatal(exception, message);
             }
         }
 
@@ -96,14 +95,41 @@ namespace EasyLOB.Log
         {
             if (LogHelper.IsLog)
             {
-                NLogLogger.Fatal(exception, message, args);
+                Log.Fatal(exception, message, args);
             }
         }
 
         public void OperationResult(ZOperationResultLog operationResultLog)
         {
+            if (!String.IsNullOrEmpty(operationResultLog.Log))
+            {
+                JsonSerializerSettings jsonSettings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.None,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                LogEventInfo logEventInfo = new LogEventInfo(LogLevel.Trace, Log.Name, operationResultLog.Log);
+                if (operationResultLog.Exception != null)
+                {
+                    logEventInfo.Exception = operationResultLog.Exception;
+                }
+                logEventInfo.Level = !operationResultLog.Ok ? LogLevel.Fatal : LogLevel.Info;
+                // data.OperationResultOk:False
+                // data.OperationResultOk:True
+                logEventInfo.Properties["X-ELMAHIO-SEARCH-OperationResultOk"] = operationResultLog.Ok.ToString();
+                logEventInfo.Properties["OperationResult"] =
+                    JsonConvert.SerializeObject(operationResultLog, jsonSettings);
+
+                Log.Log(logEventInfo);
+            }
+        }
+        /*
+        public void OperationResult(ZOperationResultLog operationResultLog)
+        {
             Fatal("{@OperationResult}", operationResultLog);
         }
+        */
         /*
         public void OperationResult(ZOperationResultLog operationResultLog)
         {
