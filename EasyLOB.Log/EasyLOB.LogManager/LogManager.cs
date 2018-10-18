@@ -113,8 +113,12 @@ namespace EasyLOB.Log
                 if (operationResultLog.Exception != null)
                 {
                     logEventInfo.Exception = operationResultLog.Exception;
+                    logEventInfo.Level = LogLevel.Fatal;
                 }
-                logEventInfo.Level = !operationResultLog.Ok ? LogLevel.Fatal : LogLevel.Info;
+                else
+                {
+                    logEventInfo.Level = !operationResultLog.Ok ? LogLevel.Error : LogLevel.Warn;
+                }
                 // data.OperationResultOk:False
                 // data.OperationResultOk:True
                 logEventInfo.Properties["X-ELMAHIO-SEARCH-OperationResultOk"] = operationResultLog.Ok.ToString();
@@ -124,47 +128,7 @@ namespace EasyLOB.Log
                 Log.Log(logEventInfo);
             }
         }
-        /*
-        public void OperationResult(ZOperationResultLog operationResultLog)
-        {
-            Fatal("{@OperationResult}", operationResultLog);
-        }
-        */
-        /*
-        public void OperationResult(ZOperationResultLog operationResultLog)
-        {
 
-            // Status Message
-
-            if (!String.IsNullOrEmpty(operationResultLog.StatusCode) || !String.IsNullOrEmpty(operationResultLog.StatusMessage))
-            {
-                string text = ErrorResources.Status + " " +
-                    (!String.IsNullOrEmpty(operationResultLog.StatusCode) ?
-                        "[ " + operationResultLog.StatusCode + " ] " : "") + operationResultLog.StatusMessage;
-                Information(text);
-            }
-
-            // Error Message
-
-            if (!String.IsNullOrEmpty(operationResultLog.ErrorCode) || !String.IsNullOrEmpty(operationResultLog.ErrorMessage))
-            {
-                string text = ErrorResources.Error + " " +
-                    (!String.IsNullOrEmpty(operationResultLog.ErrorCode) ?
-                        "[ " + operationResultLog.ErrorCode + " ] " : "") + operationResultLog.ErrorMessage;
-                Error(text);
-            }
-
-            // Errors
-
-            foreach (ZOperationError operationError in operationResultLog.OperationErrors)
-            {
-                string text = ErrorResources.Error + " " +
-                    (!String.IsNullOrEmpty(operationError.ErrorCode) ?
-                        "[ " + operationError.ErrorCode + " ] " : "") + operationError.ErrorMessage;
-                Error(text);
-            }
-        }
-         */
         #endregion Methods
     }
 }
