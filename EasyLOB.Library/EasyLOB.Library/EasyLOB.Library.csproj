@@ -23,7 +23,6 @@
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Debug\EasyLOB.Library.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
-    <IntermediateOutputPath>C:\Users\Siegmar\AppData\Local\Temp\vs4F47.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Siegmar\AppData\Local\Temp\vs4F47.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
