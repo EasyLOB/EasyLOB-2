@@ -1,5 +1,6 @@
 ﻿using EasyLOB.Library.AspNet;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -15,6 +16,24 @@ namespace EasyLOB.Library.App
 
         #region Properties
 
+        private static string _applicationDirectory;
+
+        public static string ApplicationDirectory
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_applicationDirectory))
+                {
+                    if (WebHelper.IsWeb)
+                    {
+                        _applicationDirectory = WebHelper.ApplicationDirectory;
+                    }
+                }
+
+                return _applicationDirectory;
+            }
+        }
+
         public static bool HasTenants
         {
             get { return IsMultiTenant && Tenants != null ? true : false; }
@@ -27,7 +46,30 @@ namespace EasyLOB.Library.App
 
         public static AppTenant Tenant
         {
-            get { return GetTenant(WebHelper.WebSubDomain); }
+            get
+            {
+                string tenantName = WebHelper.WebSubDomain;
+
+                return GetTenant(String.IsNullOrEmpty(tenantName) ? TenantName : tenantName);
+            }
+        }
+
+        private static string _tenantName = "";
+
+        public static string TenantName
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_tenantName))
+                {
+                    if (WebHelper.IsWeb)
+                    {
+                        _tenantName = WebHelper.WebSubDomain;
+                    }
+                }
+
+                return _tenantName;
+            }
         }
 
         public static List<AppTenant> Tenants
@@ -39,7 +81,7 @@ namespace EasyLOB.Library.App
                 {
                     try
                     {
-                        string filePath = Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                        string filePath = Path.Combine(MultiTenantHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                             "JSON/MultiTenant.json");
                         string json = File.ReadAllText(filePath);
                         tenants = JsonConvert.DeserializeObject<List<AppTenant>>(json);
@@ -57,6 +99,12 @@ namespace EasyLOB.Library.App
         #endregion Properties
 
         #region Methods
+
+        public static void Setup(string tenantName, string applicationDirectory)
+        {
+            _tenantName = tenantName;
+            _applicationDirectory = applicationDirectory;
+        }
 
         public static string GetConnectionName(string defaultConnectionName)
         {
@@ -86,7 +134,7 @@ namespace EasyLOB.Library.App
         {
             AppTenant appTenant = null;
 
-            if (IsMultiTenant && WebHelper.IsWeb)
+            if (IsMultiTenant)
             {
                 if (Tenants.Count > 0)
                 {
@@ -111,6 +159,22 @@ namespace EasyLOB.Library.App
             appTenant = appTenant ?? new AppTenant();
 
             return appTenant;
+        }
+
+        public static string WebDirectory(string path)
+        {
+            string result = "";
+
+            if (WebHelper.IsWeb)
+            {
+                result = WebHelper.WebDirectory(path);
+            }
+            else
+            {
+                result = Path.Combine(ApplicationDirectory, path.Trim('~', '/', '\\'));
+            }
+
+            return result;
         }
 
         #endregion Methods

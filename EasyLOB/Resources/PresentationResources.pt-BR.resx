@@ -348,4 +348,7 @@
   <data name="Files" xml:space="preserve">
     <value>Arquivo(s)</value>
   </data>
+  <data name="CreateToRead" xml:space="preserve">
+    <value>"CRIAR" bem sucedido redirecionado para "VISUALIZAR"</value>
+  </data>
 </root>

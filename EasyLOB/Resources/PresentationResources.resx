@@ -339,4 +339,7 @@
   <data name="Files" xml:space="preserve">
     <value>File(s)</value>
   </data>
+  <data name="CreateToRead" xml:space="preserve">
+    <value>Successful "CREATE" redirected to "READ"</value>
+  </data>
 </root>

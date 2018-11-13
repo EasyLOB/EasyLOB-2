@@ -8,18 +8,18 @@ namespace EasyLOB.Library.AspNet
     {
         #region Properties
 
-        public static string ApplicationBaseDirectory
+        public static string ApplicationDirectory
         {
             get
             {
+                string result = "";
+
                 if (IsWeb)
                 {
-                    return HttpContext.Current.Server.MapPath("~");
+                    result = HttpContext.Current.Server.MapPath("~");
                 }
-                else
-                {
-                    return AppDomain.CurrentDomain.BaseDirectory;
-                }
+
+                return result;
             }
         }
 
@@ -79,11 +79,6 @@ namespace EasyLOB.Library.AspNet
             }
         }
 
-        public static string WebDirectory(object p)
-        {
-            throw new NotImplementedException();
-        }
-
         public static string WebSubDomain
         {
             get
@@ -127,10 +122,6 @@ namespace EasyLOB.Library.AspNet
                 //   Path
                 //     ~/EasyLOB-Configuration/Menu.json => C:\GitHub\EasyLOB-Northwind\Northwind.Mvc.AJAX\EasyLOB-Configuration\Menu.json
                 result = HttpContext.Current.Server.MapPath(path);
-            }
-            else
-            {
-                result = Path.Combine(ApplicationBaseDirectory, path);
             }
 
             return result;
