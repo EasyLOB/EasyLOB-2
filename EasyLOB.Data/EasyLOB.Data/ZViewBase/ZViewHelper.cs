@@ -10,13 +10,16 @@ namespace EasyLOB.Data
     {
         #region Methods
 
-        public static List<TEntityView> ToViewList(IEnumerable<TEntityDTO> dtos) // List<DTO> -> List<ViewModel>
+        public static List<TEntityView> ToViewList(IEnumerable<TEntity> dataModels) // List<DataModel> -> List<ViewModel>
         {
             List<TEntityView> viewModels = new List<TEntityView>();
 
-            foreach (TEntityDTO dto in dtos)
+            foreach (TEntity dataModel in dataModels)
             {
-                TEntityView view = (TEntityView)Activator.CreateInstance(typeof(TEntityView), dto);
+                TEntityView view = (TEntityView)Activator.CreateInstance(typeof(TEntityView), dataModel);
+
+                //TEntityDTO dto = (TEntityDTO)Activator.CreateInstance(typeof(TEntityDTO), dataModel);
+                //TEntityView view = (TEntityView)Activator.CreateInstance(typeof(TEntityView), dto);
 
                 viewModels.Add(view);
             }
@@ -24,13 +27,12 @@ namespace EasyLOB.Data
             return viewModels;
         }
 
-        public static List<TEntityView> ToViewList(IEnumerable<TEntity> dataModels) // List<DataModel> -> List<ViewModel>
+        public static List<TEntityView> ToViewList(IEnumerable<TEntityDTO> dtos) // List<DTO> -> List<ViewModel>
         {
             List<TEntityView> viewModels = new List<TEntityView>();
 
-            foreach (TEntity dataModel in dataModels)
+            foreach (TEntityDTO dto in dtos)
             {
-                TEntityDTO dto = (TEntityDTO)Activator.CreateInstance(typeof(TEntityDTO), dataModel);
                 TEntityView view = (TEntityView)Activator.CreateInstance(typeof(TEntityView), dto);
 
                 viewModels.Add(view);
@@ -53,14 +55,16 @@ namespace EasyLOB.Data
 
         public static List<TEntity> ToDataList(IEnumerable<TEntityView> viewModels) // List<ViewModel> -> List<DataModel>
         {
-            List<TEntity> datas = new List<TEntity>();
+            List<TEntity> dataModels = new List<TEntity>();
 
             foreach (TEntityView viewModel in viewModels)
             {
-                datas.Add((viewModel.ToDTO() as TEntityDTO).ToData() as TEntity);
+                dataModels.Add(viewModel.ToData() as TEntity);
+
+                //dataModels.Add((viewModel.ToDTO() as TEntityDTO).ToData() as TEntity);
             }
 
-            return datas;
+            return dataModels;
         }
 
         #endregion Methods
