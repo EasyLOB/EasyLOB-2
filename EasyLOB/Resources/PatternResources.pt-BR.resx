@@ -228,4 +228,10 @@
   <data name="GridFormat_Time" xml:space="preserve">
     <value>{0:HH:mm:ss}</value>
   </data>
+  <data name="DataFormat_Date2" xml:space="preserve">
+    <value>{0:dd/MM/yy}</value>
+  </data>
+  <data name="DataFormat_DateTime2" xml:space="preserve">
+    <value>{0:dd/MM/yy HH:mm:ss}</value>
+  </data>
 </root>

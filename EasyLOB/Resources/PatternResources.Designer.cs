@@ -19,7 +19,7 @@ namespace EasyLOB.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PatternResources {
@@ -70,11 +70,29 @@ namespace EasyLOB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:MM/dd/yy}.
+        /// </summary>
+        public static string DataFormat_Date2 {
+            get {
+                return ResourceManager.GetString("DataFormat_Date2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0:MM/dd/yyyy HH:mm:ss.fff}.
         /// </summary>
         public static string DataFormat_DateTime {
             get {
                 return ResourceManager.GetString("DataFormat_DateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:MM/dd/yy HH:mm:ss.fff}.
+        /// </summary>
+        public static string DataFormat_DateTime2 {
+            get {
+                return ResourceManager.GetString("DataFormat_DateTime2", resourceCulture);
             }
         }
         
