@@ -104,7 +104,7 @@ namespace EasyLOB.Library.AspNet
 
         public static MvcHtmlString ZNewLine(this HtmlHelper htmlHelper)
         {
-            return new MvcHtmlString("<div style=\"clear: both;\" />");
+            return new MvcHtmlString("<div style=\"clear: both;\"></div>");
         }
 
         public static MvcHtmlString ZOperationResult(this HtmlHelper htmlHelper,
