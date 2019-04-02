@@ -1,6 +1,6 @@
-﻿using EasyLOB.Library;
-using EasyLOB.Resources;
+﻿using EasyLOB.Resources;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
 using System;
 
@@ -9,6 +9,8 @@ namespace EasyLOB.Extensions.Mail
     public partial class MailManager : IMailManager
     {
         #region Properties
+
+        public string FromAddress { get; set; }
 
         public string UserName { get; set; }
 
@@ -20,6 +22,7 @@ namespace EasyLOB.Extensions.Mail
 
         public MailManager()
         {
+            FromAddress = "";
             UserName = "";
             Password = "";
         }
@@ -50,7 +53,15 @@ namespace EasyLOB.Extensions.Mail
                 throw new Exception(String.Format(ErrorResources.EMailInvalidTo, toAddress));
             }
 
-            string fromAddress = ConfigurationHelper.AppSettings<string>("Mail.FromAddress");
+            string fromAddress;
+            if (!String.IsNullOrEmpty(FromAddress))
+            {
+                fromAddress = FromAddress;
+            }
+            else
+            {
+                fromAddress = ConfigurationHelper.AppSettings<string>("Mail.FromAddress");
+            }            
             if (String.IsNullOrEmpty(fromAddress))
             {
                 throw new Exception(String.Format(ErrorResources.EMailInvalidFrom, fromAddress));
@@ -138,10 +149,14 @@ namespace EasyLOB.Extensions.Mail
             // http://www.mimekit.net/docs/html/Frequently-Asked-Questions.htm#GMailAccess
             // Less Secure Accounts
             // https://myaccount.google.com/lesssecureapps
+            // Office 365
+            // POP and IMAP email settings for Outlook
+            // https://support.office.com/en-us/article/pop-and-imap-email-settings-for-outlook-8361e398-8af4-4e97-b147-6c6c4ac95353
             SmtpClient smtp = new SmtpClient();
             //smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
-            smtp.Connect(host, port, ssl); // SSL
-            //smtp.Connect(host, 587, SecureSocketOptions.StartTls); // TLS
+            smtp.Connect(host, port, SecureSocketOptions.Auto);
+            //smtp.Connect(host, port, ssl); // SSL
+            //smtp.Connect(host, port, SecureSocketOptions.StartTls); // TLS
             smtp.Authenticate(userName, password);
             smtp.Send(message);
             smtp.Disconnect(true);

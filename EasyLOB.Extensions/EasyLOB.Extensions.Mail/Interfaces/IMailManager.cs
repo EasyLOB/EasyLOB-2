@@ -10,6 +10,8 @@ namespace EasyLOB.Extensions.Mail
     {
         #region Properties
 
+        string FromAddress { get; set; }
+
         string UserName { get; set; }
 
         string Password { get; set; }
