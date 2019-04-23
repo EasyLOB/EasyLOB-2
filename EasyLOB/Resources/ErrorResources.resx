@@ -138,8 +138,8 @@
   <data name="RDLC_Parameters" xml:space="preserve">
     <value>Parameter "Report Name" is required</value>
   </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>not found</value>
@@ -164,5 +164,8 @@
   </data>
   <data name="EMailInvalidTo" xml:space="preserve">
     <value>Invalid "To" e-mail: "{0}"</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Aviso</value>
   </data>
 </root>

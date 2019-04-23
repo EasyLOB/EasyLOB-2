@@ -28,7 +28,7 @@ namespace EasyLOB.Persistence
                 {
                     foreach (DbValidationError validationError in validationResult.ValidationErrors)
                     {
-                        operationResult.OperationErrors.Add(new ZOperationError("", validationError.ErrorMessage, "", new List<string> { validationError.PropertyName }));
+                        operationResult.AddOperationError("", validationError.ErrorMessage, new List<string> { validationError.PropertyName });
                     }
                 }
             }

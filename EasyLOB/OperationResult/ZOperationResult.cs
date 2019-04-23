@@ -19,6 +19,54 @@ namespace EasyLOB
         #region Properties
 
         /// <summary>
+        /// Successfull ?
+        /// </summary>
+        [DataMember]
+        public bool Ok
+        {
+            get
+            {
+                return !Error && !Warning;
+            }
+        }
+
+        /// <summary>
+        /// Error ?
+        /// </summary>
+        [DataMember]
+        public bool Error
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(ErrorCode) || !String.IsNullOrEmpty(ErrorMessage) || OperationErrors.Count > 0;
+            }
+        }
+
+        /// <summary>
+        /// Warning ?
+        /// </summary>
+        [DataMember]
+        public bool Warning
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(WarningCode) || !String.IsNullOrEmpty(WarningMessage) || OperationWarnings.Count > 0;
+            }
+        }
+
+        /// <summary>
+        /// Error ?
+        /// </summary>
+        [DataMember]
+        public bool Information
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(InformationCode) || !String.IsNullOrEmpty(InformationMessage);
+            }
+        }
+
+        /// <summary>
         /// Data.
         /// </summary>
         [DataMember]
@@ -37,10 +85,35 @@ namespace EasyLOB
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Exception.
+        /// Error Stack Trace.
+        /// </summary>
+        [DataMember]
+        public string ErrorStackTrace { get; }
+
+        /// <summary>
+        /// Error Exception.
         /// </summary>
         //[DataMember]
-        public Exception Exception { get; set; }
+        public Exception ErrorException { get; set; }
+
+        /// <summary>
+        /// Exception.
+        /// </summary>
+        [DataMember]
+        public ZOperationResultException Exception
+        {
+            get
+            {
+                if (OperationErrors.Count > 0)
+                {
+                    return new ZOperationResultException(OperationErrors[0].ErrorMessage ?? "", OperationErrors[0].ErrorStackTrace ?? "");
+                }
+                else
+                {
+                    return new ZOperationResultException(ErrorMessage ?? "", ErrorStackTrace ?? "");
+                }
+            }
+        }
 
         /// <summary>
         /// Operation Result Html.
@@ -54,31 +127,7 @@ namespace EasyLOB
                 string br = "";
                 int button = 1;
 
-                string labelStatus = "<label class=\"label label-success\">{0}</label>";
-
-                // Status Message
-
-                if (!String.IsNullOrEmpty(StatusCode) || !String.IsNullOrEmpty(StatusMessage))
-                {
-                    string text =
-                        (!String.IsNullOrEmpty(StatusCode) ? "[ " + StatusCode + " ] " : "") +
-                        StatusMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
-                    result += br + String.Format(labelStatus, text.Trim());
-                    br = "<br />";
-                }
-
-                // Status
-
-                foreach (ZOperationStatus operationStatus in OperationStatuses)
-                {
-                    string text =
-                        ErrorResources.Status + ": " +
-                        (!String.IsNullOrEmpty(operationStatus.StatusCode) ? "[ " + operationStatus.StatusCode + " ] " : "") +
-                        operationStatus.StatusMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
-                    string members = operationStatus.StatusMembers.Count == 0 ? "" : " (" + String.Join(",", operationStatus.StatusMembers).Trim() + ")";
-                    result += br + String.Format(labelStatus, text.Trim() + members);
-                    br = "<br />";
-                }
+                // Error
 
                 string labelError = "<label class=\"label label-danger\">{0}</label>";
 
@@ -129,12 +178,68 @@ namespace EasyLOB
                     }
                 }
 
+                // Warning
+
+                string labelWarning = "<label class=\"label label-warning\">{0}</label>";
+
+                // Warning Message
+
+                if (!String.IsNullOrEmpty(WarningCode) || !String.IsNullOrEmpty(WarningMessage))
+                {
+                    string text =
+                        (!String.IsNullOrEmpty(WarningCode) ? "[ " + WarningCode + " ] " : "") +
+                        WarningMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                    result += br + String.Format(labelWarning, text.Trim());
+                    br = "<br />";
+                }
+
+                // Warnings
+
+                foreach (ZOperationWarning operationWarning in OperationWarnings)
+                {
+                    string text =
+                        ErrorResources.Warning + ": " +
+                        (!String.IsNullOrEmpty(operationWarning.WarningCode) ? "[ " + operationWarning.WarningCode + " ] " : "") +
+                        operationWarning.WarningMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                    string members = operationWarning.WarningMembers.Count == 0 ? "" : " (" + String.Join(",", operationWarning.WarningMembers).Trim() + ")";
+                    result += br + String.Format(labelWarning, text.Trim() + members);
+                    br = "<br />";
+                }
+
+                // Information
+
+                string labelInformation = "<label class=\"label label-success\">{0}</label>";
+
+                // Information Message
+
+                if (!String.IsNullOrEmpty(InformationCode) || !String.IsNullOrEmpty(InformationMessage))
+                {
+                    string text =
+                        (!String.IsNullOrEmpty(InformationCode) ? "[ " + InformationCode + " ] " : "") +
+                        InformationMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                    result += br + String.Format(labelInformation, text.Trim());
+                    br = "<br />";
+                }
+
+                // Informations
+
+                foreach (ZOperationInformation operationInformation in OperationInformations)
+                {
+                    string text =
+                        ErrorResources.Information + ": " +
+                        (!String.IsNullOrEmpty(operationInformation.InformationCode) ? "[ " + operationInformation.InformationCode + " ] " : "") +
+                        operationInformation.InformationMessage.Replace("\r\n", "<br />").Replace("\n", "<br />");
+                    string members = operationInformation.InformationMembers.Count == 0 ? "" : " (" + String.Join(",", operationInformation.InformationMembers).Trim() + ")";
+                    result += br + String.Format(labelInformation, text.Trim() + members);
+                    br = "<br />";
+                }
+
                 // Data
 
                 if (!String.IsNullOrEmpty(Data))
                 {
                     string text = "[" + Data + "]";
-                    result += br + String.Format(labelStatus, text.Trim());
+                    result += br + String.Format(labelInformation, text.Trim());
                     br = "<br />";
                 }
 
@@ -144,37 +249,16 @@ namespace EasyLOB
         }
 
         /// <summary>
-        /// Successfull ?
+        /// Information Code.
         /// </summary>
         [DataMember]
-        public bool Ok
-        {
-            get { return (String.IsNullOrEmpty(ErrorCode) && String.IsNullOrEmpty(ErrorMessage) && OperationErrors.Count == 0); }
-        }
+        public string InformationCode { get; set; }
 
         /// <summary>
-        /// Status Code.
+        /// Information Message.
         /// </summary>
         [DataMember]
-        public string StatusCode { get; set; }
-
-        /// <summary>
-        /// Status Message.
-        /// </summary>
-        [DataMember]
-        public string StatusMessage { get; set; }
-
-        /// <summary>
-        /// Operation Errors.
-        /// </summary>
-        [DataMember]
-        public List<ZOperationError> OperationErrors { get; }
-
-        /// <summary>
-        /// Operation Status.
-        /// </summary>
-        [DataMember]
-        public List<ZOperationStatus> OperationStatuses { get; }
+        public string InformationMessage { get; set; }
 
         /// <summary>
         /// Operation Result text with "\n".
@@ -192,18 +276,58 @@ namespace EasyLOB
             }
         }
 
+        /// <summary>
+        /// Warning Code.
+        /// </summary>
+        [DataMember]
+        public string WarningCode { get; set; }
+
+        /// <summary>
+        /// Warning Message.
+        /// </summary>
+        [DataMember]
+        public string WarningMessage { get; set; }
+
+        /// <summary>
+        /// Operation Errors.
+        /// </summary>
+        [DataMember]
+        public List<ZOperationError> OperationErrors { get; }
+
+        /// <summary>
+        /// Operation Informations.
+        /// </summary>
+        [DataMember]
+        public List<ZOperationInformation> OperationInformations { get; }
+
+        /// <summary>
+        /// Operation Warnings.
+        /// </summary>
+        [DataMember]
+        public List<ZOperationWarning> OperationWarnings { get; }
+
         #endregion Properties
 
         #region Methods
 
         public ZOperationResult()
         {
+            // Ok
+            // Error
+            // Warning
+            // Information
+            // Log
             ErrorCode = "";
             ErrorMessage = "";
-            StatusCode = "";
-            StatusMessage = "";
+            ErrorStackTrace = "";
+            ErrorException = null;
+            InformationCode = "";
+            InformationMessage = "";
+            WarningCode = "";
+            WarningMessage = "";
             OperationErrors = new List<ZOperationError>();
-            OperationStatuses = new List<ZOperationStatus>();
+            OperationInformations = new List<ZOperationInformation>();
+            OperationWarnings = new List<ZOperationWarning>();
         }
 
         [JsonConstructor]
@@ -211,26 +335,44 @@ namespace EasyLOB
             string data,
             string errorCode,
             string errorMessage,
-            string html,
-            bool ok,
-            string statusCode,
-            string statusMessage,
+            Exception exception,
+            string informationCode,
+            string informationMessage,
+            string warningCode,
+            string warningMessage,
             List<ZOperationError> operationErrors,
-            List<ZOperationStatus> operationStatuses,
-            string text)
+            List<ZOperationInformation> operationInformations,
+            List<ZOperationWarning> operationWarnings)
             : this()
         {
-            Data = data ?? "";
+            // Ok
+            // Error
+            // Warning
+            // Information
+            Data = data;
             ErrorCode = errorCode ?? "";
             ErrorMessage = errorMessage ?? "";
+            ErrorException = exception;
             // Html
-            // Ok
-            StatusCode = statusCode ?? "";
-            StatusMessage = statusMessage ?? "";
-            OperationErrors = operationErrors ?? OperationErrors;
-            OperationStatuses = operationStatuses ?? OperationStatuses;
+            InformationCode = informationCode ?? "";
+            InformationMessage = informationMessage ?? "";
+            WarningCode = warningCode ?? "";
+            WarningMessage = warningMessage ?? "";
             // Text
+            OperationErrors = operationErrors ?? OperationErrors;
+            OperationInformations = operationInformations ?? OperationInformations;
+            OperationWarnings = operationWarnings ?? OperationWarnings;
         }
+
+        ///// <summary>
+        ///// Add Operation Error.
+        ///// </summary>
+        ///// <param name="errorCode">Error code</param>
+        ///// <param name="errorMessage">Error message</param>
+        //public void AddOperationError(string errorCode, string errorMessage)
+        //{
+        //    OperationErrors.Add(new ZOperationError(errorCode, errorMessage));
+        //}
 
         /// <summary>
         /// Add Operation Error.
@@ -238,9 +380,11 @@ namespace EasyLOB
         /// <param name="errorCode">Error code</param>
         /// <param name="errorMessage">Error message</param>
         /// <param name="errorStackTrace">Error stack trace</param>
-        public void AddOperationError(string errorCode, string errorMessage, string errorStackTrace = null)
+        /// <param name="errorException">Exception</param>
+        /// <param name="members">Members</param>
+        public void AddOperationError(string errorCode, string errorMessage, string errorStackTrace = null, Exception errorException = null, List<string> members = null)
         {
-            OperationErrors.Add(new ZOperationError(errorCode, errorMessage, errorStackTrace));
+            OperationErrors.Add(new ZOperationError(errorCode, errorMessage, errorStackTrace, errorException, members));
         }
 
         /// <summary>
@@ -248,32 +392,52 @@ namespace EasyLOB
         /// </summary>
         /// <param name="errorCode">Error code</param>
         /// <param name="errorMessage">Error message</param>
-        /// <param name="errorStackTrace">Error stack trace</param>
         /// <param name="members">Members</param>
-        public void AddOperationError(string errorCode, string errorMessage, string errorStackTrace, List<string> members)
+        public void AddOperationError(string errorCode, string errorMessage, List<string> members)
         {
-            OperationErrors.Add(new ZOperationError(errorCode, errorMessage, errorStackTrace, members));
+            OperationErrors.Add(new ZOperationError(errorCode, errorMessage, null, null, members));
         }
 
-        /// <summary>
-        /// Add Operation Status.
-        /// </summary>
-        /// <param name="statusCode">Status code</param>
-        /// <param name="statusMessage">Status message</param>
-        public void AddOperationStatus(string statusCode, string statusMessage)
-        {
-            OperationStatuses.Add(new ZOperationStatus(statusCode, statusMessage));
-        }
+        ///// <summary>
+        ///// Add Operation Information.
+        ///// </summary>
+        ///// <param name="informationCode">Information code</param>
+        ///// <param name="informationMessage">Information message</param>
+        //public void AddOperationInformation(string informationCode, string informationMessage)
+        //{
+        //    OperationInformations.Add(new ZOperationInformation(informationCode, informationMessage));
+        //}
 
         /// <summary>
-        /// Add Operation Status.
+        /// Add Operation Information.
         /// </summary>
-        /// <param name="statusCode">Status code</param>
-        /// <param name="statusMessage">Status message</param>
+        /// <param name="informationCode">Information code</param>
+        /// <param name="informationMessage">Information message</param>
         /// <param name="members">Members</param>
-        public void AddOperationStatus(string statusCode, string statusMessage, List<string> members)
+        public void AddOperationInformation(string informationCode, string informationMessage, List<string> members = null)
         {
-            OperationStatuses.Add(new ZOperationStatus(statusCode, statusMessage, members));
+            OperationInformations.Add(new ZOperationInformation(informationCode, informationMessage, members));
+        }
+
+        ///// <summary>
+        ///// Add Operation Warning.
+        ///// </summary>
+        ///// <param name="warningCode">Warning code</param>
+        ///// <param name="warningMessage">Warning message</param>
+        //public void AddOperationWarning(string warningCode, string warningMessage)
+        //{
+        //    OperationWarnings.Add(new ZOperationWarning(warningCode, warningMessage));
+        //}
+
+        /// <summary>
+        /// Add Operation Warning.
+        /// </summary>
+        /// <param name="warningCode">Warning code</param>
+        /// <param name="warningMessage">Warning message</param>
+        /// <param name="members">Members</param>
+        public void AddOperationWarning(string warningCode, string warningMessage, List<string> members = null)
+        {
+            OperationWarnings.Add(new ZOperationWarning(warningCode, warningMessage, members));
         }
 
         /// <summary>
@@ -281,12 +445,17 @@ namespace EasyLOB
         /// </summary>
         public void Clear()
         {
-            StatusCode = "";
-            StatusMessage = "";
+            Data = "";
             ErrorCode = "";
             ErrorMessage = "";
+            ErrorException = null;
+            InformationCode = "";
+            InformationMessage = "";
+            WarningCode = "";
+            WarningMessage = "";
             OperationErrors.Clear();
-            OperationStatuses.Clear();
+            OperationInformations.Clear();
+            OperationWarnings.Clear();
         }
 
         /// <summary>
@@ -295,8 +464,7 @@ namespace EasyLOB
         /// <param name="exception">Exception</param>
         public void ParseException(Exception exception)
         {
-            Exception = exception;
-            AddOperationError("", exception.Message, exception.StackTrace);
+            AddOperationError("", exception.Message, exception.StackTrace, exception);
             ParseInnerException(exception);
         }
 
@@ -308,8 +476,7 @@ namespace EasyLOB
         {
             if (exception.InnerException != null)
             {
-                AddOperationError("", exception.InnerException.Message);
-                AddOperationError("STACK", exception.InnerException.StackTrace);
+                AddOperationError("", exception.InnerException.Message, exception.InnerException.StackTrace, exception.InnerException);
                 ParseInnerException(exception.InnerException);
             }
         }
@@ -339,32 +506,12 @@ namespace EasyLOB
         {
             List<string> result = new List<string>();
 
-            // Status Message
-
-            if (!String.IsNullOrEmpty(StatusCode) || !String.IsNullOrEmpty(StatusMessage))
-            {
-                string text = ErrorResources.Status + ": " +
-                    (!String.IsNullOrEmpty(StatusCode) ? "[ " + StatusCode + " ] " : "") +
-                    StatusMessage;
-                result.Add(text.Trim());
-            }
-
-            // Status
-
-            foreach (ZOperationStatus operationStatus in OperationStatuses)
-            {
-                string text = ErrorResources.Status + ": " +
-                    (!String.IsNullOrEmpty(operationStatus.StatusCode) ? "[ " + operationStatus.StatusCode + " ] " : "") +
-                    operationStatus.StatusMessage;
-                string members = operationStatus.StatusMembers.Count == 0 ? "" : " (" + String.Join(",", operationStatus.StatusMembers).Trim() + ")";
-                result.Add(text.Trim() + members);
-            }
-
             // Error Message
 
             if (!String.IsNullOrEmpty(ErrorCode) || !String.IsNullOrEmpty(ErrorMessage))
             {
-                string text = ErrorResources.Error + ": " +
+                string text =
+                    ErrorResources.Error + ": " +
                     (!String.IsNullOrEmpty(ErrorCode) ? "[ " + ErrorCode + " ] " : "") +
                     ErrorMessage;
                 result.Add(text.Trim());
@@ -374,7 +521,8 @@ namespace EasyLOB
 
             foreach (ZOperationError operationError in OperationErrors)
             {
-                string text = ErrorResources.Error + ": " +
+                string text =
+                    ErrorResources.Error + ": " +
                     (!String.IsNullOrEmpty(operationError.ErrorCode) ? "[ " + operationError.ErrorCode + " ] " : "") +
                     operationError.ErrorMessage;
                 string members = operationError.ErrorMembers.Count == 0 ? "" : " (" + String.Join(",", operationError.ErrorMembers).Trim() + ")";
@@ -392,6 +540,52 @@ namespace EasyLOB
                     //    result.Add(operationError.ErrorStackTrace.Replace(" em ", "\r\nem "));
                     //}
                 }
+            }
+
+            // Warning Message
+
+            if (!String.IsNullOrEmpty(WarningCode) || !String.IsNullOrEmpty(WarningMessage))
+            {
+                string text =
+                    ErrorResources.Warning + ": " +
+                    (!String.IsNullOrEmpty(WarningCode) ? "[ " + WarningCode + " ] " : "") +
+                    WarningMessage;
+                result.Add(text.Trim());
+            }
+
+            // Warning
+
+            foreach (ZOperationWarning operationWarning in OperationWarnings)
+            {
+                string text =
+                    ErrorResources.Warning + ": " +
+                    (!String.IsNullOrEmpty(operationWarning.WarningCode) ? "[ " + operationWarning.WarningCode + " ] " : "") +
+                    operationWarning.WarningMessage;
+                string members = operationWarning.WarningMembers.Count == 0 ? "" : " (" + String.Join(",", operationWarning.WarningMembers).Trim() + ")";
+                result.Add(text.Trim() + members);
+            }
+
+            // Information Message
+
+            if (!String.IsNullOrEmpty(InformationCode) || !String.IsNullOrEmpty(InformationMessage))
+            {
+                string text =
+                    ErrorResources.Information + ": " +
+                    (!String.IsNullOrEmpty(InformationCode) ? "[ " + InformationCode + " ] " : "") +
+                    InformationMessage;
+                result.Add(text.Trim());
+            }
+
+            // Information
+
+            foreach (ZOperationInformation operationInformation in OperationInformations)
+            {
+                string text =
+                    ErrorResources.Information + ": " +
+                    (!String.IsNullOrEmpty(operationInformation.InformationCode) ? "[ " + operationInformation.InformationCode + " ] " : "") +
+                    operationInformation.InformationMessage;
+                string members = operationInformation.InformationMembers.Count == 0 ? "" : " (" + String.Join(",", operationInformation.InformationMembers).Trim() + ")";
+                result.Add(text.Trim() + members);
             }
 
             return result;

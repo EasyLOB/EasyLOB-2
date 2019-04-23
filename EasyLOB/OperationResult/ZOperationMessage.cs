@@ -16,6 +16,11 @@
 
         #region Methods
 
+        public ZOperationMessage()
+        {
+            Message = "";
+        }
+
         public ZOperationMessage(string message)
         {
             Message = message ?? "";

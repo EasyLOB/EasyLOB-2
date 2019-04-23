@@ -9,39 +9,45 @@ using System.Runtime.Serialization;
 namespace EasyLOB
 {
     /// <summary>
-    /// Z Operation Status
+    /// Z Operation Warning
     /// </summary>
     [Serializable]
     [DataContract]
-    public class ZOperationStatus
+    public class ZOperationWarning
     {
         #region Properties
 
         /// <summary>
-        /// Status Code.
+        /// Warning Code.
         /// </summary>
         [DataMember]
-        public string StatusCode { get; }
+        public string WarningCode { get; }
 
         /// <summary>
-        /// Status Message.
+        /// Warning Message.
         /// </summary>
         [DataMember]
-        public string StatusMessage { get; }
+        public string WarningMessage { get; }
 
         [DataMember]
-        public List<string> StatusMembers { get; }
+        public List<string> WarningMembers { get; }
 
         #endregion Properties
 
         #region Methods
 
-        [JsonConstructor]
-        public ZOperationStatus(string statusCode, string statusMessage, List<string> statusMembers = null)
+        public ZOperationWarning()
         {
-            StatusCode = statusCode ?? "";
-            StatusMessage = statusMessage ?? "";
-            StatusMembers = statusMembers ?? new List<string>();
+            WarningCode = "";
+            WarningMessage = "";
+        }
+
+        [JsonConstructor]
+        public ZOperationWarning(string warningCode, string warningMessage, List<string> warningMembers = null)
+        {
+            WarningCode = warningCode ?? "";
+            WarningMessage = warningMessage ?? "";
+            WarningMembers = warningMembers ?? new List<string>();
         }
 
         #endregion Methods

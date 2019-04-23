@@ -38,7 +38,7 @@ namespace EasyLOB.Persistence
 
                 foreach (KeyValuePair<string, object> keyValue in (exception as MappingException).Data)
                 {
-                    operationResult.OperationErrors.Add(new ZOperationError("", "Mapping Exception: " + keyValue.Value.ToString(), "", new List<string> { keyValue.Key }));
+                    operationResult.AddOperationError("", "Mapping Exception: " + keyValue.Value.ToString(), new List<string> { keyValue.Key });
                 }
             }
             else

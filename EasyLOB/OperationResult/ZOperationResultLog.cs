@@ -15,6 +15,30 @@ namespace EasyLOB
         #region Properties
 
         /// <summary>
+        /// Successfull ?
+        /// </summary>
+        [DataMember]
+        public bool Ok { get; set; }
+
+        /// <summary>
+        /// Error ?
+        /// </summary>
+        [DataMember]
+        public bool Error { get; set; }
+
+        /// <summary>
+        /// Warning ?
+        /// </summary>
+        [DataMember]
+        public bool Warning { get; set; }
+
+        /// <summary>
+        /// Error ?
+        /// </summary>
+        [DataMember]
+        public bool Information { get; set; }
+
+        /// <summary>
         /// Log.
         /// </summary>
         [DataMember]
@@ -40,12 +64,24 @@ namespace EasyLOB
                             log += OperationErrors[0].ErrorMessage;
                         }
                     }
+
+                    if (!String.IsNullOrWhiteSpace(WarningMessage))
+                    {
+                        log += WarningMessage;
+                    }
+                    else
+                    {
+                        if (OperationWarnings.Count > 0)
+                        {
+                            log += OperationWarnings[0].WarningMessage;
+                        }
+                    }
                 }
                 else
                 {
-                    if (!String.IsNullOrWhiteSpace(StatusMessage))
+                    if (!String.IsNullOrWhiteSpace(InformationMessage))
                     {
-                        log += StatusMessage;
+                        log += InformationMessage;
                     }
                     else
                     {
@@ -67,16 +103,16 @@ namespace EasyLOB
         public string Url { get; set; }
 
         /// <summary>
-        /// User Name.
-        /// </summary>
-        [DataMember]
-        public string UserName { get; set; }
-
-        /// <summary>
         /// Tenant Name.
         /// </summary>
         [DataMember]
         public string TenantName { get; set; }
+
+        /// <summary>
+        /// User Name.
+        /// </summary>
+        [DataMember]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Data.
@@ -100,25 +136,36 @@ namespace EasyLOB
         /// Exception.
         /// </summary>
         //[DataMember]
-        public Exception Exception { get; set; }
+        public Exception ErrorException { get; set; }
 
         /// <summary>
-        /// Successfull ?
+        /// Information Code.
         /// </summary>
         [DataMember]
-        public bool Ok { get; set; }
+        public string InformationCode { get; set; }
 
         /// <summary>
-        /// Status Code.
+        /// Information Message.
         /// </summary>
         [DataMember]
-        public string StatusCode { get; set; }
+        public string InformationMessage { get; set; }
 
         /// <summary>
-        /// Status Message.
+        /// Text.
+        /// </summary>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Warning Code.
         /// </summary>
         [DataMember]
-        public string StatusMessage { get; set; }
+        public string WarningCode { get; set; }
+
+        /// <summary>
+        /// Warning Message.
+        /// </summary>
+        [DataMember]
+        public string WarningMessage { get; set; }
 
         /// <summary>
         /// Operation Errors.
@@ -127,10 +174,16 @@ namespace EasyLOB
         public List<ZOperationError> OperationErrors { get; }
 
         /// <summary>
-        /// Operation Status.
+        /// Operation Information.
         /// </summary>
         [DataMember]
-        public List<ZOperationStatus> OperationStatuses { get; }
+        public List<ZOperationInformation> OperationInformations { get; }
+
+        /// <summary>
+        /// Operation Warnings.
+        /// </summary>
+        [DataMember]
+        public List<ZOperationWarning> OperationWarnings { get; }
 
         #endregion Properties
 
@@ -138,70 +191,93 @@ namespace EasyLOB
 
         public ZOperationResultLog()
         {
+            // Ok
+            // Error
+            // Warning
+            // Information
+            // Log
             Url = "";
-            UserName = "";
             TenantName = "";
+            UserName = "";
             ErrorCode = "";
             ErrorMessage = "";
-            StatusCode = "";
-            StatusMessage = "";
+            InformationCode = "";
+            InformationMessage = "";
+            Text = "";
+            WarningCode = "";
+            WarningMessage = "";
             OperationErrors = new List<ZOperationError>();
-            OperationStatuses = new List<ZOperationStatus>();
+            OperationInformations = new List<ZOperationInformation>();
+            OperationWarnings = new List<ZOperationWarning>();
         }
 
         [JsonConstructor]
         public ZOperationResultLog(
-            string log,
+            bool ok,
+            bool error,
+            bool warning,
+            bool information,            
             string url,
-            string userName,
             string tenantName,
+            string userName,
             string data,
             string errorCode,
             string errorMessage,
-            Exception exception,
-            string statusCode,
-            string statusMessage,
+            Exception errorException,
+            string informationCode,
+            string informationMessage,
+            string text,
+            string warningCode,
+            string warningMessage,
             List<ZOperationError> operationErrors,
-            List<ZOperationStatus> operationStatuses)
+            List<ZOperationInformation> operationInformations,
+            List<ZOperationWarning> operationWarnings)
             : this()
         {
+            Ok = ok;
+            Error = error;
+            Warning = warning;
+            Information = information;
             // Log
             Url = url ?? "";
-            UserName = userName ?? "";
             TenantName = tenantName ?? "";
+            UserName = userName ?? "";
             Data = data;
             ErrorCode = errorCode ?? "";
             ErrorMessage = errorMessage ?? "";
-            Exception = exception;
-            StatusCode = statusCode ?? "";
-            StatusMessage = statusMessage ?? "";
+            ErrorException = errorException;
+            InformationCode = informationCode ?? "";
+            InformationMessage = informationMessage ?? "";
+            Text = text;
+            WarningCode = warningCode ?? "";
+            WarningMessage = warningMessage ?? "";
             OperationErrors = operationErrors ?? OperationErrors;
-            OperationStatuses = operationStatuses ?? OperationStatuses;
+            OperationInformations = operationInformations ?? OperationInformations;
+            OperationWarnings = operationWarnings ?? OperationWarnings;
         }
 
-        public ZOperationResultLog(string url, string userName, string tenantName, ZOperationResult operationResult)
+        public ZOperationResultLog(string url, string tenantName, string userName, ZOperationResult operationResult)
         {
+            Ok = operationResult.Ok;
+            Error = operationResult.Error;
+            Warning = operationResult.Warning;
+            Information = operationResult.Information;
+            // Log
             Url = url;
-            UserName = userName;
             TenantName = tenantName;
+            UserName = userName;
             Data = operationResult.Data;
             ErrorCode = operationResult.ErrorCode;
             ErrorMessage = operationResult.ErrorMessage;
-            Exception = operationResult.Exception;
-            StatusCode = operationResult.StatusCode;
-            StatusMessage = operationResult.StatusCode;
+            ErrorException = operationResult.ErrorException;
+            InformationCode = operationResult.InformationCode;
+            InformationMessage = operationResult.InformationMessage;
+            Text = operationResult.Text;
+            WarningCode = operationResult.WarningCode;
+            WarningMessage = operationResult.WarningMessage;
             OperationErrors = operationResult.OperationErrors;
-            OperationStatuses = operationResult.OperationStatuses;
-        }
-
-        public string ToJson()
-        {
-            var settings = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-
-            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
+            OperationInformations = operationResult.OperationInformations;
+            OperationWarnings = operationResult.OperationWarnings;
         }
 
         #endregion Methods

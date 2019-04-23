@@ -110,9 +110,9 @@ namespace EasyLOB.Log
                 };
 
                 LogEventInfo logEventInfo = new LogEventInfo(LogLevel.Trace, Log.Name, operationResultLog.Log);
-                if (operationResultLog.Exception != null)
+                if (operationResultLog.ErrorException != null)
                 {
-                    logEventInfo.Exception = operationResultLog.Exception;
+                    logEventInfo.Exception = operationResultLog.ErrorException;
                     logEventInfo.Level = LogLevel.Fatal;
                 }
                 else

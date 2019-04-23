@@ -179,9 +179,7 @@ namespace EasyLOB.Persistence
                 {
                     foreach (DbValidationError validationError in validationErrors.ValidationErrors)
                     {
-                        ZOperationError operationError = new ZOperationError("", validationError.ErrorMessage, "", new List<string>() { validationError.PropertyName });
-
-                        operationResult.OperationErrors.Add(operationError);
+                        operationResult.AddOperationError("", validationError.ErrorMessage, new List<string>() { validationError.PropertyName });
                     }
                 }
             }
