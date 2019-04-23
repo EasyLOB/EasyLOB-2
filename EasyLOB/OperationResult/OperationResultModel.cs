@@ -1,15 +1,15 @@
 ﻿namespace EasyLOB
 {
-    public class OperationResultViewModel
+    public class OperationResultModel
     {
         public ZOperationResult OperationResult { get; set; }
 
-        public OperationResultViewModel()
+        public OperationResultModel()
         {
             OperationResult = new ZOperationResult();
         }
 
-        public OperationResultViewModel(ZOperationResult operationResult)
+        public OperationResultModel(ZOperationResult operationResult)
         {
             OperationResult = operationResult;
         }
