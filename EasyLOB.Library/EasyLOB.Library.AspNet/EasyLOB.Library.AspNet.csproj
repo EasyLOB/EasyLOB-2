@@ -80,15 +80,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mvc\AsIsBundleOrderer.cs" />
+    <Compile Include="WebMvc\AsIsBundleOrderer.cs" />
     <Compile Include="WebApi\ODataHelper.cs" />
     <Compile Include="WebApi\ZResponseExceptionApi.cs" />
-    <Compile Include="Mvc\Extensions\AjaxHelperExtensions.cs" />
-    <Compile Include="Mvc\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="WebMvc\Extensions\AjaxHelperExtensions.cs" />
+    <Compile Include="WebMvc\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="WebApi\Extensions\ModelStateDictionaryExtensions.cs" />
     <Compile Include="WebService\AuthenticationHeader.cs" />
     <Compile Include="WebService\Extensions\ZOperationResultExtensions.cs" />
-    <Compile Include="Mvc\ZJsonResultMvc.cs" />
+    <Compile Include="WebMvc\ZJsonResultMvc.cs" />
     <Compile Include="WebApi\ZActionResultApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\SessionHelper.cs" />
