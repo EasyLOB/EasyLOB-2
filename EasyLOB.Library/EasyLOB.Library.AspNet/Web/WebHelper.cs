@@ -18,6 +18,10 @@ namespace EasyLOB.Library.AspNet
                 {
                     result = HttpContext.Current.Server.MapPath("~");
                 }
+                else
+                {
+                    result = AppDomain.CurrentDomain.BaseDirectory;
+                }
 
                 return result;
             }
@@ -122,6 +126,10 @@ namespace EasyLOB.Library.AspNet
                 //   Path
                 //     ~/EasyLOB-Configuration/Menu.json => C:\GitHub\EasyLOB-Northwind\Northwind.Mvc.AJAX\EasyLOB-Configuration\Menu.json
                 result = HttpContext.Current.Server.MapPath(path);
+            }
+            else
+            {
+                result = Path.Combine(ApplicationDirectory, path.Trim('~', '/', '\\'));
             }
 
             return result;

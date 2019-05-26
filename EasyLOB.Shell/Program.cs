@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EasyLOB.Library.App;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
@@ -9,12 +10,12 @@ namespace EasyLOB.Shell
         static void Main(string[] args)
         {
             AppHelper.Setup();
+            MultiTenantHelper.Setup("MyLOB");
 
             // EF 6.0 Log
             //DbInterception.Add(new NLogCommandInterceptor());
 
             bool exit = false;
-
             while (!exit)
             {
                 Console.Clear();

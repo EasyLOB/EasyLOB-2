@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyLOB.Library.AspNet;
+using System;
 
 namespace EasyLOB.Shell
 {
@@ -13,11 +14,11 @@ namespace EasyLOB.Shell
                 Console.Clear();
                 Console.WriteLine("Demo\n");
                 Console.WriteLine("<0> RETURN");
-                Console.WriteLine("<1> CodeSmith Demo");
-                Console.WriteLine("<2> DIManager Demo");
-                Console.WriteLine("<3> e-mail Demo");
-                Console.WriteLine("<4> Multi-Tenant Demo");
-                Console.WriteLine("<5> NLog Demo");
+                Console.WriteLine("<1> DIManager Demo");
+                Console.WriteLine("<2> e-mail Demo");
+                Console.WriteLine("<3> Multi-Tenant Demo");
+                Console.WriteLine("<4> Log Demo");
+                Console.WriteLine("<5> Paths Demo");
                 Console.WriteLine("<6> Web Demo");
                 Console.Write("\nChoose an option... ");
 
@@ -31,23 +32,23 @@ namespace EasyLOB.Shell
                         break;
 
                     case ('1'):
-                        CodeSmithDemo();
-                        break;
-
-                    case ('2'):
                         DIManagerDemo();
                         break;
 
-                    case ('3'):
+                    case ('2'):
                         EMailDemo();
                         break;
 
-                    case ('4'):
+                    case ('3'):
                         MultiTenantDemo();
                         break;
 
+                    case ('4'):
+                        LogDemo();
+                        break;
+
                     case ('5'):
-                        NLogDemo();
+                        PathsDemo();
                         break;
 
                     case ('6'):
@@ -61,6 +62,19 @@ namespace EasyLOB.Shell
                     Console.ReadKey();
                 }
             }
+        }
+
+        private static void PathsDemo()
+        {
+            string path = ConfigurationHelper.AppSettings<string>("EasyLOB.Directory.Configuration");
+            Console.WriteLine("\nPaths Demo");
+            Console.WriteLine("\nWebHelper.WebDirectory(path): {0}", WebHelper.WebDirectory(path));
+            Console.WriteLine("WebHelper.IsWeb: {0}", WebHelper.IsWeb.ToString());
+            Console.WriteLine("WebHelper.WebUrl: {0}", WebHelper.WebUrl);
+            Console.WriteLine("WebHelper.WebPath: {0}", WebHelper.WebPath);
+            Console.WriteLine("WebHelper.WebDomain: {0}", WebHelper.WebDomain);
+            Console.WriteLine("WebHelper.WebSubDomain: {0}", WebHelper.WebSubDomain);
+            Console.WriteLine("\nAppDomain.CurrentDomain.BaseDirectory: {0}", AppDomain.CurrentDomain.BaseDirectory);
         }
     }
 }

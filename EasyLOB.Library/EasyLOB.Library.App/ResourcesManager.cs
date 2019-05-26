@@ -1,4 +1,5 @@
 ﻿using EasyLOB.Extensions.Ini;
+using EasyLOB.Library.AspNet;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,15 +25,15 @@ namespace EasyLOB.Library.App
         public ResourcesManager()
         {
             IniManagerDashboard =
-                new IniManager(Path.Combine(MultiTenantHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                     "INI/DashboardResources.ini"));
 
             IniManagerMenu =
-                new IniManager(Path.Combine(MultiTenantHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                     "INI/MenuResources.ini"));
 
             IniManagerReport =
-                new IniManager(Path.Combine(MultiTenantHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                new IniManager(Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                     "INI/ReportResources.ini"));
         }
 

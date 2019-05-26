@@ -16,24 +16,6 @@ namespace EasyLOB.Library.App
 
         #region Properties
 
-        private static string _applicationDirectory;
-
-        public static string ApplicationDirectory
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_applicationDirectory))
-                {
-                    if (WebHelper.IsWeb)
-                    {
-                        _applicationDirectory = WebHelper.ApplicationDirectory;
-                    }
-                }
-
-                return _applicationDirectory;
-            }
-        }
-
         public static bool HasTenants
         {
             get { return IsMultiTenant && Tenants != null ? true : false; }
@@ -81,7 +63,7 @@ namespace EasyLOB.Library.App
                 {
                     try
                     {
-                        string filePath = Path.Combine(MultiTenantHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
+                        string filePath = Path.Combine(WebHelper.WebDirectory(ConfigurationHelper.AppSettings<string>("Directory.Configuration")),
                             "JSON/MultiTenant.json");
                         string json = File.ReadAllText(filePath);
                         tenants = JsonConvert.DeserializeObject<List<AppTenant>>(json);
@@ -100,10 +82,10 @@ namespace EasyLOB.Library.App
 
         #region Methods
 
-        public static void Setup(string tenantName, string applicationDirectory)
+        public static void Setup(string tenantName) //, string applicationDirectory)
         {
             _tenantName = tenantName;
-            _applicationDirectory = applicationDirectory;
+            //_applicationDirectory = applicationDirectory;
         }
 
         public static string GetConnectionName(string defaultConnectionName)
@@ -159,22 +141,6 @@ namespace EasyLOB.Library.App
             appTenant = appTenant ?? new AppTenant();
 
             return appTenant;
-        }
-
-        public static string WebDirectory(string path)
-        {
-            string result = "";
-
-            if (WebHelper.IsWeb)
-            {
-                result = WebHelper.WebDirectory(path);
-            }
-            else
-            {
-                result = Path.Combine(ApplicationDirectory, path.Trim('~', '/', '\\'));
-            }
-
-            return result;
         }
 
         #endregion Methods
