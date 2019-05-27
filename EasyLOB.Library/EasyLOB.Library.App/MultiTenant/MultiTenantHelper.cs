@@ -44,10 +44,7 @@ namespace EasyLOB.Library.App
             {
                 if (String.IsNullOrEmpty(_tenantName))
                 {
-                    if (WebHelper.IsWeb)
-                    {
-                        _tenantName = WebHelper.WebSubDomain;
-                    }
+                    _tenantName = WebHelper.WebSubDomain;
                 }
 
                 return _tenantName;
