@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library.App\EasyLOB.Library.App.csproj">
-      <Project>{c4761cd5-0ae1-41c0-9244-7975440ae9d1}</Project>
+      <Project>{C4761CD5-0AE1-41C0-9244-7975440AE9D1}</Project>
       <Name>EasyLOB.Library.App</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\EasyLOB.Library\EasyLOB.Library\EasyLOB.Library.csproj">
