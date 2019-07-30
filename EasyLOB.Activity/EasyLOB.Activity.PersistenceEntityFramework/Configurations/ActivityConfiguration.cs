@@ -10,7 +10,7 @@ namespace EasyLOB.Activity.Persistence
         {
             #region Class
 
-            this.ToTable("Activity");
+            this.ToTable("EasyLOBActivity");
 
             this.HasKey(x => x.Id);
 

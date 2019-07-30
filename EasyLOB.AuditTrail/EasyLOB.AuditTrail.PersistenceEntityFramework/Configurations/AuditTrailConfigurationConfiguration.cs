@@ -10,7 +10,7 @@ namespace EasyLOB.AuditTrail.Persistence
         {
             #region Class
             
-            this.ToTable("AuditTrailConfiguration");            
+            this.ToTable("EasyLOBAuditTrailConfiguration");            
 
             this.HasKey(x => x.Id);
 

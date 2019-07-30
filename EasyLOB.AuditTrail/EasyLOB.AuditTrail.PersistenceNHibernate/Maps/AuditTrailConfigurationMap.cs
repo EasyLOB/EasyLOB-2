@@ -9,7 +9,7 @@ namespace EasyLOB.AuditTrail.Persistence
         {
             #region Class
 
-            Table("AuditTrailConfiguration");
+            Table("EasyLOBAuditTrailConfiguration");
 
             Id(x => x.Id)
                 .Column("Id")

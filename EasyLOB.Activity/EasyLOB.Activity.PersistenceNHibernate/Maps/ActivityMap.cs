@@ -9,7 +9,7 @@ namespace EasyLOB.Activity.Persistence
         {
             #region Class
 
-            Table("Activity");
+            Table("EasyLOBActivity");
 
             Id(x => x.Id)
                 .Column("Id")

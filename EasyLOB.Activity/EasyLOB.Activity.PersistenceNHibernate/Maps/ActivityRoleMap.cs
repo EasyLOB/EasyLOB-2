@@ -9,7 +9,7 @@ namespace EasyLOB.Activity.Persistence
         {
             #region Class
 
-            Table("ActivityRole");
+            Table("EasyLOBActivityRole");
 
             CompositeId()
                 .KeyProperty(x => x.ActivityId, "ActivityId")
